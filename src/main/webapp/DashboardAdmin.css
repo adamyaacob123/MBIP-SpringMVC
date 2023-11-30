@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 20px;
+    background: #fff;
+}
+
+.dashboard-header {
+    background: #e9eff1;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.dashboard-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    background: #e9eff1;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.stat-highlight {
+    color: #2c5aa0;
+}
+
+.winner-section {
+    background: #e9eff1;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.winner-list {
+    background: #fff;
+    min-height: 150px;
+    padding: 20px;
+    margin-top: 10px;
+}
