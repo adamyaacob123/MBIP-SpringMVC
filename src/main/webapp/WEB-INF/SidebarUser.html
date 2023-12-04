@@ -5,21 +5,6 @@
 <head>
     <link rel="stylesheet" href="SidebarUser.css">
 </head>
-<script>
-    // Function to remove the "active" class from any link
-    function removeActiveClass() {
-        var elems = document.querySelectorAll('.sidebar a');
-        for (var i = 0; i < elems.length; i++) {
-            elems[i].classList.remove('active');
-        }
-}
-
-    // Function to add the "active" class to the clicked link
-    function makeActive(event) {
-        removeActiveClass(); // First remove the class from all links
-        event.currentTarget.classList.add('active'); // Add the class to the clicked link
-}
-</script>
 <body>
 <div class="sidebar">
   <div class="user-info">
@@ -28,8 +13,8 @@
   </div>
   <hr style="border: none; height: 1px; background-color: rgb(222, 222, 222);">
   <h5 style="margin-left: 10px;">MAIN</h5>
-  <a href="#dashboard" onclick="makeActive(event)">Dashboard</a>
-  <a href="#carbon-form" onclick="makeActive(event)">Carbon Form</a>
+  <a href="UserDashboard.html" onclick="makeActive(event)">Dashboard</a>
+  <a href="CarbonWater.html" onclick="makeActive(event)">Carbon Form</a>
   <a href="#carbon-statistic" onclick="makeActive(event)">Carbon Statistic</a>
   <a href="#articles" onclick="makeActive(event)">Article Lifestyle</a>
   <a href="#home" onclick="makeActive(event)">Home Page</a>

@@ -23,9 +23,9 @@ body {
 }
 
 
-.container-fluid {
+/* .container-fluid {
     padding-top: 30px;
-}
+} */
 
 .col-md-2 {
     padding-right: 15px; /* Adjust spacing for the sidebar */

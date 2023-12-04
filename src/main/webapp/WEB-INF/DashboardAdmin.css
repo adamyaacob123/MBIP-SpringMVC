@@ -10,7 +10,7 @@ body {
     flex-grow: 1;
     padding: 20px;
     background: #fff;
-    height: 100vh;
+    height: auto;
 }
 
 .dashboard-header {
