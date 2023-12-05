@@ -3,7 +3,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-  background-color: #f4f7f7;
+  background-color: #90c7f9;
   font-family: "Arial", sans-serif;
 }
 
@@ -15,7 +15,7 @@ body {
 #page-content-wrapper {
   flex-grow: 1;
   padding: 15px;
-  background-color: #fff;
+  background-color: #90c7f9;
 }
 
 /* Add your custom styles for cards and content here */
@@ -70,8 +70,10 @@ body {
 
 /* Profile card specific styles */
 .card {
-  border-radius: 0.5rem; /* Rounded corners for all cards */
+  padding: 1em;
+  border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Shadow for all cards */
+  background-color: #fff;
 }
 
 /* Responsive adjustments */
