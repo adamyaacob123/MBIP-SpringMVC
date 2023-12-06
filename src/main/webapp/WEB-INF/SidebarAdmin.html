@@ -5,21 +5,6 @@
   <head>
     <link rel="stylesheet" href="SidebarAdmin.css" />
   </head>
-  <script>
-    // Function to remove the "active" class from any link
-    function removeActiveClass() {
-      var elems = document.querySelectorAll(".sidebar a");
-      for (var i = 0; i < elems.length; i++) {
-        elems[i].classList.remove("active");
-      }
-    }
-
-    // Function to add the "active" class to the clicked link
-    function makeActive(event) {
-      removeActiveClass(); // First remove the class from all links
-      event.currentTarget.classList.add("active"); // Add the class to the clicked link
-    }
-  </script>
   <body>
     <div class="sidebar">
       <div class="user-info">
