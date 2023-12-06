@@ -4,7 +4,7 @@ body {
   
   .sidebar {
     width: 260px;
-    height: 100vh;
+    height: auto;
     background-color: #f9f9f9;
     overflow: auto;
   }
