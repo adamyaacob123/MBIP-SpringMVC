@@ -25,7 +25,7 @@ public class LandingController {
 
 	@RequestMapping("/landing")
 	protected ModelAndView Landing() {
-		ModelAndView modelandview = new ModelAndView("LandingPage");
+		ModelAndView modelandview = new ModelAndView("landing");
 		modelandview.addObject("welcomeMessage", "Selamat Datang with annotation! ");
 		return modelandview;
 	}
