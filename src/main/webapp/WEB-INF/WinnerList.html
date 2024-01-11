@@ -14,7 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(function () {
-        $("#sidebar").load("SidebarAdmin.html");
+        $("#sidebar").load("AdminSidebar.html");
       });
     </script>
   </head>
@@ -24,6 +24,9 @@
 
       <!-- Main Content -->
       <div class="main-content p-4 w-100">
+        <button type="button" class="btn btn-primary" onclick="history.back();">
+          <i class="fa fa-arrow-left"></i> Back
+        </button>
         <!-- Header -->
         <h1 class="text-center mb-4">View Winner Details</h1>
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -95,6 +98,7 @@
             <!-- More rows here -->
           </tbody>
         </table>
+        
       </div>
     </div>
 

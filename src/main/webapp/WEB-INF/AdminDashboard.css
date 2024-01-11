@@ -9,14 +9,15 @@ body {
 .dashboard-content {
     flex-grow: 1;
     padding: 20px;
-    background: #fff;
-    height: auto;
+    background: #a1d2ff;
+    margin-left: 250px;
 }
 
 .dashboard-header {
     background: #e9eff1;
     padding: 20px;
     margin-bottom: 20px;
+    border-radius: 5px;
 }
 
 .dashboard-stats {
@@ -29,22 +30,22 @@ body {
     background: #e9eff1;
     padding: 20px;
     border-radius: 5px;
-    text-align: center;
 }
 
 .stat-highlight {
     color: #2c5aa0;
 }
 
-.winner-section {
+.notification-section {
     background: #e9eff1;
     padding: 20px;
     margin-bottom: 20px;
-    text-align: center;
+    border-radius: 5px;
 }
 
-.winner-list {
+.notification-content {
     background: #fff;
+    border: 1px solid #ccc;
     min-height: 150px;
     padding: 20px;
     margin-top: 10px;
