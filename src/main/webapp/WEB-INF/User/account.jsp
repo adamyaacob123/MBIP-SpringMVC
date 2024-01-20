@@ -36,8 +36,8 @@
 					</li>
 				</ul>
 
-				<div class="p-2 px-3">
-					<div class="pt-3 pl-0">
+				<div class="p-2 px-3 mb-2">
+					<div class="pt-3 pl-0 mb-3">
 						<span style="font-weight: 200; font-size: 15px">Your
 							profile picture</span>
 					</div>
@@ -63,7 +63,7 @@
                 }
               };
             </script>
-				<form class="mt-3">
+				<form class="mt-2">
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="fullname" class="form-label">Full Name</label> <br />
