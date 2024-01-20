@@ -23,6 +23,6 @@
 	</bean>
 
 	<mvc:resources mapping="/resources/**"
-		location="/resources/styles/" />
+		location="/resources/" />
 	<mvc:annotation-driven />
 </beans>
