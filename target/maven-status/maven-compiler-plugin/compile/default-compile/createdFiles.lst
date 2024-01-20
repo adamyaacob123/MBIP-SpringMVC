@@ -1,2 +1,3 @@
+com\tutorial\model\User.class
 dbUtil\DbConnect.class
 com\tutorial\controller\LandingController.class

@@ -26,7 +26,7 @@
 		tabindex="-1" role="dialog" id="modalSignin">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content rounded-4 shadow">
-				<a class="return d-flex" href="<c:url value="/landing" />"> <svg
+				<a class="return d-flex" href="<c:url value="/" />"> <svg
 						xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 						stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round"

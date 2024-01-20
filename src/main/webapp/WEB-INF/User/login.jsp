@@ -7,7 +7,9 @@
 <title>MBIP CarbonCut</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="<c:url value="/resources/assets/MBIP-logo.png" />" type="image/x-icon" />
+<link rel="icon"
+	href="<c:url value="/resources/assets/MBIP-logo.png" />"
+	type="image/x-icon" />
 <link rel="stylesheet" href="login.css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -23,7 +25,7 @@
 		tabindex="-1" role="dialog" id="modalSignin">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content rounded-4 shadow">
-				<a class="return d-flex" href="<c:url value="/landing" />"> <svg
+				<a class="return d-flex" href="<c:url value="/" />"> <svg
 						xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 						stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -38,15 +40,15 @@
 				</div>
 
 				<div class="modal-body p-5 pt-0">
-					<form class="">
+					<form class="" action="<c:url value='/getAll'/> " method="post">
 						<div class="form-floating mb-3">
 							<input type="email" class="form-control rounded-3" id="email"
-								placeholder="name@example.com" /> <label for="floatingInput">Email
-								address</label>
+								name="email" placeholder="name@example.com" /> <label
+								for="floatingInput">Email address</label>
 						</div>
 						<div class="form-floating mb-3">
 							<input type="password" class="form-control rounded-3"
-								id="password" placeholder="Password" /> <label
+								id="password" name="password" placeholder="Password" /> <label
 								for="floatingPassword">Password</label> <span id="eye-icon"
 								class="position-absolute end-0 top-50 translate-middle-y"
 								style="cursor: pointer"> <svg
@@ -65,6 +67,11 @@
                   </svg>
 							</span>
 						</div>
+
+						<c:if test="${param.error ne null}">
+							<div class="alert alert-danger" role="alert">Invalid email
+								or password. Please try again.</div>
+						</c:if>
 
 						<script>
 							document
