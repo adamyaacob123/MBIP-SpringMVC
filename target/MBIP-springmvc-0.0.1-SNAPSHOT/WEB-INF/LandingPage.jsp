@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="<c:url value="/resources/styles/testing.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/styles/testing.css" />"
+	rel="stylesheet">
 <title>landing page</title>
 
 </head>
