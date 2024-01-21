@@ -19,6 +19,42 @@
 	crossorigin="anonymous" />
 <link href="<c:url value="/resources/styles/User/register.css" />"
 	rel="stylesheet">
+
+
+<script>
+	document
+			.addEventListener(
+					"DOMContentLoaded",
+					function() {
+						const form = document.querySelector("form");
+
+						form
+								.addEventListener(
+										"submit",
+										function(event) {
+											const phoneNumInput = document
+													.getElementById("phoneNum");
+											const passwordInput = document
+													.getElementById("password");
+
+											// Validate phone number
+											const phoneNumRegex = /^\d+$/; // Only allow digits
+											if (!phoneNumRegex
+													.test(phoneNumInput.value)) {
+												alert("Please enter a valid phone number (only digits allowed).");
+												event.preventDefault();
+												return;
+											}
+
+											// Validate password length
+											if (passwordInput.value.length < 6) {
+												alert("Password must be at least 6 characters long.");
+												event.preventDefault();
+												return;
+											}
+										});
+					});
+</script>
 </head>
 <body
 	style="background-image: url('<c:url value="/resources/assets/bg-login.png" />');">
@@ -71,7 +107,9 @@
 								<label for="email" class="form-label">Email</label> <input
 									type="email" class="form-control" id="email" name="email"
 									required />
+
 							</div>
+
 							<div class="mb-3 flex-grow-1 position-relative">
 								<label for="password" class="form-label">Password</label> <input
 									type="password" class="form-control" id="password"
@@ -131,6 +169,8 @@
 								</script>
 							</div>
 						</div>
+
+
 						<div class="d-flex gap-3">
 							<div class="d-flex gap-3 mb-3 flex-grow-1">
 								<span class="mb-2"> Household Type: </span>
@@ -166,8 +206,14 @@
 
 						<button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-1"
 							type="submit">Register</button>
+
+						<c:if test="${not empty errorEmail}">
+							<div class="text-danger">${errorEmail}</div>
+						</c:if>
 						<small class="text-body-secondary">By clicking Sign up,
 							you agree to the terms of use.</small>
+
+
 					</form>
 				</div>
 			</div>

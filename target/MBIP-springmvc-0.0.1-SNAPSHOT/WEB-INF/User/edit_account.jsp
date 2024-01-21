@@ -36,7 +36,7 @@
 					</li>
 				</ul>
 
-				<div class="p-2 px-3">
+				<div class="p-2 px-3 ">
 					<div class="pt-3 pl-0">
 						<span style="font-weight: 200; font-size: 15px">Your
 							profile picture</span>
@@ -76,7 +76,7 @@
                 }
               };
             </script>
-						<div class="d-flex gap-3">
+						<div class="d-flex gap-3 mt-3">
 							<div class="mb-3 flex-grow-1">
 								<label for="fullname" class="form-label">Full Name</label> <input
 									type="text" class="form-control" id="fullname" name="name"
@@ -105,9 +105,7 @@
 								<label for="email" class="form-label">Email</label> <input
 									type="email" class="form-control" id="email" name="email"
 									value="${email}" required />
-							<c:if test="${not empty errorEmail}">
-								<div class="text-danger">${errorEmail}</div>
-							</c:if>
+
 							</div>
 							<div class="mb-3 flex-grow-1 position-relative">
 								<label for="password" class="form-label">Password</label> <input
@@ -202,6 +200,9 @@
 								</div>
 							</div>
 						</div>
+
+
+
 						<!-- <div class="mb-4">
                 <label for="Bio" class="form-label">Bio</label>
                 <textarea class="form-control" id="Bio" rows="3"></textarea>
@@ -214,6 +215,8 @@
 
 					</form>
 				</div>
+
+				
 			</div>
 		</div>
 	</div>

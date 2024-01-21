@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +10,11 @@
 <title>Admin Dashboard</title>
 <link rel="stylesheet" href="DashboardAdmin.css"> <!-- Link to your CSS file -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+<!-- <script>
     $(function(){
       $("#sidebar").load("SidebarAdmin.html"); 
     });
-</script>
+</script> -->
 </head>
 <body>
 <!-- Sidebar Placeholder -->
@@ -46,12 +48,12 @@
   </div>
   <div class="dashboard-stats">
     <div class="stat-item">
-        <h2>Validate Winner</h2>
-        <a href="#validate-winner"><button>View</button></a>
+        <h2>View All Users</h2>
+    	<a href="<c:url value='/userList'/>"><button>View</button></a>
     </div>
     <div class="stat-item">
-        <h2>View User List</h2>
-        <a href="#user-list"><button>View</button></a>
+        <h2>View Winners</h2>
+        <a href="<c:url value='/winnerList'/>"><button>View</button></a>
     </div>
 </div>
 </div>
