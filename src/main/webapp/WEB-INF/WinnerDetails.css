@@ -1,15 +1,6 @@
 /* Complete CSS file content */
-html,
 body {
-  height: 100%;
-  margin: 0;
   background-color: #90c7f9;
-  font-family: "Arial", sans-serif;
-}
-
-#wrapper {
-  display: flex;
-  height: 100vh;
 }
 
 #page-content-wrapper {
