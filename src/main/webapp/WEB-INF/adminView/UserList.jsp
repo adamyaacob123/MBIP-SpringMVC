@@ -63,16 +63,19 @@
         <div class="container">
           <div class="row mt-5 justify-content-center">
 			  <div class="col-12 col-md-6">
-			    <div class="input-group">
-			      <input type="text" class="form-control" placeholder="Search users..." aria-label="Search users" aria-describedby="button-search">
-			      <button class="btn btn-outline-secondary" type="button" id="button-search">
-			        <i class="fa fa-search"></i>
-			      </button>
-			    </div>
+			    <form action="userList" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchQuery" placeholder="Search users by name..." aria-label="Search users" aria-describedby="button-search">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>
 			  </div>
 			</div>
           <div class="row mt-5">
-            <div class="col-sm">
+            <div class="col-12">
+            <c:if test="${participantCount > 0}">
             <h2>Participants</h2>
               <table class="table table-hover table-responsive text-center align-middle">
                 <thead class="table-dark">
@@ -119,9 +122,11 @@
 		            </c:forEach>
 		          </tbody>
               </table>
+              </c:if>
             </div>
-            <div class="col-sm">
-              <h2>Admins</h2>
+            <div class="col-12">
+              <c:if test="${adminCount > 0}">
+              <h2>Admins</h2>             
               <table class="table table-hover table-responsive text-center align-middle">
                 <thead class="table-dark">
 		            <tr>
@@ -160,10 +165,9 @@
 		              </tr>
 		            </c:if>
 		            </c:forEach>
-		            
-		            
 		          </tbody>
               </table>
+              </c:if>
             </div>
           </div>
         </div>

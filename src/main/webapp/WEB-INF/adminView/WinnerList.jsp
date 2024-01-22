@@ -1,7 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Winner List Page</title>
+    <title>Winner List</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -36,22 +38,58 @@
       thead th {
         background-color: #f5f5f5;
       }
-      /* .table-primary,
-      .table-primary > th,
-      .table-primary > td {
-        background-color: gold !important;
-      }
-      .table-secondary,
-      .table-secondary > th,
-      .table-secondary > td {
-        background-color: silver !important;
-      }
-
-      .table-info,
-      .table-info > th,
-      .table-info > td {
-        background-color: #cd7f32 !important;
-      } */
+     /* Podium styles */
+	  .card {
+	    margin: 10px;
+	    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	  }
+	
+	  .card-body {
+	    position: relative;
+	    padding: 20px;
+	    border-radius: 10px;
+	    color: white;
+	    font-size: 1.2rem;
+	    /* Default background for cards */
+	    background-color: #f8f9fa;
+	  }
+	
+	  /* First Place */
+	  .first-place .card-body {
+	    background-color: #ffd700; /* Gold color */
+	  }
+	
+	  /* Second Place */
+	  .second-place .card-body {
+	    background-color: #c0c0c0; /* Silver color */
+	  }
+	
+	  /* Third Place */
+	  .third-place .card-body {
+	    background-color: #cd7f32; /* Bronze color */
+	  }
+	
+	  .card-title {
+	    font-size: 1.5em;
+	    margin-bottom: 0.5rem;
+	  }
+	
+	  .card-text {
+	    font-size: 1em;
+	  }
+	  
+	  /* Specific styles for placing the winners */
+		.col-4:nth-child(1) .card { /* 2nd Place */
+		  margin-top: 20px;
+		}
+		
+		.col-4:nth-child(2) .card { /* 1st Place */
+		  margin-top: 0;
+		}
+		
+		.col-4:nth-child(3) .card { /* 3rd Place */
+		  margin-top: 40px;
+		}
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -71,7 +109,8 @@
         >
           <i class="fa fa-arrow-left"></i> Back
         </button>
-        <h1 class="text-center m-2">List of Winners</h1>
+        <h1 class="text-center m-2">Winners List</h1>
+        
         <!-- Table section -->
         <div class="container">
           <div class="row mt-5">
@@ -95,9 +134,46 @@
               </div>
             </div>
             <div class="col-sm-4 text-muted text-end">
-              Updates Everyday at 12 AM and 12 PM
+              Displays Top 10 participants with the lowest Carbon Footprint
             </div>
           </div>
+          <!-- Podium Section -->
+<div class="container text-center mt-5">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="mb-4 text-black">Hall of Fame</h2>
+      <div class="row justify-content-center">
+        <!-- Second Place -->
+        <div class="col-4 second-place">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Jane Doe</h5>
+              <p class="card-text">2nd Place</p>
+            </div>
+          </div>
+        </div>
+        <!-- First Place -->
+        <div class="col-4 first-place">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">John Carlio</h5>
+              <p class="card-text">1st Place</p>
+            </div>
+          </div>
+        </div>
+        <!-- Third Place -->
+        <div class="col-4 third-place">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Emma Stone</h5>
+              <p class="card-text">3rd Place</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
           <div class="row mt-5">
             <div class="col-sm">
               <table class="table table-hover table-responsive text-center">
@@ -107,7 +183,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone number</th>
-                    <th scope="col">Carbon Score</th>
+                    <th scope="col">Carbon Footprint</th>
                     <th scope="col">Details</th>
                   </tr>
                 </thead>
@@ -168,9 +244,6 @@
               </table>
             </div>
           </div>
-        </div>
-        <div class="mt-5 p-4 bg-dark text-white text-center">
-          <p>Footer</p>
         </div>
       </div>
     </div>

@@ -21,13 +21,24 @@ import dbUtil.DbConnect;
 public class AdminController {
 
 	@RequestMapping("/userList")
-    public ModelAndView showUserList() {
-		ModelAndView modelAndView = new ModelAndView("adminView/UserList"); // Use your JSP file name
-        List<User> users = new ArrayList<>();
+	public ModelAndView showUserList(@RequestParam(value = "searchQuery", required = false) String searchQuery) {
+	    ModelAndView modelAndView = new ModelAndView("adminView/UserList");
+	    List<User> users = new ArrayList<>();
+	    int participantCount = 0;
+	    int adminCount = 0;
 
-        try (Connection conn = DbConnect.openConnection()) {
-            String sql = "SELECT id, name, email, phoneNum, user_level FROM user";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+	    try (Connection conn = DbConnect.openConnection()) {
+	        String sql = "SELECT * FROM user";
+	        
+	        if (searchQuery != null && !searchQuery.isEmpty()) {
+	            sql += " WHERE name LIKE ?";
+	        }
+	        
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        
+	        if (searchQuery != null && !searchQuery.isEmpty()) {
+	            stmt.setString(1, "%" + searchQuery + "%");
+	        }
 
             ResultSet rs = stmt.executeQuery();
 
@@ -38,7 +49,9 @@ public class AdminController {
                 user.setEmail(rs.getString("email"));
                 user.setPhoneNum(rs.getInt("phoneNum"));
                 user.setUserLevel(rs.getString("user_level"));
-                // Add more fields as needed
+                user.setAddress(rs.getString("address"));
+                user.setHousehold(rs.getString("household"));
+                user.setPeopleNo(rs.getInt("peopleNo"));
                 
                 // Fetching the profile_image as Blob and converting it to Base64 string
 //                Blob blob = rs.getBlob("profile_image");
@@ -54,9 +67,19 @@ public class AdminController {
             e.printStackTrace();
         }
 
-        modelAndView.addObject("users", users);
-        
-        return modelAndView;
+	    for (User user : users) {
+	        if ("participant".equals(user.getUserLevel())) {
+	            participantCount++;
+	        } else if ("admin".equals(user.getUserLevel())) {
+	            adminCount++;
+	        }
+	    }
+
+	    modelAndView.addObject("users", users);
+	    modelAndView.addObject("participantCount", participantCount);
+	    modelAndView.addObject("adminCount", adminCount);
+	    
+	   return modelAndView;
     }
 	
 	@RequestMapping("/userDetails")
@@ -65,7 +88,7 @@ public class AdminController {
 
         User user = null;
         try (Connection conn = DbConnect.openConnection()) {
-            String sql = "SELECT id, name, email, phoneNum, user_level FROM user WHERE id = ?";
+            String sql = "SELECT * FROM user WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
 
@@ -78,6 +101,9 @@ public class AdminController {
                 user.setEmail(rs.getString("email"));
                 user.setPhoneNum(rs.getInt("phoneNum"));
                 user.setUserLevel(rs.getString("user_level"));
+                user.setAddress(rs.getString("address"));
+                user.setHousehold(rs.getString("household"));
+                user.setPeopleNo(rs.getInt("peopleNo"));
                 // Fetch and set the profile image if needed
                 // Blob blob = rs.getBlob("profile_image");
                 // ...

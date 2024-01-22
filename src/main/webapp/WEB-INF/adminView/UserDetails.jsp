@@ -230,6 +230,9 @@ body {
         </div>
       </div>
     </div>
+    <div class="d-flex justify-content-center mb-3">
+        <button class="btn btn-success">Validate</button>
+    </div>
     <script>
       // Chart.js code for Carbon Overview Doughnut Chart
       const carbonCtx = document
