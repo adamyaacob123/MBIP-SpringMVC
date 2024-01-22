@@ -1,3 +1,4 @@
+com\tutorial\controller\FormController.class
+com\tutorial\controller\LandingController.class
 com\tutorial\model\User.class
 dbUtil\DbConnect.class
-com\tutorial\controller\LandingController.class

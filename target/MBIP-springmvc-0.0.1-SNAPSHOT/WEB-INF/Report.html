@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report</title>
+    <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
     crossorigin="anonymous">
-    <link rel="stylesheet" href="report.css">
+    <!-- css -->
+   <link rel="stylesheet" href="report.css">
+   <!-- sidebar -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(function(){
-        $("#sidebar").load("SidebarUser.html"); 
+        $("#sidebar").load("UserSidebar.html"); 
         });
     </script>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: '#comment',
@@ -23,42 +27,183 @@
             menubar: false,
             statusbar: false,
         });
-    </script>
+    </script> -->
 </head>
 <body>
-
+   
     <div id="sidebar"></div>
-
-    <div class="report-content">
-        <div class="report-header py-3">
-            <h2><b>My Report</b></h2>
-            <div class="report d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-success ">View Excel</button>        
-            </div>
-        </div>
     
-        </div>
-        <div class="comment-section">
-            <br>
-            <h4><b>Comment</b></h4>
-            <div>
-                <textarea class="form-control comment-content" id="comment" rows="6" placeholder="Type your comment here"></textarea>
-                <div class="d-flex justify-content-end mt-2">
-                    <button type="button" class="btn btn-primary">Send</button>
+    <div class="report-content">
+        <div class="row">
+            <h1 ><b>My Report</b></h1>
+            <div class="col-md-6">
+                <div class="report-table">
+                    <div class="report-header py-3">
+                        
+                        <h3><b>Summary</b></h3>
+                            <div class="chart-container">
+                                <canvas id="lineChart"></canvas>
+                                <script>
+                                    var ctx = document.getElementById('lineChart').getContext('2d');
+                                    var chart = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                            datasets: [{
+                                                label: 'Electricity',
+                                                backgroundColor: 'rgba(238, 221, 162, 0.4)',
+                                                borderColor: '#EEDDA2',
+                                                borderWidth: 2,
+                                                pointBackgroundColor: '#EEDDA2',
+                                                pointRadius: 5,
+                                                data: [10, 45, 20, 25, 56, 35, 40 , 15, 20, 25, 30, 35]
+                                            },
+                                            {
+                                                label: 'Water',
+                                                backgroundColor: 'rgba(202, 228, 252, 0.4)',
+                                                borderColor: '#CAE4FC',
+                                                borderWidth: 2,
+                                                pointBackgroundColor: '#CAE4FC',
+                                                pointRadius: 5,
+                                                data: [5, 10, 78, 20, 25, 67, 35, 23, 45, 5, 67, 5]
+                                            },
+                                            {
+                                                label: 'Waste',
+                                                backgroundColor: 'rgba(240, 185, 153, 0.4)',
+                                                borderColor: '#F0B999',
+                                                borderWidth: 2,
+                                                pointBackgroundColor: '#F0B999',
+                                                pointRadius: 5,
+                                                data: [8, 1, 18, 22, 50, 32, 38, 23, 45, 5, 67, 5]
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
+                                </script>
+                            </div>
+                        </div>
                 </div>
             </div>
-        
-            <br><br><br><br><br><br>
-            <div class="mb-3 d-flex justify-content-center align-items-center py-6">
-                <button type="submit" class="btn btn-primary">Print</button>
-                <button type="button" class="btn btn-secondary ms-4">Cancel</button>
+
+
+            <div class="col-md-6">
+                <div class="report-table">
+                    <div class="report-header py-3">
+                        <h3><b>Water</b></h3>
+                        <div class="chart-container">
+                            <canvas id="barChart1"></canvas>
+                            <script>
+                                var ctx = document.getElementById('barChart1').getContext('2d');
+                                var chart = new Chart(ctx, {
+                                    // The type of chart we want to create
+                                    type: 'bar',
+                    
+                                    // The data for our dataset
+                                    data: {
+                                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                        datasets: [{
+                                            label: 'My First dataset',
+                                            backgroundColor: '#CAE4FC',
+                                            borderColor: '#CAE4FC',
+                                            data: [5, 10, 5, 2, 20, 30, 45, 15, 20, 25, 30, 35]
+                                        }]
+                                    },
+                    
+                                    // Configuration options go here
+                                    options: {}
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <!-- content -->
+                </div>
             </div>
-            
+        </div>
+        
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="report-table">
+                    <div class="report-header py-3">
+                        <h3><b>Electricity</b></h3>
+                        <div class="chart-container">
+                            <canvas id="barChart2"></canvas>
+                            <script>
+                                var ctx = document.getElementById('barChart2').getContext('2d');
+                                var chart = new Chart(ctx, {
+                                    // The type of chart we want to create
+                                    type: 'bar',
+                    
+                                    // The data for our dataset
+                                    data: {
+                                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                        datasets: [{
+                                            label: 'My First dataset',
+                                            backgroundColor: '#EEDDA2',
+                                            borderColor: '#EEDDA2',
+                                            data: [5, 45, 23, 45, 5, 67, 5, 15, 20, 25, 30, 35]
+                                        }]
+                                    },
+                    
+                                    // Configuration options go here
+                                    options: {}
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <!-- content -->
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="report-table">
+                    <div class="report-header py-3">
+                        <h3><b>Waste</b></h3>
+                        <div class="chart-container">
+                            <canvas id="barChart3"></canvas>
+                            <script>
+                                var ctx = document.getElementById('barChart3').getContext('2d');
+                                var chart = new Chart(ctx, {
+                                    // The type of chart we want to create
+                                    type: 'bar',
+                    
+                                    // The data for our dataset
+                                    data: {
+                                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                        datasets: [{
+                                            label: 'My First dataset',
+                                            backgroundColor: '#F0B999',
+                                            borderColor: '#F0B999',
+                                            data: [30, 45, 23, 45, 5, 67, 5, 15, 20, 25, 30, 35]
+                                        }]
+                                    },
+                    
+                                    // Configuration options go here
+                                    options: {}
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <!-- content -->
+                </div>
+            </div>
         </div>
     </div>
     
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
         crossorigin="anonymous"></script>
+        <script src="chart.min.js"></script>
+        
+
 </body>
+
+
 </html>
