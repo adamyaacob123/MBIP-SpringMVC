@@ -1,44 +1,124 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Winner Details Page</title>
+<head>
+    <title>User Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <link rel="stylesheet" href="WinnerDetails.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(function () {
-        $("#sidebar").load("SidebarAdmin.html");
-      });
-    </script>
-  </head>
-  <body>
-    <div class="d-flex" id="wrapper">
-      <!-- Sidebar -->
-      <div id="sidebar"></div>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+body {
+  background-color: #cae4fc;
+}
 
-      <!-- Page Content -->
+#page-content-wrapper {
+  flex-grow: 1;
+}
+
+/* Add your custom styles for cards and content here */
+.profile-card {
+  text-align: center;
+}
+
+.profile-header {
+  position: relative;
+  margin-top: 100px;
+  padding: 10px;
+  background-color: #6c5ce7; /* Match this color to your theme */
+  border-radius: 10px 10px 0 0;
+}
+
+.profile-image {
+  width: 120px; /* Adjust size as needed */
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #fff; /* White border around the image */
+  position: absolute;
+  top: -60px; /* Half the height to lift it above the card */
+  left: calc(50% - 60px); /* Center the image */
+}
+
+.profile-name {
+  margin-top: 60px; /* Push down to make space for the image */
+  color: #fff;
+}
+
+.profile-email {
+  color: #fff;
+}
+
+.profile-info {
+  padding: 20px;
+}
+
+.profile-info p {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.profile-info strong {
+  color: #333; /* Dark text for emphasis */
+}
+
+/* Layout adjustments */
+#page-content-wrapper .row {
+  --bs-gutter-x: 1.5rem; /* Adjust space between columns */
+}
+
+/* Profile card specific styles */
+.card {
+  padding: 1em;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Shadow for all cards */
+  background-color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  #page-content-wrapper .row {
+    flex-direction: column; /* Stack the columns on smaller screens */
+  }
+}
+    
+        /* .user-details-container {
+            margin-top: 20px;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            background: url('/path/to/your/default/image.png') center center no-repeat;
+            background-size: cover;
+            border-radius: 50%;
+        } */
+    </style>
+</head>
+<body>
+<div class="d-flex">
+      <div id="sidebar"></div>
       <div id="page-content-wrapper">
-        <button type="button" class="btn btn-primary" onclick="history.back();">
+        <button
+          type="button"
+          class="btn btn-primary m-3"
+          onclick="history.back();"
+        >
           <i class="fa fa-arrow-left"></i> Back
         </button>
-
+		<h1 class="text-center m-2">User Details</h1>
         <div class="container">
-          <h1 class="mt-4 fw-bold text-center mb-4">Winner Details Page</h1>
-          <div class="row">
-            <!-- Winner Profile Section -->
+          <div class="row mt-5">
             <div class="col-lg-4">
-              <div class="card mb-4">
+              <div class="card">
                 <div class="card-body">
                   <div class="profile-card">
                     <div class="profile-header">
@@ -47,13 +127,16 @@
                         alt="Profile Image"
                         class="profile-image"
                       />
-                      <h3 class="profile-name">Shelby Goode</h3>
-                      <p class="profile-email">shelbygoode48@example.com</p>
+                      <h3 class="profile-name">${user.name}</h3>
+                      <p class="profile-email">${user.email}</p>
                     </div>
                     <div class="profile-info">
-                      <p><strong>Phone Number:</strong> +33757005467</p>
-                      <p><strong>Current Carbon Score:</strong> 1067</p>
-                      <p><strong>Personal Best Carbon Score:</strong> 1023</p>
+                      <p class="text-center"><strong>ID:</strong> ${user.id}</p>
+                      <p class="text-center"><strong>Address:</strong> ${user.address}</p>
+                      <p class="text-center"><strong>Phone Number:</strong> ${user.phoneNum}</p>
+                      <p class="text-center"><strong>Household:</strong> ${user.household}</p>
+                      <p class="text-center"><strong>People No:</strong> ${user.peopleNo}</p>                      
+                      <p class="text-center"><strong>User Level:</strong> ${user.userLevel}</p>
                     </div>
                   </div>
                 </div>
@@ -304,5 +387,5 @@
         options: chartOptions,
       });
     </script>
-  </body>
+</body>
 </html>

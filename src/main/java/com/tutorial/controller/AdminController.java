@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tutorial.model.User;
@@ -55,6 +56,38 @@ public class AdminController {
 
         modelAndView.addObject("users", users);
         
+        return modelAndView;
+    }
+	
+	@RequestMapping("/userDetails")
+    public ModelAndView showUserDetails(@RequestParam("userId") int userId) {
+        ModelAndView modelAndView = new ModelAndView("adminView/UserDetails");
+
+        User user = null;
+        try (Connection conn = DbConnect.openConnection()) {
+            String sql = "SELECT id, name, email, phoneNum, user_level FROM user WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNum(rs.getInt("phoneNum"));
+                user.setUserLevel(rs.getString("user_level"));
+                // Fetch and set the profile image if needed
+                // Blob blob = rs.getBlob("profile_image");
+                // ...
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        modelAndView.addObject("user", user);
+
         return modelAndView;
     }
 	

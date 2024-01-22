@@ -111,7 +111,9 @@
 		                <td>${user.phoneNum}</td>
 		                <td>${user.userLevel}</td>
 		                
-		                <td><button class="btn btn-sm btn-primary">View</button></td>
+		                <td>
+    						<a href="userDetails?userId=${user.id}" class="btn btn-sm btn-primary">View</a>
+						</td>
 		              </tr>
 	                </c:if>
 		            </c:forEach>
@@ -130,7 +132,6 @@
 		              <th scope="col">Email</th>
 		              <th scope="col">Phone Number</th>
 		              <th scope="col">User Level</th>
-		              <th scope="col">Details</th>
 		            </tr>
 		          </thead>
 		          <tbody>
@@ -156,8 +157,6 @@
 		                <td>${user.email}</td>
 		                <td>${user.phoneNum}</td>
 		                <td>${user.userLevel}</td>
-		                
-		                <td><button class="btn btn-sm btn-primary">View</button></td>
 		              </tr>
 		            </c:if>
 		            </c:forEach>
