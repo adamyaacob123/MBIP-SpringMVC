@@ -82,7 +82,7 @@
 
                      <!--2nd part for input carbon (take 6 column)-->
                     <div class="col-md-6">
-                    	<form action="<c:url value="saveForm"/>" method="post">
+                    	<form action="<c:url value="saveWaterForm"/>" method="post" enctype="multipart/form-data">
                         <div class="container">
                             <h3 class="mb-4"><b>Water Consumption</b></h3>
 

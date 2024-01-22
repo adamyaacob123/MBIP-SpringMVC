@@ -80,7 +80,7 @@
 
                      <!--2nd part for input carbon (take 6 column)-->
                     <div class="col-md-6">
-                   	 	<form action="" method="post">
+                   	 	<form action="<c:url value="saveElectricForm"/>" method="post" enctype="multipart/form-data">
                         <div class="container">
                             <h3 class="mb-4"><b>Electricity Consumption</b></h3>
 
@@ -95,7 +95,7 @@
                                 <div class="mb-3">
                                     <label for="amount">Amount</label>
                                         <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Input Amount">
+                                                <input type="text" class="form-control" placeholder="Input Amount" id="amount" name="amount">
                                                 <span class="input-group-text">kWh</span>
                                         </div>
                                 </div>
@@ -103,7 +103,7 @@
                                 <div class="mb-3">
                                     <!--calendar api?-->
                                    <label for="period">Period Interval</label>
-                                   <select class="form-select" id="period">
+                                   <select class="form-select" id="period" name="period">
                                     <option value="" disabled selected>Month</option>
                                     <option value="jan">JAN</option>
                                     <option value="feb">FEB</option>

@@ -65,8 +65,15 @@ public class LandingController {
 	}
 	
 	@RequestMapping("/UserSidebar")
-	protected ModelAndView Sidebar() {
+	protected ModelAndView UserSidebar() {
 		ModelAndView modelandview = new ModelAndView("userViews/UserSidebar");
+		
+		return modelandview;
+	}
+	
+	@RequestMapping("/AdminSidebar")
+	protected ModelAndView AdminSidebar() {
+		ModelAndView modelandview = new ModelAndView("adminViews/AdminSidebar");
 		
 		return modelandview;
 	}
@@ -271,7 +278,7 @@ public class LandingController {
 					modelAndView.addObject("user", user);
 					return modelAndView;
 				} else if ("admin".equals(user.getUserLevel())) {
-					ModelAndView modelAndView = new ModelAndView("Weichun/AdminDashboard");
+					ModelAndView modelAndView = new ModelAndView("adminViews/AdminDashboard");
 					modelAndView.addObject("user", user);
 					return modelAndView;
 				}

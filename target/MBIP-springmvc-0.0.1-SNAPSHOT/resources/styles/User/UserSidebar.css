@@ -17,7 +17,7 @@
     top: 0;
     left: 0;
     padding: 30px 15px;
-    background-color: rgba(152, 193, 255, 0.5);
+    background-color: rgba(152, 193, 255);
     justify-content: center;
     flex-direction: column;
 }
