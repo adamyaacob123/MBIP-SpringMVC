@@ -169,7 +169,7 @@ public class LandingController {
 			@RequestParam("name") String name, @RequestParam("email") String email,
 			@RequestParam("address") String address, @RequestParam("phoneNum") int phoneNum,
 			@RequestParam("household") String household, @RequestParam("peopleNo") int peopleNo) {
-		
+
 		int rowAffected = 0;
 
 		try {
