@@ -22,7 +22,7 @@ public class AdminController {
 
 	@RequestMapping("/userList")
     public ModelAndView showUserList() {
-		ModelAndView modelAndView = new ModelAndView("adminView/UserList"); // Use your JSP file name
+		ModelAndView modelAndView = new ModelAndView("adminViews/UserList"); // Use your JSP file name
         List<User> users = new ArrayList<>();
 
         try (Connection conn = DbConnect.openConnection()) {
@@ -61,7 +61,7 @@ public class AdminController {
 	
 	@RequestMapping("/userDetails")
     public ModelAndView showUserDetails(@RequestParam("userId") int userId) {
-        ModelAndView modelAndView = new ModelAndView("adminView/UserDetails");
+        ModelAndView modelAndView = new ModelAndView("adminViews/UserDetails");
 
         User user = null;
         try (Connection conn = DbConnect.openConnection()) {
@@ -91,8 +91,8 @@ public class AdminController {
         return modelAndView;
     }
 	
-	@RequestMapping("winnerList")
+	@RequestMapping("/winnerList")
 	public ModelAndView showWinnerList() {
-	    return new ModelAndView("adminView/WinnerList");
+	    return new ModelAndView("adminViews/WinnerList");
 	}
 }
