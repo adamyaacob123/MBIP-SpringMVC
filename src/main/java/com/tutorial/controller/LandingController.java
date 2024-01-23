@@ -45,28 +45,63 @@ public class LandingController {
 
 	@RequestMapping("/")
 	protected ModelAndView Landing() {
-		ModelAndView modelandview = new ModelAndView("User/landing");
+		ModelAndView modelandview = new ModelAndView("userViews/landing");
 		modelandview.addObject("welcomeMessage", "Selamat Datang with annotation! ");
 		return modelandview;
 	}
 
 	@RequestMapping("/login")
 	protected ModelAndView Login() {
-		ModelAndView modelandview = new ModelAndView("User/login");
+		ModelAndView modelandview = new ModelAndView("userViews/login");
 		modelandview.addObject("welcomeMessage", "Selamat Datang with annotation! ");
 		return modelandview;
 	}
 
 	@RequestMapping("/register")
 	protected ModelAndView Register() {
-		ModelAndView modelandview = new ModelAndView("User/register");
+		ModelAndView modelandview = new ModelAndView("userViews/register");
 		modelandview.addObject("welcomeMessage", "Selamat Datang with annotation! ");
+		return modelandview;
+	}
+	
+	@RequestMapping("/UserSidebar")
+	protected ModelAndView UserSidebar() {
+		ModelAndView modelandview = new ModelAndView("userViews/UserSidebar");
+		
+		return modelandview;
+	}
+	
+	@RequestMapping("/AdminSidebar")
+	protected ModelAndView AdminSidebar() {
+		ModelAndView modelandview = new ModelAndView("adminViews/AdminSidebar");
+		
+		return modelandview;
+	}
+	
+	@RequestMapping("/CarbonWater")
+	protected ModelAndView CarbonWaterForm() {
+		ModelAndView modelandview = new ModelAndView("userViews/CarbonWater");
+		modelandview.addObject("currentCategory", "water");
+		return modelandview;
+	}
+	
+	@RequestMapping("/CarbonOil")
+	protected ModelAndView CarbonOilForm() {
+		ModelAndView modelandview = new ModelAndView("userViews/CarbonOil");
+		modelandview.addObject("currentCategory", "waste");
+		return modelandview;
+	}
+	
+	@RequestMapping("/CarbonElectric")
+	protected ModelAndView CarbonElectricForm() {
+		ModelAndView modelandview = new ModelAndView("userViews/CarbonElectric");
+		modelandview.addObject("currentCategory", "electricity");
 		return modelandview;
 	}
 
 	@RequestMapping("/account")
 	protected ModelAndView Account(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("User/account");
+		ModelAndView modelAndView = new ModelAndView("userViews/account");
 
 		// Retrieve user information from the session
 		User user = (User) session.getAttribute("user");
@@ -101,7 +136,7 @@ public class LandingController {
 
 	@RequestMapping("/edit_account")
 	protected ModelAndView Edit_Account(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("User/edit_account");
+		ModelAndView modelAndView = new ModelAndView("userViews/edit_account");
 
 		// Retrieve user information from the session
 		User user = (User) session.getAttribute("user");
@@ -153,7 +188,7 @@ public class LandingController {
 			if (isEmailExists(conn, email)) {
 				// Email already exists, show an error or handle accordingly
 
-				ModelAndView modelAndView = new ModelAndView("User/register");
+				ModelAndView modelAndView = new ModelAndView("userViews/register");
 				modelAndView.addObject("errorEmail", "Email alrady exists!");
 				return modelAndView;
 			}
@@ -183,7 +218,7 @@ public class LandingController {
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
-		ModelAndView modelandview = new ModelAndView("User/login");
+		ModelAndView modelandview = new ModelAndView("userViews/login");
 		modelandview.addObject("welcomeMessage", "Selamat Datang with annotation! ");
 		return modelandview;
 	}
@@ -239,11 +274,11 @@ public class LandingController {
 				conn.close();
 
 				if ("participant".equals(user.getUserLevel())) {
-					ModelAndView modelAndView = new ModelAndView("Weichun/UserDashboard");
+					ModelAndView modelAndView = new ModelAndView("userViews/UserDashboard");
 					modelAndView.addObject("user", user);
 					return modelAndView;
 				} else if ("admin".equals(user.getUserLevel())) {
-					ModelAndView modelAndView = new ModelAndView("Weichun/AdminDashboard");
+					ModelAndView modelAndView = new ModelAndView("adminViews/AdminDashboard");
 					modelAndView.addObject("user", user);
 					return modelAndView;
 				}
@@ -258,7 +293,7 @@ public class LandingController {
 			ex.printStackTrace();
 		}
 
-		ModelAndView modelAndView = new ModelAndView("Weichun/UserDashboard");
+		ModelAndView modelAndView = new ModelAndView("userViews/UserDashboard");
 		modelAndView.addObject("user", users);
 		return modelAndView;
 	}

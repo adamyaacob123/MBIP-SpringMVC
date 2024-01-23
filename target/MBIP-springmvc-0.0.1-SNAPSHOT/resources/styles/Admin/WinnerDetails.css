@@ -1,0 +1,85 @@
+/* Complete CSS file content */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #90c7f9;
+  font-family: "Arial", sans-serif;
+  margin-left: 120px;
+}
+
+#wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+#page-content-wrapper {
+  flex-grow: 1;
+  padding: 15px;
+  background-color: #90c7f9;
+}
+
+/* Add your custom styles for cards and content here */
+.profile-card {
+  text-align: center;
+}
+
+.profile-header {
+  position: relative;
+  margin-top: 100px;
+  padding: 10px;
+  background-color: #6c5ce7; /* Match this color to your theme */
+  border-radius: 10px 10px 0 0;
+}
+
+.profile-image {
+  width: 120px; /* Adjust size as needed */
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #fff; /* White border around the image */
+  position: absolute;
+  top: -60px; /* Half the height to lift it above the card */
+  left: calc(50% - 60px); /* Center the image */
+}
+
+.profile-name {
+  margin-top: 60px; /* Push down to make space for the image */
+  color: #fff;
+}
+
+.profile-email {
+  color: #fff;
+}
+
+.profile-info {
+  padding: 20px;
+}
+
+.profile-info p {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.profile-info strong {
+  color: #333; /* Dark text for emphasis */
+}
+
+/* Layout adjustments */
+#page-content-wrapper .row {
+  --bs-gutter-x: 1.5rem; /* Adjust space between columns */
+}
+
+/* Profile card specific styles */
+.card {
+  padding: 1em;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Shadow for all cards */
+  background-color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  #page-content-wrapper .row {
+    flex-direction: column; /* Stack the columns on smaller screens */
+  }
+}

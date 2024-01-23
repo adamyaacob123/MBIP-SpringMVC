@@ -20,25 +20,25 @@ import dbUtil.DbConnect;
 @Controller
 public class AdminController {
 
-	@RequestMapping("/userList")
-	public ModelAndView showUserList(@RequestParam(value = "searchQuery", required = false) String searchQuery) {
-	    ModelAndView modelAndView = new ModelAndView("adminView/UserList");
-	    List<User> users = new ArrayList<>();
-	    int participantCount = 0;
-	    int adminCount = 0;
+    @RequestMapping("/userList")
+    public ModelAndView showUserList(@RequestParam(value = "searchQuery", required = false) String searchQuery) {
+        ModelAndView modelAndView = new ModelAndView("adminView/UserList");
+        List<User> users = new ArrayList<>();
+        int participantCount = 0;
+        int adminCount = 0;
 
-	    try (Connection conn = DbConnect.openConnection()) {
-	        String sql = "SELECT * FROM user";
-	        
-	        if (searchQuery != null && !searchQuery.isEmpty()) {
-	            sql += " WHERE name LIKE ?";
-	        }
-	        
-	        PreparedStatement stmt = conn.prepareStatement(sql);
-	        
-	        if (searchQuery != null && !searchQuery.isEmpty()) {
-	            stmt.setString(1, "%" + searchQuery + "%");
-	        }
+        try (Connection conn = DbConnect.openConnection()) {
+            String sql = "SELECT * FROM user";
+
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                sql += " WHERE name LIKE ?";
+            }
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                stmt.setString(1, "%" + searchQuery + "%");
+            }
 
             ResultSet rs = stmt.executeQuery();
 
@@ -52,39 +52,39 @@ public class AdminController {
                 user.setAddress(rs.getString("address"));
                 user.setHousehold(rs.getString("household"));
                 user.setPeopleNo(rs.getInt("peopleNo"));
-                
+
                 // Fetching the profile_image as Blob and converting it to Base64 string
-//                Blob blob = rs.getBlob("profile_image");
-//                if (blob != null) {
-//                    byte[] blobBytes = blob.getBytes(1, (int) blob.length());
-//                    String encodedImage = Base64.getEncoder().encodeToString(blobBytes);
-//                    user.setProfile_image(encodedImage);
-//                }
-                
+                // Blob blob = rs.getBlob("profile_image");
+                // if (blob != null) {
+                // byte[] blobBytes = blob.getBytes(1, (int) blob.length());
+                // String encodedImage = Base64.getEncoder().encodeToString(blobBytes);
+                // user.setProfile_image(encodedImage);
+                // }
+
                 users.add(user);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-	    for (User user : users) {
-	        if ("participant".equals(user.getUserLevel())) {
-	            participantCount++;
-	        } else if ("admin".equals(user.getUserLevel())) {
-	            adminCount++;
-	        }
-	    }
+        for (User user : users) {
+            if ("participant".equals(user.getUserLevel())) {
+                participantCount++;
+            } else if ("admin".equals(user.getUserLevel())) {
+                adminCount++;
+            }
+        }
 
-	    modelAndView.addObject("users", users);
-	    modelAndView.addObject("participantCount", participantCount);
-	    modelAndView.addObject("adminCount", adminCount);
-	    
-	   return modelAndView;
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("participantCount", participantCount);
+        modelAndView.addObject("adminCount", adminCount);
+
+        return modelAndView;
     }
-	
-	@RequestMapping("/userDetails")
+
+    @RequestMapping("/userDetails")
     public ModelAndView showUserDetails(@RequestParam("userId") int userId) {
-        ModelAndView modelAndView = new ModelAndView("adminView/UserDetails");
+        ModelAndView modelAndView = new ModelAndView("adminViews/UserDetails");
 
         User user = null;
         try (Connection conn = DbConnect.openConnection()) {
@@ -116,9 +116,9 @@ public class AdminController {
 
         return modelAndView;
     }
-	
-	@RequestMapping("winnerList")
-	public ModelAndView showWinnerList() {
-	    return new ModelAndView("adminView/WinnerList");
-	}
+
+    @RequestMapping("/winnerList")
+    public ModelAndView showWinnerList() {
+        return new ModelAndView("adminViews/WinnerList");
+    }
 }
