@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,58 +38,61 @@
       thead th {
         background-color: #f5f5f5;
       }
-     /* Podium styles */
-	  .card {
-	    margin: 10px;
-	    box-shadow: 0 2px 4px rgba(0,0,0,.2);
-	  }
-	
-	  .card-body {
-	    position: relative;
-	    padding: 20px;
-	    border-radius: 10px;
-	    color: white;
-	    font-size: 1.2rem;
-	    /* Default background for cards */
-	    background-color: #f8f9fa;
-	  }
-	
-	  /* First Place */
-	  .first-place .card-body {
-	    background-color: #ffd700; /* Gold color */
-	  }
-	
-	  /* Second Place */
-	  .second-place .card-body {
-	    background-color: #c0c0c0; /* Silver color */
-	  }
-	
-	  /* Third Place */
-	  .third-place .card-body {
-	    background-color: #cd7f32; /* Bronze color */
-	  }
-	
-	  .card-title {
-	    font-size: 1.5em;
-	    margin-bottom: 0.5rem;
-	  }
-	
-	  .card-text {
-	    font-size: 1em;
-	  }
-	  
-	  /* Specific styles for placing the winners */
-		.col-4:nth-child(1) .card { /* 2nd Place */
-		  margin-top: 20px;
-		}
-		
-		.col-4:nth-child(2) .card { /* 1st Place */
-		  margin-top: 0;
-		}
-		
-		.col-4:nth-child(3) .card { /* 3rd Place */
-		  margin-top: 40px;
-		}
+      /* Podium styles */
+      .card {
+        margin: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-body {
+        position: relative;
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+        font-size: 1.2rem;
+        /* Default background for cards */
+        background-color: #f8f9fa;
+      }
+
+      /* First Place */
+      .first-place .card-body {
+        background-color: #ffd700; /* Gold color */
+      }
+
+      /* Second Place */
+      .second-place .card-body {
+        background-color: #c0c0c0; /* Silver color */
+      }
+
+      /* Third Place */
+      .third-place .card-body {
+        background-color: #cd7f32; /* Bronze color */
+      }
+
+      .card-title {
+        font-size: 1.5em;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-text {
+        font-size: 1em;
+      }
+
+      /* Specific styles for placing the winners */
+      .col-4:nth-child(1) .card {
+        /* 2nd Place */
+        margin-top: 20px;
+      }
+
+      .col-4:nth-child(2) .card {
+        /* 1st Place */
+        margin-top: 0;
+      }
+
+      .col-4:nth-child(3) .card {
+        /* 3rd Place */
+        margin-top: 40px;
+      }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -110,7 +113,7 @@
           <i class="fa fa-arrow-left"></i> Back
         </button>
         <h1 class="text-center m-2">Winners List</h1>
-        
+
         <!-- Table section -->
         <div class="container">
           <div class="row mt-5">
@@ -125,12 +128,12 @@
                     <option>Apr</option>
                   </select>
                 </div>
-                <div class="col-auto">
+                <!-- <div class="col-auto">
                   <select class="form-select">
                     <option>2023</option>
                     <option>2024</option>
                   </select>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-sm-4 text-muted text-end">
@@ -138,42 +141,42 @@
             </div>
           </div>
           <!-- Podium Section -->
-<div class="container text-center mt-5">
-  <div class="card">
-    <div class="card-body">
-      <h2 class="mb-4 text-black">Hall of Fame</h2>
-      <div class="row justify-content-center">
-        <!-- Second Place -->
-        <div class="col-4 second-place">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Jane Doe</h5>
-              <p class="card-text">2nd Place</p>
+          <div class="container text-center mt-5">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="mb-4 text-black">Hall of Fame</h2>
+                <div class="row justify-content-center">
+                  <!-- Second Place -->
+                  <div class="col-4 second-place">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Jane Doe</h5>
+                        <p class="card-text">2nd Place</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- First Place -->
+                  <div class="col-4 first-place">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">John Carlio</h5>
+                        <p class="card-text">1st Place</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Third Place -->
+                  <div class="col-4 third-place">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Emma Stone</h5>
+                        <p class="card-text">3rd Place</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- First Place -->
-        <div class="col-4 first-place">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">John Carlio</h5>
-              <p class="card-text">1st Place</p>
-            </div>
-          </div>
-        </div>
-        <!-- Third Place -->
-        <div class="col-4 third-place">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Emma Stone</h5>
-              <p class="card-text">3rd Place</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
           <div class="row mt-5">
             <div class="col-sm">
               <table class="table table-hover table-responsive text-center">

@@ -1,0 +1,75 @@
+body {
+  /* background-color: #90c7f9; */
+  margin: 0;
+  height: 100vh;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+#wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+#page-content-wrapper {
+  flex-grow: 1;
+  padding: 15px;
+  background-color: #90c7f9;
+}
+
+.outer-align {
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-color: #90c7f9; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; /* 100vh breaks the format */
+  width: 100%;
+}
+
+.outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white; /* White background for the outer container */
+  padding: 10vh 20vh; /* Add some padding */
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for depth */
+}
+
+.validate-winner-container {
+  /* Add styles if needed */
+  text-align: center;
+}
+
+.option-card {
+  background-color: #6c5ce7; /* Bootstrap purple or custom */
+  color: white;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 10px;
+  position: relative; /* For absolute positioning of notification count */
+}
+
+.option-card .fa {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.notification-count {
+  background-color: #ff0000; /* Red color for the badge */
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transform: translate(50%, -50%);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: white;
+}

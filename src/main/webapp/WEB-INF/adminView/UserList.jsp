@@ -43,14 +43,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(function () {
-        $("#sidebar").load("SidebarAdmin.html");
+        $("#sidebar").load("SidebarAdmin.jsp");
       });
     </script>
   </head>
   <body>
     <div class="d-flex">
       <div id="sidebar"></div>
-      <div style="flex-grow: 1">
+      <div style="flex-grow: 1; margin-left:250px;">
         <button
           type="button"
           class="btn btn-primary m-3"
