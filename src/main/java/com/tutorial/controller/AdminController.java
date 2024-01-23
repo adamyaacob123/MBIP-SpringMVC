@@ -22,7 +22,7 @@ public class AdminController {
 
     @RequestMapping("/userList")
     public ModelAndView showUserList(@RequestParam(value = "searchQuery", required = false) String searchQuery) {
-        ModelAndView modelAndView = new ModelAndView("adminView/UserList");
+        ModelAndView modelAndView = new ModelAndView("adminViews/UserList");
         List<User> users = new ArrayList<>();
         int participantCount = 0;
         int adminCount = 0;
