@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Carbon Water</title>
+    <link rel="icon" href="<c:url value="/resources/assets/MBIP-logo.png" />" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
     crossorigin="anonymous">
@@ -103,24 +104,35 @@
                                 </div>
                     
                                 <div class="mb-3">
-                                     <!--calendar api?-->
-                                    <label for="period">Period Interval</label>
-                                    <select class="form-select" id="period" name="period">
-                                        <option value="" disabled selected>Month</option>
-                                        <option value="jan">JAN</option>
-                                        <option value="feb">FEB</option>
-                                        <option value="mar">MAR</option>
-                                        <option value="apr">APR</option>
-                                        <option value="may">MAY</option>
-                                        <option value="jun">JUN</option>
-                                        <option value="jul">JUL</option>
-                                        <option value="aug">AUG</option>
-                                        <option value="sep">SEP</option>
-                                        <option value="oct">OCT</option>
-                                        <option value="nov">NOV</option>
-                                        <option value="dec">DEC</option>
-                                   </select>
-                                </div>
+                                <div class="row mb-3">
+                                    <!--calendar api?-->
+                                   <label for="period">Period Interval</label>
+                                   <div class ="col">
+                                   <select class="form-select" id="period" name="period">
+                                    <option value="" disabled selected>Month</option>
+                                    <option value="jan">JAN</option>
+                                    <option value="feb">FEB</option>
+                                    <option value="mar">MAR</option>
+                                    <option value="apr">APR</option>
+                                    <option value="may">MAY</option>
+                                    <option value="jun">JUN</option>
+                                    <option value="jul">JUL</option>
+                                    <option value="aug">AUG</option>
+                                    <option value="sep">SEP</option>
+                                    <option value="oct">OCT</option>
+                                    <option value="nov">NOV</option>
+                                    <option value="dec">DEC</option>
+                               </select></div>
+                               <div class ="col">
+                               <select class="form-select" id="year" name="year">
+                                    <option value="" disabled selected>Year</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                               	   </select>
+                               </div>
+                   			</div>
                     
                                 <!-- <div class="mb-3">
                                     <label for="year">Year</label>

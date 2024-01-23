@@ -10,11 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tutorial.model.User;
 
 import dbUtil.DbConnect;
+import jakarta.servlet.http.HttpSession;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.io.IOException;
 
 @Controller
@@ -24,9 +26,27 @@ public class FormController {
     public ModelAndView saveWaterForm(
             @RequestParam("amount") float amount,
             @RequestParam("period") String period,
-            @RequestParam("file") MultipartFile file
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("year") String year,
+            HttpSession session
     ) {
 	    ModelAndView modelAndView = new ModelAndView("userViews/formSaved");
+	    
+	 // Retrieve user information from the session
+	 		User user = (User) session.getAttribute("user");
+
+	 		// Check if the user is in the session
+	 		if (user != null) {
+	 			// Add user information to the model	
+	 			modelAndView.addObject("email", user.getEmail());
+	 		} else {
+	 			// If user is not in the session, handle accordingly (redirect to login, show an
+	 			// error, etc.)
+	 			modelAndView.addObject("errorMessage", "User not found in the session. Please log in.");
+	 		}
+	    String email = user.getEmail();
+	    
+	    
 	 // Check if the file isn't empty and convert it to byte array
         byte[] fileBytes = null;
         if (!file.isEmpty()) {
@@ -43,15 +63,17 @@ public class FormController {
         try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
         	Connection conn = DbConnect.openConnection();
-            String sql = "INSERT INTO water (amount, period, file) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO water (amount, period, file, email, year) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setFloat(1, amount);
                 statement.setString(2, period);
                 statement.setBytes(3, fileBytes); // Assuming you have a column to store the file as blob
+                statement.setString(4, email);
+                statement.setString(5, year);
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
-                    modelAndView.addObject("message", "The form data was inserted successfully!");
+                	modelAndView.addObject("message", "The form for Water Consumption was submitted successfully!");
                 } else {
                     modelAndView.addObject("message", "Failed to insert the form data!");
                 }
@@ -71,10 +93,27 @@ public class FormController {
     public ModelAndView saveElectricityForm(
             @RequestParam("amount") float amount,
             @RequestParam("period") String period,
-            @RequestParam("file") MultipartFile file
+            @RequestParam("year") String year,
+            @RequestParam("file") MultipartFile file,
+            HttpSession session
     ) {
     	
 	    ModelAndView modelAndView = new ModelAndView("userViews/formSaved");
+	    
+	 // Retrieve user information from the session
+ 		User user = (User) session.getAttribute("user");
+
+ 		// Check if the user is in the session
+ 		if (user != null) {
+ 			// Add user information to the model	
+ 			modelAndView.addObject("email", user.getEmail());
+ 		} else {
+ 			// If user is not in the session, handle accordingly (redirect to login, show an
+ 			// error, etc.)
+ 			modelAndView.addObject("errorMessage", "User not found in the session. Please log in.");
+ 		}
+ 		String email = user.getEmail();
+	    
 	 // Check if the file isn't empty and convert it to byte array
         byte[] fileBytes = null;
         if (!file.isEmpty()) {
@@ -91,15 +130,17 @@ public class FormController {
         try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
         	Connection conn = DbConnect.openConnection();
-            String sql = "INSERT INTO electric (amount, period, file) VALUES (?, ?, ?)";
+        	String sql = "INSERT INTO electric (amount, period, file, email, year) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setFloat(1, amount);
                 statement.setString(2, period);
                 statement.setBytes(3, fileBytes); // Assuming you have a column to store the file as blob
+                statement.setString(4, email);
+                statement.setString(5, year);
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
-                    modelAndView.addObject("message", "The form data was inserted successfully!");
+                    modelAndView.addObject("message", "The form for Electric Consumption was submitted successfully!");
                 } else {
                     modelAndView.addObject("message", "Failed to insert the form data!");
                 }
@@ -119,10 +160,27 @@ public class FormController {
     public ModelAndView saveWasteForm(
             @RequestParam("amount") float amount,
             @RequestParam("period") String period,
-            @RequestParam("file") MultipartFile file
+            @RequestParam("year") String year,
+            @RequestParam("file") MultipartFile file,
+            HttpSession session
     ) {
     	
 	    ModelAndView modelAndView = new ModelAndView("userViews/formSaved");
+	    
+	 // Retrieve user information from the session
+ 		User user = (User) session.getAttribute("user");
+
+ 		// Check if the user is in the session
+ 		if (user != null) {
+ 			// Add user information to the model	
+ 			modelAndView.addObject("email", user.getEmail());
+ 		} else {
+ 			// If user is not in the session, handle accordingly (redirect to login, show an
+ 			// error, etc.)
+ 			modelAndView.addObject("errorMessage", "User not found in the session. Please log in.");
+ 		}
+ 		String email = user.getEmail();
+	    
 	 // Check if the file isn't empty and convert it to byte array
         byte[] fileBytes = null;
         if (!file.isEmpty()) {
@@ -139,15 +197,17 @@ public class FormController {
         try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
         	Connection conn = DbConnect.openConnection();
-            String sql = "INSERT INTO waste (amount, period, file) VALUES (?, ?, ?)";
+        	String sql = "INSERT INTO waste (amount, period, file, email, year) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setFloat(1, amount);
                 statement.setString(2, period);
                 statement.setBytes(3, fileBytes); // Assuming you have a column to store the file as blob
+                statement.setString(4, email);
+                statement.setString(5, year);
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
-                    modelAndView.addObject("message", "The form data was inserted successfully!");
+                	modelAndView.addObject("message", "The form for Recycle Weight was submitted successfully!");
                 } else {
                     modelAndView.addObject("message", "Failed to insert the form data!");
                 }

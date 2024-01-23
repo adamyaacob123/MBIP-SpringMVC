@@ -56,6 +56,14 @@ public class LandingController {
 		modelandview.addObject("welcomeMessage", "Selamat Datang with annotation! ");
 		return modelandview;
 	}
+	
+	@RequestMapping("/logout")
+	protected ModelAndView Logout(HttpSession session) {
+		ModelAndView modelandview = new ModelAndView("userViews/landing");
+		modelandview.addObject("byebyeMessage", "Selamat Jalan with annotation! ");
+		session.invalidate();
+		return modelandview;
+	}
 
 	@RequestMapping("/register")
 	protected ModelAndView Register() {
@@ -64,17 +72,74 @@ public class LandingController {
 		return modelandview;
 	}
 	
+	@RequestMapping("/User")
+	protected ModelAndView UserDashboard() {
+		ModelAndView modelandview = new ModelAndView("userViews/UserDashboard");
+		modelandview.addObject("welcomeMessage", "Selamat Datang with annotation! ");
+		return modelandview;
+	}
+	@RequestMapping("/Admin")
+	protected ModelAndView AdminDashboard() {
+		ModelAndView modelandview = new ModelAndView("adminViews/AdminDashboard");
+		modelandview.addObject("welcomeMessage", "Selamat Datang with annotation! ");
+		return modelandview;
+	}
+	
 	@RequestMapping("/UserSidebar")
-	protected ModelAndView UserSidebar() {
+	protected ModelAndView UserSidebar(HttpSession session) {
 		ModelAndView modelandview = new ModelAndView("userViews/UserSidebar");
-		
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+			// Add user information to the model
+			modelandview.addObject("userId", user.getId());
+			modelandview.addObject("userLevel", user.getUserLevel());
+			modelandview.addObject("username", user.getUsername());
+			modelandview.addObject("name", user.getName());
+			modelandview.addObject("email", user.getEmail());
+			modelandview.addObject("address", user.getAddress());
+			modelandview.addObject("phoneNum", user.getPhoneNum());
+			modelandview.addObject("household", user.getHousehold());
+			modelandview.addObject("peopleNo", user.getPeopleNo());
+
+			byte[] profileImageBytes = user.getProfile_image();
+			if (profileImageBytes != null) {
+				String base64Image = Base64.getEncoder().encodeToString(profileImageBytes);
+				modelandview.addObject("base64Image", base64Image);
+			}
+		} else {
+			// If user is not in the session, handle accordingly (redirect to login, show an
+			// error, etc.)
+			modelandview.addObject("errorMessage", "User not found in the session. Please log in.");
+		}
 		return modelandview;
 	}
 	
 	@RequestMapping("/AdminSidebar")
-	protected ModelAndView AdminSidebar() {
+	protected ModelAndView AdminSidebar(HttpSession session) {
 		ModelAndView modelandview = new ModelAndView("adminViews/AdminSidebar");
-		
+		User admin = (User) session.getAttribute("admin");
+		if (admin != null) {
+			// Add user information to the model
+			modelandview.addObject("userId", admin.getId());
+			modelandview.addObject("userLevel", admin.getUserLevel());
+			modelandview.addObject("username", admin.getUsername());
+			modelandview.addObject("name", admin.getName());
+			modelandview.addObject("email", admin.getEmail());
+			modelandview.addObject("address", admin.getAddress());
+			modelandview.addObject("phoneNum", admin.getPhoneNum());
+			modelandview.addObject("household", admin.getHousehold());
+			modelandview.addObject("peopleNo", admin.getPeopleNo());
+
+			byte[] profileImageBytes = admin.getProfile_image();
+			if (profileImageBytes != null) {
+				String base64Image = Base64.getEncoder().encodeToString(profileImageBytes);
+				modelandview.addObject("base64Image", base64Image);
+			}
+		} else {
+			// If user is not in the session, handle accordingly (redirect to login, show an
+			// error, etc.)
+			modelandview.addObject("errorMessage", "Admin not found in the session. Please log in.");
+		}
 		return modelandview;
 	}
 	
@@ -358,7 +423,6 @@ public class LandingController {
 			rowAffected = stmt.executeUpdate();
 
 			// Update user information in the session
-
 			if (user != null) {
 				user.setName(newName);
 				user.setUsername(newUsername);
@@ -375,8 +439,6 @@ public class LandingController {
 			ex.printStackTrace();
 			return "Error in update - User: " + ex.getMessage();
 		}
-
 		return "redirect:account";
 	}
-
 }

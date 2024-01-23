@@ -20,9 +20,15 @@ import dbUtil.DbConnect;
 @Controller
 public class AdminController {
 
+<<<<<<< Updated upstream
 	@RequestMapping("/userList")
     public ModelAndView showUserList() {
 		ModelAndView modelAndView = new ModelAndView("adminViews/UserList"); // Use your JSP file name
+=======
+    @RequestMapping("/userList")
+    public ModelAndView showUserList(@RequestParam(value = "searchQuery", required = false) String searchQuery) {
+        ModelAndView modelAndView = new ModelAndView("adminViews/UserList");
+>>>>>>> Stashed changes
         List<User> users = new ArrayList<>();
 
         try (Connection conn = DbConnect.openConnection()) {
