@@ -42,7 +42,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Validate Winner</h5>
                   <p>Validate submitted participant's data</p>
-                  <a href="ValidateWinner.html" class="btn btn-primary">Click to validate winner</a>
+                  <a onclick="window.location.href='<c:url value='/userList' />'" class="btn btn-primary">Click to validate winner</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -50,7 +50,7 @@
                 <div class="card-body">
                   <h5 class="card-title">View Winner List</h5>
                   <p>View all the winner of Low Carbon Challenge</p>
-                  <a href="WinnerList.html" class="btn btn-primary">View</a>
+                  <a onclick="window.location.href='<c:url value='/winnerList' />'" class="btn btn-primary">View</a>
                 </div>
             </div>
         </div>
