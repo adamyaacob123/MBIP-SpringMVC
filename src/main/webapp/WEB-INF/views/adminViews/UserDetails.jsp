@@ -16,31 +16,11 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/adminViews/WinnerDetails.html
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <link rel="stylesheet" href="WinnerDetails.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(function () {
-        $("#sidebar").load("AdminSidebar.html");
-      });
-    </script>
-  </head>
-  <body>
-    <div class="d-flex" id="wrapper">
-      <!-- Sidebar -->
-      <div id="sidebar"></div>
-========
      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
 body {
   background-color: #cae4fc;
 }
->>>>>>>> 715f6e95d9cb240ebc511afb14022f39d1b258c5:src/main/webapp/WEB-INF/adminView/UserDetails.jsp
 
 #page-content-wrapper {
   flex-grow: 1;
@@ -122,11 +102,20 @@ body {
             border-radius: 50%;
         } */
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Load AdminSidebar.jsp into the sidebar div
+            $("#sidebar").load("AdminSidebar");
+
+            // You can add more code here to handle other dashboard functionalities
+        });
+    </script>
 </head>
 <body>
 <div class="d-flex">
       <div id="sidebar"></div>
-      <div id="page-content-wrapper">
+      <div class="px-5 py-3" style="flex-grow: 1; margin-left: 250px;">
         <button
           type="button"
           class="btn btn-primary m-3"
@@ -249,6 +238,9 @@ body {
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-flex justify-content-center mb-3">
+        <button class="btn btn-success">Validate</button>
     </div>
     <script>
       // Chart.js code for Carbon Overview Doughnut Chart

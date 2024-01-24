@@ -22,7 +22,7 @@ public class AdminController {
 
     @RequestMapping("/userList")
     public ModelAndView showUserList(@RequestParam(value = "searchQuery", required = false) String searchQuery) {
-        ModelAndView modelAndView = new ModelAndView("adminView/UserList");
+        ModelAndView modelAndView = new ModelAndView("adminViews/UserList");
         List<User> users = new ArrayList<>();
         int participantCount = 0;
         int adminCount = 0;
@@ -117,6 +117,43 @@ public class AdminController {
         return modelAndView;
     }
 
+    @RequestMapping("/validateParticipant")
+    public ModelAndView validateParticipant(@RequestParam("userId") int userId) {
+        ModelAndView modelAndView = new ModelAndView("adminViews/ValidateParticipant");
+        User user = null;
+
+        try (Connection conn = DbConnect.openConnection()) {
+            String sql = "SELECT * FROM user WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhoneNum(rs.getInt("phoneNum"));
+                user.setUserLevel(rs.getString("user_level"));
+                user.setAddress(rs.getString("address"));
+                user.setHousehold(rs.getString("household"));
+                user.setPeopleNo(rs.getInt("peopleNo"));
+                // Fetch and set the profile image if needed
+                // Blob blob = rs.getBlob("profile_image");
+                // ...
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        modelAndView.addObject("user", user);
+        // Add other attributes as needed for the validation process
+
+        return modelAndView;
+    }
+
+    
     @RequestMapping("/winnerList")
     public ModelAndView showWinnerList() {
         return new ModelAndView("adminViews/WinnerList");
