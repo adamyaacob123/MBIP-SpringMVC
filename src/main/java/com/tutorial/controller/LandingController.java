@@ -117,7 +117,7 @@ public class LandingController {
 	@RequestMapping("/AdminSidebar")
 	protected ModelAndView AdminSidebar(HttpSession session) {
 		ModelAndView modelandview = new ModelAndView("adminViews/AdminSidebar");
-		User admin = (User) session.getAttribute("admin");
+		User admin = (User) session.getAttribute("user");
 		if (admin != null) {
 			// Add user information to the model
 			modelandview.addObject("userId", admin.getId());
@@ -164,9 +164,44 @@ public class LandingController {
 		return modelandview;
 	}
 
-	@RequestMapping("/account")
-	protected ModelAndView Account(HttpSession session) {
+	@RequestMapping("/userAccount")
+	protected ModelAndView userAccount(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView("userViews/account");
+
+		// Retrieve user information from the session
+		User user = (User) session.getAttribute("user");
+
+		// Check if the user is in the session
+		if (user != null) {
+			// Add user information to the model
+			modelAndView.addObject("userId", user.getId());
+			modelAndView.addObject("userLevel", user.getUserLevel());
+			modelAndView.addObject("username", user.getUsername());
+			modelAndView.addObject("name", user.getName());
+			modelAndView.addObject("email", user.getEmail());
+			modelAndView.addObject("address", user.getAddress());
+			modelAndView.addObject("phoneNum", user.getPhoneNum());
+			modelAndView.addObject("household", user.getHousehold());
+			modelAndView.addObject("peopleNo", user.getPeopleNo());
+
+			byte[] profileImageBytes = user.getProfile_image();
+			if (profileImageBytes != null) {
+				String base64Image = Base64.getEncoder().encodeToString(profileImageBytes);
+				modelAndView.addObject("base64Image", base64Image);
+			}
+		} else {
+			// If user is not in the session, handle accordingly (redirect to login, show an
+			// error, etc.)
+			modelAndView.addObject("errorMessage", "User not found in the session. Please log in.");
+		}
+
+		modelAndView.addObject("welcomeMessage", "Selamat Datang with annotation!");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/adminAccount")
+	protected ModelAndView adminAccount(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("adminViews/account");
 
 		// Retrieve user information from the session
 		User user = (User) session.getAttribute("user");

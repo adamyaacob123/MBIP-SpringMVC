@@ -13,20 +13,21 @@
             <div class="user">
                 <img class="user-img" src="data:image/png;base64,${base64Image}" alt="" style="width:50px; height:50px; " />
                 <div class="username">
-                    <h2 style="font-size: 20px; font-weight: bold;">Admin</h2>
+                    <h2 style="font-size: 20px; font-weight: bold;">${username}</h2>
                     <p style="font-size: 13px;">${email}</p>
                 </div>
             </div>
             <ul class="sidebar-menu">
                 <!-- <h4>MAIN</h4> -->
-                <li class="menu-item" onclick="window.location.href='<c:url value='/Admin' />'"><img src="<c:url value="/resources/img/house.svg"/>" alt="dashboard"><p>Dashboard</p></li>
-                <li class="menu-item"><img src="<c:url value="/resources/img/card-text.svg"/>" alt="form"><p>Manage Account</p></li>
-                <li class="menu-item" onclick="window.location.href='<c:url value='/userList' />'"><img src="<c:url value="/resources/img/pie-chart.svg"/>" alt="status"><p>User Summary</p></li>   
+                <li class="menu-item" onclick="window.location.href='<c:url value='/Admin' />'"><img src="<c:url value="/resources/img/house.svg"/>" alt="dashboard"><p>Dashboard</p></li>        
+                <li class="menu-item" onclick="window.location.href='<c:url value='/userList' />'"><img src="<c:url value="/resources/img/pie-chart.svg"/>" alt="status"><p>User Summary</p></li>
+                <li class="menu-item" onclick="window.location.href='<c:url value='/winnerList' />'"><img src="<c:url value="/resources/img/trophy.svg"/>" alt="status"><p>Winner List</p></li>
+                <li class="menu-item" onclick="window.location.href='<c:url value='/adminAccount'/>'"><img src="<c:url value="/resources/img/card-text.svg"/>" alt="form"><p>Account</p></li>   
                 <!-- <h4>SETTINGS</h4> -->
-                <li class="menu-item"><img src="<c:url value="/resources/img/info-circle.svg"/>" alt="help"><p>Help</p></li>
+                
             </ul>
             <ul>
-                <li class="menu-item"><img src="<c:url value="/resources/img/box-arrow-left.svg"/>" alt="logout"><p>Logout</p></li>
+                <li class="menu-item" onclick="window.location.href='<c:url value='/logout'/>'"><img src="<c:url value="/resources/img/box-arrow-left.svg"/>" alt="logout"><p>Logout</p></li>
             </ul>     
         </div>
     </div>

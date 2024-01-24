@@ -85,7 +85,7 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="username" class="form-label">Username</label> <br />
-							<span>${email}</span>
+							<span>${username}</span>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="phoneNum" class="form-label">Phone Number</label> <br />

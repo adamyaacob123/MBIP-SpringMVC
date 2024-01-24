@@ -26,8 +26,8 @@
                 <li class="menu-item"><img src="<c:url value="resources/img/file-earmark-bar-graph.svg"/>" alt="placeholder"><p>Report</p></li>
             
                 <!-- <h4>SETTINGS</h4> -->
-                <li class="menu-item"><img src="<c:url value="resources/img/info-circle.svg" />" alt="help"><p>Help</p></li>
-                <li class="menu-item" onclick="window.location.href='<c:url value='/account'/>'"><img src="<c:url value="resources/img/gear.svg" />" alt="settings"><p>Settings</p></li>
+              
+                <li class="menu-item" onclick="window.location.href='<c:url value='/userAccount'/>'"><img src="<c:url value="resources/img/gear.svg" />" alt="settings"><p>Settings</p></li>
             
                 <li class="menu-item" onclick="window.location.href='<c:url value='/logout'/>'"><img src="<c:url value="resources/img/box-arrow-left.svg"/>" alt="logout"><p>Logout</p></li>
             </ul>     
