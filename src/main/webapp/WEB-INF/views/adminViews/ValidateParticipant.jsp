@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
         background-color: #fcf1eb;
         border-left: 5px solid #f0b999;
       }
-      .calculation-title {
+      /* .calculation-title {
         font-size: 1.25rem;
         color: #495057;
         font-weight: bold;
@@ -57,7 +57,7 @@ pageEncoding="UTF-8"%>
         border-radius: 0.25rem;
         padding: 2rem;
         margin-bottom: 2rem;
-      }
+      } */
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

@@ -108,22 +108,23 @@
                                    <div class ="col">
                                    <select class="form-select" id="period" name="period">
                                     <option value="" disabled selected>Month</option>
-                                    <option value="jan">JAN</option>
-                                    <option value="feb">FEB</option>
-                                    <option value="mar">MAR</option>
-                                    <option value="apr">APR</option>
-                                    <option value="may">MAY</option>
-                                    <option value="jun">JUN</option>
-                                    <option value="jul">JUL</option>
-                                    <option value="aug">AUG</option>
-                                    <option value="sep">SEP</option>
-                                    <option value="oct">OCT</option>
-                                    <option value="nov">NOV</option>
-                                    <option value="dec">DEC</option>
+                                    <option value="Jan">JAN</option>
+                                    <option value="Feb">FEB</option>
+                                    <option value="Mar">MAR</option>
+                                    <option value="Apr">APR</option>
+                                    <option value="May">MAY</option>
+                                    <option value="Jun">JUN</option>
+                                    <option value="Jul">JUL</option>
+                                    <option value="Aug">AUG</option>
+                                    <option value="Sep">SEP</option>
+                                    <option value="Oct">OCT</option>
+                                    <option value="Nov">NOV</option>
+                                    <option value="Dec">DEC</option>
                                </select></div>
                                <div class ="col">
                                <select class="form-select" id="year" name="year">
                                     <option value="" disabled selected>Year</option>
+                                    <option value="2023">2023</option>
                                     <option value="2024">2024</option>
                                     <option value="2025">2025</option>
                                     <option value="2026">2026</option>
