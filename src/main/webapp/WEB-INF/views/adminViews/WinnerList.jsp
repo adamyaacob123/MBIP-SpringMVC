@@ -96,9 +96,12 @@ pageEncoding="UTF-8"%>
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      $(function () {
-        $("#sidebar").load("SidebarAdmin.html");
-      });
+        $(document).ready(function() {
+            // Load UserSidebar.html into the sidebar div
+            $("#sidebar").load("AdminSidebar");
+
+            // You can add more code here to handle other dashboard functionalities
+        });
     </script>
   </head>
   <body>
