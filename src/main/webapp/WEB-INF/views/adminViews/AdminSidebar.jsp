@@ -21,7 +21,7 @@
                 <!-- <h4>MAIN</h4> -->
                 <li class="menu-item" onclick="window.location.href='<c:url value='/getAll' />'"><img src="<c:url value="/resources/img/house.svg"/>" alt="dashboard"><p>Dashboard</p></li>
                 <li class="menu-item"><img src="<c:url value="/resources/img/card-text.svg"/>" alt="form"><p>Manage Account</p></li>
-                <li class="menu-item"><img src="<c:url value="/resources/img/pie-chart.svg"/>" alt="status"><p>User Summary</p></li>   
+                <li class="menu-item" onclick="window.location.href='<c:url value='/userList' />'"><img src="<c:url value="/resources/img/pie-chart.svg"/>" alt="status"><p>User Summary</p></li>   
                 <!-- <h4>SETTINGS</h4> -->
                 <li class="menu-item"><img src="<c:url value="/resources/img/info-circle.svg"/>" alt="help"><p>Help</p></li>
             </ul>

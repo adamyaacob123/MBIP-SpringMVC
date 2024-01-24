@@ -1,60 +1,61 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #cae4fc;
-  margin: 0;
-  padding: 0;
-  display: flex;
+    font-family: Arial, sans-serif;
+    background-color: #CAE4FC;
+    margin: 0;
+    padding: 0;
+    display: flex;
 }
 
 .report-content {
-  flex-grow: 1;
-  padding: 20px;
-  background: #cae4fc;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-left: 250px;
+    flex-grow: 1;
+    padding: 20px;
+    background: #CAE4FC;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 250px;
 }
 
 .report-table {
-  flex-basis: 48%;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
+    flex-basis: 48%;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
 }
 
 .report-header {
-  background: #cae4fc;
-  padding: 20px;
-  margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #CAE4FC;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .comment-section {
-  background: #cae4fc;
-  padding: 20px;
-  margin-bottom: 20px;
-  max-width: 400px;
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #CAE4FC;
+    padding: 20px;
+    margin-bottom: 20px;
+    max-width: 400px; 
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .comment-content {
-  background: #fff;
-  border: 1px solid #ccc;
-  min-height: 200px;
-  padding: 25px;
-  margin-top: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    min-height: 200px;
+    padding: 25px;
+    margin-top: 10px;
 }
 
 .report {
-  background: #eeebeb;
-  border: 1px solid #ccc;
-  height: 450px;
-  padding: 20px;
-  margin-top: 10px;
+    background: #eeebeb;
+    border: 1px solid #ccc;
+    height: 450px;
+    padding: 20px;
+    margin-top: 10px;
 }
+
