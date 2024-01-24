@@ -153,7 +153,6 @@ public class AdminController {
         return modelAndView;
     }
 
-    
     @RequestMapping("/winnerList")
     public ModelAndView showWinnerList() {
         return new ModelAndView("adminViews/WinnerList");
