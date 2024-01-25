@@ -22,6 +22,7 @@ public class User {
 	private String household;
 	private int peopleNo;
 	private byte[] profile_image;
+    private String profileImageBase64; // New field for the Base64 image
 
 	public String getUser_level() {
 		return user_level;
@@ -111,6 +112,12 @@ public class User {
 		this.peopleNo = peopleNo;
 	}
 
-	
+	public String getProfileImageBase64() {
+        return profileImageBase64;
+    }
+
+    public void setProfileImageBase64(String profileImageBase64) {
+        this.profileImageBase64 = profileImageBase64;
+    }
 
 }

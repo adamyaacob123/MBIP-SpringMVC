@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <!DOCTYPE html>
     <html lang="en">
@@ -38,16 +38,11 @@
         }
 
         /* Add your custom styles for cards and content here */
-        .profile-card {
-          text-align: center;
-        }
-
         .profile-header {
           position: relative;
           margin-top: 100px;
           padding: 10px;
           background-color: #6c5ce7;
-          /* Match this color to your theme */
           border-radius: 10px 10px 0 0;
         }
 
@@ -62,6 +57,7 @@
           top: -60px;
           /* Half the height to lift it above the card */
           left: calc(50% - 60px);
+          object-fit: cover;
           /* Center the image */
         }
 
@@ -143,13 +139,22 @@
           </button>
           <h1 class="text-center m-2">User Details</h1>
           <div class="container">
-            <div class="row mt-5">
+            <div class="row">
               <div class="col-lg-4">
-                <div class="card">
+                <div class="card mt-5">
                   <div class="card-body">
-                    <div class="profile-card">
+                    <div class="text-center">
                       <div class="profile-header">
-                        <img src="dummy1.png" alt="Profile Image" class="profile-image" />
+                        <c:choose>
+                          <c:when test="${not empty user.profileImageBase64}">
+                            <img class="profile-image" src="data:image/jpeg;base64,${user.profileImageBase64}"
+                              alt="User Image" />
+                          </c:when>
+                          <c:otherwise>
+                            <img class="profile-image" src="<c:url value='/resources/assets/blank-profile.png'/>"
+                              alt="Default Image" />
+                          </c:otherwise>
+                        </c:choose>
                         <h3 class="profile-name">${user.name}</h3>
                         <p class="profile-email">${user.email}</p>
                       </div>
@@ -222,50 +227,140 @@
                     </div>
                   </div>
                 </div>
-                <!-- Calculation Result Cards -->
-                <div class="row g-3 mt-2 text-center">
-                  <div class="col-md-4">
-                    <div class="card calculation-card-water">
-                      <div class="card-body">
-                        <h5 class="card-title">Total Water Footprint</h5>
-                        <p class="card-text">41.9 kgCO₂</p>
-                      </div>
+
+              </div>
+            </div>
+            <!-- Calculation Result Cards -->
+            <div class="row g-3 mt-2 text-center">
+              <div class="col-md-4">
+                <div class="card calculation-card-water">
+                  <div class="card-body">
+                    <h5 class="card-title">Water Footprint</h5>
+                    <p class="card-text">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Consumption </span>
+                      <span class="form-control">
+                        <c:out value="${totalWater}" />
+                      </span>
+                      <span class="input-group-text">m³</span>
                     </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card calculation-card-electricity">
-                      <div class="card-body">
-                        <h5 class="card-title">Total Electricity Footprint</h5>
-                        <p class="card-text">58.4 kgCO₂</p>
-                      </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Carbon Factor </span>
+                      <span class="form-control">&times;&nbsp;0.419</span>
                     </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card calculation-card-recycle">
-                      <div class="card-body">
-                        <h5 class="card-title">Total Recycle Footprint</h5>
-                        <p class="card-text">286 kgCO₂</p>
-                      </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Footprint </span>
+                      <span class="form-control">
+                        <c:out value="${totalWaterFootprint}" />
+                      </span>
+                      <span class="input-group-text">kgCO₂</span>
                     </div>
-                  </div>
-                  <!-- Total Carbon Footprint -->
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-body text-center">
-                        <h5 class="card-title">Total Carbon Footprint</h5>
-                        <p class="card-text">Total: 386.3 kgCO₂</p>
-                      </div>
-                    </div>
+                    </p>
                   </div>
                 </div>
               </div>
-            </div>
-           <div class="row mt-5">
-              <div class="col-lg-12">
-                <!-- Carbon Overview Chart -->
-                <div class="card mb-4">
+              <div class="col-md-4">
+                <div class="card calculation-card-electricity">
                   <div class="card-body">
-                    <canvas id="carbonOverviewChart"></canvas>
+                    <h5 class="card-title">Electricity Footprint</h5>
+                    <p class="card-text">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Consumption </span>
+                      <span class="form-control">
+                        <c:out value="${totalElectricity}" />
+                      </span>
+                      <span class="input-group-text">kWh</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Carbon Factor </span>
+                      <span class="form-control">&times;&nbsp;0.584</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Footprint </span>
+                      <span class="form-control">
+                        <c:out value="${totalElectricityFootprint}" />
+                      </span>
+                      <span class="input-group-text">kgCO₂</span>
+                    </div>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card calculation-card-recycle">
+                  <div class="card-body">
+                    <h5 class="card-title">Recycle Footprint</h5>
+                    <p class="card-text">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Consumption </span>
+                      <span class="form-control">
+                        <c:out value="${totalRecycle}" />
+                      </span>
+                      <span class="input-group-text">kg</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Carbon Factor </span>
+                      <span class="form-control">&times;&nbsp;2.860</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Footprint </span>
+                      <span class="form-control">
+                        <c:out value="${totalRecycleFootprint}" />
+                      </span>
+                      <span class="input-group-text">kgCO₂</span>
+                    </div>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Total Carbon Footprint -->
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body text-center">
+                    <h5 class="card-title">Total Carbon Footprint </h5>
+                    <p class="card-text">
+                    <p class="text-muted fst-italic">Year ${selectedYear}</p>
+                    <div class="row">
+                      <div class="col-6 p-5">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Water </span>
+                          <span class="form-control">
+                            <c:out value="${totalWaterFootprint}" />
+                          </span>
+                          <span class="input-group-text">kgCO₂</span>
+                        </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Electricity </span>
+                          <span class="form-control">
+                            <c:out value="${totalElectricityFootprint}" />
+                          </span>
+                          <span class="input-group-text">kgCO₂</span>
+                        </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">Recycle </span>
+                          <span class="form-control">
+                            <c:out value="${totalRecycleFootprint}" />
+                          </span>
+                          <span class="input-group-text">kgCO₂</span>
+                        </div>
+                        <div class="input-group input-group-lg my-5">
+                          <span class="input-group-text">Total </span>
+                          <span class="form-control">
+                            <c:out value="${totalCarbonFootprint}" />
+                          </span>
+                          <span class="input-group-text">kgCO₂</span>
+                        </div>
+                      </div>
+                      <!-- Carbon Overview Chart -->
+                      <div class="col-6">
+                        <div class="card m-3">
+                          <div class="card-body">
+                            <canvas id="carbonOverviewChart"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -282,14 +377,14 @@
         const carbonOverviewChart = new Chart(carbonCtx, {
           type: "doughnut",
           data: {
-            labels: ["Electricity", "Water", "Recycle Activity"],
+            labels: ["Water", "Electricity", "Recycle Waste"],
             datasets: [
               {
-                data: [1946, 2498, 1080],
+                data: ["${totalWaterFootprint}", "${totalElectricityFootprint}", "${totalRecycleFootprint}"],
                 backgroundColor: [
-                  "rgba(255, 99, 132, 0.5)",
                   "rgba(54, 162, 235, 0.5)",
                   "rgba(255, 206, 86, 0.5)",
+                  "rgba(255, 99, 132, 0.5)",
                 ],
                 borderWidth: 1,
               },
@@ -322,9 +417,9 @@
         };
 
         // Setting chart height in javascript to ensure same height for all charts
-        document.getElementById("water").style.height = "200px";
-        document.getElementById("electricity").style.height = "200px";
-        document.getElementById("recycle").style.height = "200px";
+        document.getElementById("water").style.height = "410px";
+        document.getElementById("electricity").style.height = "410px";
+        document.getElementById("recycle").style.height = "410px";
 
         $(document).ready(function () {
           // Set the dropdown to the selected year after the page loads
@@ -358,26 +453,26 @@
 
         var electricAmountsJSON = "${electricAmounts}".replace('[', '').replace(']', '').split(', ');
         var monthsElectricJSON = "${monthsElectric}"
-            .replace("[", "")
-            .replace("]", "")
-            .split(", ");
-        
+          .replace("[", "")
+          .replace("]", "")
+          .split(", ");
+
         var recycleAmountsJSON = "${recycleAmounts}".replace('[', '').replace(']', '').split(', ');
         var monthsRecycleJSON = "${monthsRecycle}"
-            .replace("[", "")
-            .replace("]", "")
-            .split(", ");
-        
+          .replace("[", "")
+          .replace("]", "")
+          .split(", ");
+
         // Now you have JavaScript arrays
         var waterAmounts = waterAmountsJSON.map(Number);
         var monthsWater = monthsWaterJSON.map(String);
-        
+
         var electricAmounts = electricAmountsJSON.map(Number);
         var monthsElectric = monthsElectricJSON.map(String);
 
         var recycleAmounts = recycleAmountsJSON.map(Number);
         var monthsRecycle = monthsRecycleJSON.map(String);
-        
+
         // Chart.js code for Water Consumption Line Chart
         const waterCtx = document
           .getElementById("waterConsumptionChart")
@@ -407,7 +502,7 @@
         const electricityConsumptionChart = new Chart(electricityCtx, {
           type: "line",
           data: {
-        	  labels: monthsElectric,
+            labels: monthsElectric,
             datasets: [
               {
                 label: "Electricity Consumption",
@@ -430,7 +525,7 @@
         const recycleActivityChart = new Chart(recycleCtx, {
           type: "line",
           data: {
-        	  labels: monthsRecycle,
+            labels: monthsRecycle,
             datasets: [
               {
                 label: "Recycle Activity",
