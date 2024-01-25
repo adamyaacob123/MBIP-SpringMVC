@@ -56,15 +56,16 @@ public class AdminController {
                 user.setAddress(rs.getString("address"));
                 user.setHousehold(rs.getString("household"));
                 user.setPeopleNo(rs.getInt("peopleNo"));
-
-                // Fetching the profile_image as Blob and converting it to Base64 string
-                // Blob blob = rs.getBlob("profile_image");
-                // if (blob != null) {
-                // byte[] blobBytes = blob.getBytes(1, (int) blob.length());
-                // String encodedImage = Base64.getEncoder().encodeToString(blobBytes);
-                // user.setProfile_image(encodedImage);
-                // }
-
+                
+                // Fetching the profile image as Blob and converting it to Base64 string
+                Blob blob = rs.getBlob("profile_image");
+                String base64Image = null;
+                if (blob != null) {
+                    byte[] blobBytes = blob.getBytes(1, (int) blob.length());
+                    base64Image = Base64.getEncoder().encodeToString(blobBytes);
+                }
+                user.setProfileImageBase64(base64Image);
+                
                 users.add(user);
             }
         } catch (Exception e) {
@@ -116,11 +117,16 @@ public class AdminController {
                 user.setAddress(rsUserDetails.getString("address"));
                 user.setHousehold(rsUserDetails.getString("household"));
                 user.setPeopleNo(rsUserDetails.getInt("peopleNo"));
-                // Fetch and set the profile image if needed
-                // Blob blob = rsUserDetails.getBlob("profile_image");
-                // ...
+                // Fetching the profile image as Blob and converting it to Base64 string
+                Blob blob = rsUserDetails.getBlob("profile_image");
+                String base64Image = null;
+                if (blob != null) {
+                    byte[] blobBytes = blob.getBytes(1, (int) blob.length());
+                    base64Image = Base64.getEncoder().encodeToString(blobBytes);
+                }
+                user.setProfileImageBase64(base64Image);
+                            
             }
-
             // Retrieve water consumption data
             String sqlWaterData = "SELECT amount, period FROM water WHERE email = ? AND year = ? ORDER BY " + getMonthOrderCaseStatement();
             PreparedStatement stmtWaterData = conn.prepareStatement(sqlWaterData);
@@ -157,16 +163,54 @@ public class AdminController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        // Calculate totals
+        float totalWater = 0f;
+        float totalElectricity = 0f;
+        float totalRecycle = 0f;
 
+        for (Float amount : waterAmounts) {
+            totalWater += amount;
+        }
+        for (Float amount : electricAmounts) {
+            totalElectricity += amount;
+        }
+        for (Float amount : recycleAmounts) {
+            totalRecycle += amount;
+        }
+        
+        // Calculate the carbon footprints
+        float waterCarbonFactor = 0.419f; // Example carbon factor for water
+        float electricityCarbonFactor = 0.584f; // Example carbon factor for electricity
+        float recycleCarbonFactor = 2.860f; // Example carbon factor for recycle
+
+        float totalWaterFootprint = totalWater * waterCarbonFactor;
+        float totalElectricityFootprint = totalElectricity * electricityCarbonFactor;
+        float totalRecycleFootprint = totalRecycle * recycleCarbonFactor;
+
+        // Calculate the total carbon footprint
+        float totalCarbonFootprint = totalWaterFootprint + totalElectricityFootprint + totalRecycleFootprint;
+        
         modelAndView.addObject("user", user);
+        modelAndView.addObject("selectedYear", year);
+        
+        // Graphs
         modelAndView.addObject("waterAmounts", waterAmounts);
         modelAndView.addObject("electricAmounts", electricAmounts);
         modelAndView.addObject("recycleAmounts", recycleAmounts);
         modelAndView.addObject("monthsWater", availableMonthsWater);
         modelAndView.addObject("monthsElectric", availableMonthsElectric);
         modelAndView.addObject("monthsRecycle", availableMonthsRecycle);
-        modelAndView.addObject("selectedYear", year);
-
+        
+        // Calculation
+        modelAndView.addObject("totalWater", totalWater);
+        modelAndView.addObject("totalElectricity", totalElectricity);
+        modelAndView.addObject("totalRecycle", totalRecycle);
+        modelAndView.addObject("totalWaterFootprint", totalWaterFootprint);
+        modelAndView.addObject("totalElectricityFootprint", totalElectricityFootprint);
+        modelAndView.addObject("totalRecycleFootprint", totalRecycleFootprint);
+        modelAndView.addObject("totalCarbonFootprint", totalCarbonFootprint);
+        
         return modelAndView;
     }
 
