@@ -63,7 +63,7 @@ public class FormController {
         try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
         	Connection conn = DbConnect.openConnection();
-            String sql = "INSERT INTO water (amount, period, file, email, year) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO water (amount, period, file, email, year, status) VALUES (?, ?, ?, ?, ?, 'pending')";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setFloat(1, amount);
                 statement.setString(2, period);
@@ -130,7 +130,7 @@ public class FormController {
         try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
         	Connection conn = DbConnect.openConnection();
-        	String sql = "INSERT INTO electric (amount, period, file, email, year) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO electric (amount, period, file, email, year, status) VALUES (?, ?, ?, ?, ?, 'pending')";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setFloat(1, amount);
                 statement.setString(2, period);
@@ -197,7 +197,7 @@ public class FormController {
         try {
         	Class.forName("com.mysql.cj.jdbc.Driver");
         	Connection conn = DbConnect.openConnection();
-        	String sql = "INSERT INTO waste (amount, period, file, email, year) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO waste (amount, period, file, email, year, status) VALUES (?, ?, ?, ?, ?, 'pending')";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setFloat(1, amount);
                 statement.setString(2, period);
