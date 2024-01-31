@@ -16,15 +16,23 @@
 	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous" />
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="<c:url value="/resources/styles/User/edit_account.css" />"
 	rel="stylesheet">
 </head>
+<script>
+        $(document).ready(function() {
+            // Load UserSidebar.jsp into the sidebar div
+            $(".sidebar").load("UserSidebar");
+
+            // You can add more code here to handle other dashboard functionalities
+        });
+    </script>
 <body
 	style="background-image: url('<c:url value="/resources/assets/bg-login.png" />');">
 <body>
 	<div class="custom-container">
-		<div class="sidebar bg-white"></div>
+		<div class="sidebar"></div>
 		<div class="main-content">
 			<div class="account bg-white">
 				<ul class="nav nav-tabs">
@@ -210,7 +218,7 @@
 						<button class="mb-2 btn rounded-3 btn-primary" type="submit">
 							Update Profile</button>
 
-						<a href="<c:url value="/account" />"><button
+						<a href="<c:url value="/userAccount" />"><button
 								class="mb-2 btn rounded-3" type="button">Cancel</button></a>
 
 					</form>

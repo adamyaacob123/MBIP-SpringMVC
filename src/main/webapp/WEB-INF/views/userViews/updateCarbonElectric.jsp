@@ -24,13 +24,14 @@
         }
     </script>
 </head>
-<body style="background-color: #CAE4FC;">
+<body style="background-image: url('<c:url value="/resources/assets/bg-login.png" />');">
     
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 px-0" id="user-sidebar"></div>
             <div class="col-md-10 py-4"> <!--for 2 other part (categories, form) -->
-                <h1 style="text-align: center;"><b>Carbon Data</b></h1>
+                <a onclick="window.location.href='<c:url value='/displayElectricForm'/>'" class="btn btn-primary">Back</a>
+                <h1 style="text-align: center;"><b>Update Carbon Data</b></h1><br>
                 <div class="row justify-content-center ">
                     <!-- div into 2 part -->
                     <!--1st part for choose categories, guide (take 4 column)-->
@@ -38,12 +39,7 @@
                     <div class="col-md-4 custom-bg">
                         <h3 class="text-center mb-4"><b>Categories</b></h3>
                         <div class="mb-3">
-                            <select class="form-select" id="inputType" onchange="redirectToPage()">
-                                
-                                <option value="water" ${currentCategory == 'water' ? 'selected' : ''}>Water Consumption</option>
-                                <option value="electricity" ${currentCategory == 'electricity' ? 'selected' : ''}>Electricity Consumption</option>
-                                <option value="waste" ${currentCategory == 'waste' ? 'selected' : ''}>Recycle Weight</option>
-                            </select>
+                            <input type="text" class="form-control" value="Electric Consumption" readonly>
                         </div>
                         
                         <script>
@@ -72,7 +68,7 @@
                             <label for="guide"><b>Form Guide</label></b>
                             <ol>
                                 <li>Select residence and enter all relevant data.</li>
-                                <li>Input precise amount based on the data type (m<sup>3</sup> / ℓ).</li>
+                                <li>Input precise amount based on the data type (kWh).</li>
                                 <li>Provide any supporting documents related to recycle activity (e.g., recycling receipts, record).</li>
                             </ol>
                             
@@ -83,23 +79,23 @@
 
                      <!--2nd part for input carbon (take 6 column)-->
                     <div class="col-md-6">
-                    	<form action="<c:url value="saveWaterForm"/>" method="post" enctype="multipart/form-data">
+                    	<form action="<c:url value="updateElectricForm"/>" method="post" enctype="multipart/form-data">
                         <div class="container">
-                            <h3 class="mb-4"><b>Water Consumption</b></h3>
+                            <h3 class="mb-4"><b>Update Electric Consumption</b></h3>
 
                                 <div class="mb-3">
                                     <label for="factor">Carbon Emission Factor</label>
                                         <div class="input-group">
-                                                <input type="text" class="form-control" value="0.419" readonly>
-                                                <span class="input-group-text">kgCO / m</span>
-                                        </div>
+                                            <input type="text" class="form-control" value="0.584" readonly>
+                                            <span class="input-group-text">kgCO / kWh</span>
+                                		</div>
                                 </div>
                     
                                 <div class="mb-3">
                                     <label for="amount">Amount</label>
                                         <div class="input-group">
                                                 <input type="text" class="form-control" id="amount" name="amount" placeholder="Input Amount">
-                                                <span class="input-group-text">m<sup>3</sup>/ℓ</span>
+                                                <span class="input-group-text">kWh</span>
                                         </div>
                                 </div>
                     
@@ -108,31 +104,11 @@
                                     <!--calendar api?-->
                                    <label for="period">Period Interval</label>
                                    <div class ="col">
-                                   <select class="form-select" id="period" name="period">
-                                    <option value="" disabled selected>Month</option>
-                                    <option value="Jan">JAN</option>
-                                    <option value="Feb">FEB</option>
-                                    <option value="Mar">MAR</option>
-                                    <option value="Apr">APR</option>
-                                    <option value="May">MAY</option>
-                                    <option value="Jun">JUN</option>
-                                    <option value="Jul">JUL</option>
-                                    <option value="Aug">AUG</option>
-                                    <option value="Sep">SEP</option>
-                                    <option value="Oct">OCT</option>
-                                    <option value="Nov">NOV</option>
-                                    <option value="Dec">DEC</option>
-                               </select></div>
-                               <div class ="col">
-                               <select class="form-select" id="year" name="year">
-                                    <option value="" disabled selected>Year</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2024">2024</option>
-                                    <option value="2025">2025</option>
-                                    <option value="2026">2026</option>
-                                    <option value="2027">2027</option>
-                               	   </select>
-                               </div>
+                                   	<input type="text" name="period" class="form-control" value="${param.period}" style="text-transform:uppercase;" readonly>
+                                   </div>
+                               	<div class ="col">
+                               		<input type="text" name="year" class="form-control" value="${param.year}" readonly>
+                               	</div>
                    			</div>
                     
                                 <!-- <div class="mb-3">
@@ -149,7 +125,7 @@
                                 </div> -->
                                 
                                 <div class="mb-3">
-                                    <label for="file">Water Bills</label>
+                                    <label for="file">Electricity Bills</label>
                                     <input type="file" class="form-control" id="file" name="file" accept=".jpg, .jpeg, .png, .pdf">
                                     <label class="form-text">*PDF/JPEG/PNG</label>
                                 </div>
@@ -162,11 +138,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div>       
     </div>
-
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
     crossorigin="anonymous"></script>

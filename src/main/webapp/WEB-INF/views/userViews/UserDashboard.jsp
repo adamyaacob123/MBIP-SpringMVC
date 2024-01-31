@@ -18,46 +18,60 @@
             // You can add more code here to handle other dashboard functionalities
         });
     </script>
-<body>
+<body style="background-image: url('<c:url value="/resources/assets/bg-login.png" />');">
     <div id="sidebar"></div>
     <div class="dashboard-content">
         <div class="dashboard-header">
             <h1 style="text-align: center;">User Dashboard</h1>
         </div>
-        <div class="dashboard-stats">
+        <div style="margin:20px;">         
+            <div class="card">
+				  <div class="row no-gutters">
+				    <div class="col-md-4">
+				       <img src="<c:url value ="/resources/img/cropped-hands-holding-trophy-EYF07487.jpg"/>" class="card-img-top" alt="challenge-img" style="height:150px; width:auto;">
+				    </div>
+				    <div class="col-md-8">
+				      <div class="card-body">
+				        <h5 class="card-title">Low Carbon Challenge</h5>
+				        <p>Leaderboard No <span class="stat-highlight">45/100</span></p>
+				        <a href="#" class="btn btn-primary">View Full List of Participants</a>
+				      </div>
+				    </div>
+				  </div>
+			</div>          
+        </div>
+         <div class="dashboard-stats">
             <div class="card" style="width: 18rem;">
-                <img src="<c:url value ="/resources/img/cropped-hands-holding-trophy-EYF07487.jpg"/>" class="card-img-top" alt="challenge-img" style="height: 150px;">
+                <img src="<c:url value ="/resources/img/waterUsage.jpeg"/>" class="card-img-top" alt="..." style="height: 150px;">
                 <div class="card-body">
-                  <h5 class="card-title">Low Carbon Challenge</h5>
-                  <p>Leaderboard No <span class="stat-highlight">45/100</span></p>
-                  <a href="#" class="btn btn-primary">View Full List of Participants</a>
+                  <h5 class="card-title">Water Consumption Form</h5>
+                  
+                  <a onclick="window.location.href='<c:url value='/displayWaterForm' />'" class="btn btn-primary">View History</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
-                <img src="<c:url value ="/resources/img/low-carbon.jpg"/>" class="card-img-top" alt="...">
+                <img src="<c:url value ="/resources/img/electric.jpeg"/>" class="card-img-top" alt="..." style="height: 150px;">
                 <div class="card-body">
-                  <h5 class="card-title">Carbon Level</h5>
-                  <p><span class="stat-highlight">45%</span></p>
-                  <!-- <a href="#" class="btn btn-primary">View Full List of Participants</a> -->
+                  <h5 class="card-title">Electric Consumption Form</h5>
+                  
+                  <a onclick="window.location.href='<c:url value='/displayElectricForm' />'" class="btn btn-primary">View History</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
-                <img src="<c:url value ="/resources/img/_fdbc8722-0611-4a06-b530-101399e9278c.jpeg"/>" class="card-img-top" alt="..." style="height: 150px;">
+                <img src="<c:url value ="/resources/img/TRASH.GettyImages-1147902353-1.jpg"/>" class="card-img-top" alt="..." style="height: 150px;">
                 <div class="card-body">
-                  <h5 class="card-title">Carbon Status</h5>
-                  <p><span class="stat-highlight">Good</span></p>
-                  <!-- <a href="#" class="btn btn-primary">View Full List of Participants</a> -->
+                  <h5 class="card-title">Recycle Weight Form</h5>
+                  
+                  <a onclick="window.location.href='<c:url value='/displayWasteForm' />'" class="btn btn-primary">View History</a>
                 </div>
             </div>
         </div>
-        <div class="notification-section">
+        <!-- <div class="notification-section">
             <h2>Notification Page</h2>
             <div class="notification-content">
                 Winners Profile/Announcement
-            </div>
-        </div>
+            </div> -->
     </div>
-
     
 </body>
 </html>

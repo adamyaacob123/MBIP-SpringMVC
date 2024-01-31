@@ -30,7 +30,8 @@
         <div class="row">
             <div class="col-md-2 px-0" id="user-sidebar"></div>
             <div class="col-md-10 py-4"> <!--for 2 other part (categories, form) -->
-                <h1 style="text-align: center;"><b>Carbon Data</b></h1>
+            	<a onclick="window.location.href='<c:url value='/displayWaterForm'/>'" class="btn btn-primary">Back</a>
+                <h1 style="text-align: center;"><b>Update Carbon Data</b></h1><br>
                 <div class="row justify-content-center ">
                     <!-- div into 2 part -->
                     <!--1st part for choose categories, guide (take 4 column)-->
@@ -38,12 +39,7 @@
                     <div class="col-md-4 custom-bg">
                         <h3 class="text-center mb-4"><b>Categories</b></h3>
                         <div class="mb-3">
-                            <select class="form-select" id="inputType" onchange="redirectToPage()">
-                                
-                                <option value="water" ${currentCategory == 'water' ? 'selected' : ''}>Water Consumption</option>
-                                <option value="electricity" ${currentCategory == 'electricity' ? 'selected' : ''}>Electricity Consumption</option>
-                                <option value="waste" ${currentCategory == 'waste' ? 'selected' : ''}>Recycle Weight</option>
-                            </select>
+                            <input type="text" class="form-control" value="Water Consumption" readonly>
                         </div>
                         
                         <script>
@@ -83,9 +79,9 @@
 
                      <!--2nd part for input carbon (take 6 column)-->
                     <div class="col-md-6">
-                    	<form action="<c:url value="saveWaterForm"/>" method="post" enctype="multipart/form-data">
+                    	<form action="<c:url value="updateWaterForm"/>" method="post" enctype="multipart/form-data">
                         <div class="container">
-                            <h3 class="mb-4"><b>Water Consumption</b></h3>
+                            <h3 class="mb-4"><b>Update Water Consumption</b></h3>
 
                                 <div class="mb-3">
                                     <label for="factor">Carbon Emission Factor</label>
@@ -108,31 +104,11 @@
                                     <!--calendar api?-->
                                    <label for="period">Period Interval</label>
                                    <div class ="col">
-                                   <select class="form-select" id="period" name="period">
-                                    <option value="" disabled selected>Month</option>
-                                    <option value="Jan">JAN</option>
-                                    <option value="Feb">FEB</option>
-                                    <option value="Mar">MAR</option>
-                                    <option value="Apr">APR</option>
-                                    <option value="May">MAY</option>
-                                    <option value="Jun">JUN</option>
-                                    <option value="Jul">JUL</option>
-                                    <option value="Aug">AUG</option>
-                                    <option value="Sep">SEP</option>
-                                    <option value="Oct">OCT</option>
-                                    <option value="Nov">NOV</option>
-                                    <option value="Dec">DEC</option>
-                               </select></div>
-                               <div class ="col">
-                               <select class="form-select" id="year" name="year">
-                                    <option value="" disabled selected>Year</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2024">2024</option>
-                                    <option value="2025">2025</option>
-                                    <option value="2026">2026</option>
-                                    <option value="2027">2027</option>
-                               	   </select>
-                               </div>
+                                   	<input type="text" name="period" class="form-control" value="${param.period}" style="text-transform:uppercase;" readonly>
+                                   </div>
+                               	<div class ="col">
+                               		<input type="text" name="year" class="form-control" value="${param.year}" readonly>
+                               	</div>
                    			</div>
                     
                                 <!-- <div class="mb-3">

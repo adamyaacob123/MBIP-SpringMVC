@@ -29,8 +29,7 @@
             <h3 style="text-align:center">${message}</h3>
         </div>
         <div style="text-align:center; font-weight:bold; font-size:20px;">
-	        <a href="<c:url value="/CarbonWater"/>" class="btn btn-primary">Go back to the form</a> 
-		    <a href="<c:url value="/User"/>" class="btn btn-primary">Go to the homepage</a>
+		    <a href="<c:url value="/User"/>"><button class="btn btn-primary">Go to the homepage</button></a>
 	    </div>
     </div>
 

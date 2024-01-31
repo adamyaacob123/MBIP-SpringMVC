@@ -18,19 +18,18 @@
             // You can add more code here to handle other dashboard functionalities
         });
     </script>
-<body style="background-image: url('<c:url value="/resources/assets/bg-login.png" />');">
+<body style="background-color:#a1d2ff;">
     <div id="sidebar"></div>
-    <div class="dashboard-content" style="background-color:rgb(127, 255, 77); height:100vh;">
-        <div class="dashboard-header" style="background-color:rgb(191, 255, 165);">
-            <h1 style="text-align: center;">Form Submission Result</h1>
+    <div class="dashboard-content" style="height:100vh;">
+        <div class="dashboard-header">
+            <h1 style="text-align: center;">Form Deleted</h1>
         </div>
         
-        <div class="notification-section" style="background-color:rgb(191, 255, 165);">
+        <div class="notification-section">
             <h3 style="text-align:center">${message}</h3>
         </div>
         <div style="text-align:center; font-weight:bold; font-size:20px;">
-	        <a href="<c:url value="/CarbonWater"/>" class="btn btn-primary">Go back to the form</a> 
-		    <a href="<c:url value="/User"/>" class="btn btn-primary">Go to the homepage</a>
+		    <a href="<c:url value="/User"/>"><button class="btn btn-primary">Back</button></a>
 	    </div>
     </div>
 
