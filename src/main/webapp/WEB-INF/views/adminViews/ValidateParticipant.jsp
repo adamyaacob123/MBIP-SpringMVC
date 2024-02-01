@@ -1,137 +1,84 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Validate Participant</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-      body {
-        background-color: #cae4fc;
-      }
-      .card {
-        margin-top: 20px;
-        height: 100%;
-        width: 100%;
-      }
-      .calculation-card-water {
-        background-color: #e7f5ff;
-        border-left: 5px solid #4dabf7;
-      }
-      .calculation-card-electricity {
-        background-color: #fcf8ec;
-        border-left: 5px solid #eedda2;
-      }
-      .calculation-card-recycle {
-        background-color: #fcf1eb;
-        border-left: 5px solid #f0b999;
-      }
-      /* .calculation-title {
-        font-size: 1.25rem;
-        color: #495057;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-      }
-      .calculation-factor {
-        font-size: 0.875rem;
-        color: #868e96;
-      }
-      .center-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-      }
-      .calculation-container {
-        background-color: #ffffff;
-        border-radius: 0.25rem;
-        padding: 2rem;
-        margin-bottom: 2rem;
-      } */
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        // Load AdminSidebar.jsp into the sidebar div
-        $("#sidebar").load("AdminSidebar");
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-        // You can add more code here to handle other dashboard functionalities
-      });
-    </script>
-  </head>
-  <body>
-    <div class="d-flex">
-      <div id="sidebar"></div>
-      <div class="px-5 py-3" style="flex-grow: 1; margin-left: 250px">
-        <button
-          type="button"
-          class="btn btn-primary m-3"
-          onclick="history.back();"
-        >
-          <i class="fa fa-arrow-left"></i> Back
-        </button>
-        <h1 class="text-center m-2">Validate Participant</h1>
-        <div class="container">
-          <div class="row g-3 mt-5">
-            <h2>Calculation Formula</h2>
-            <!-- Formula Cards -->
-            <div class="col-md-4">
-              <div class="card calculation-card-water">
-                <div class="card-body text-center">
-                  <h5 class="calculation-title">Water Consumption</h5>
-                  <p class="calculation-factor">
-                    Water Consumption (m³) x 0.419 = Carbon Footprint (kgCO₂)
-                  </p>
-                  <p>Example: 100 m³ x 0.419 = 41.9 kgCO₂</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card calculation-card-electricity">
-                <div class="card-body text-center">
-                  <h5 class="calculation-title">Electricity Consumption</h5>
-                  <p class="calculation-factor">
-                    Electricity Consumption (kWh) x 0.584 = Carbon Footprint
-                    (kgCO₂)
-                  </p>
-                  <p>Example: 100 kWh x 0.584 = 58.4 kgCO₂</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card calculation-card-recycle">
-                <div class="card-body text-center">
-                  <h5 class="calculation-title">Recycle Activity</h5>
-                  <p class="calculation-factor">
-                    Recycle Weight (kg) x 2.860 = Carbon Footprint (kgCO₂)
-                  </p>
-                  <p>Example: 100 kg x 2.860 = 286 kgCO₂</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row mt-5">
-            <h2>Participant Data</h2>
-            <div class="container">
-              <div class="col-lg-8">
-                <div class="card text-center">
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+      <title>Validate Participant</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <style>
+        body {
+          background-color: #cae4fc;
+        }
+
+        .card {
+          /* margin-top: 20px; */
+          height: 100%;
+          width: 100%;
+        }
+
+        .calculation-card-water {
+          background-color: #e7f5ff;
+          border-left: 5px solid #4dabf7;
+        }
+
+        .calculation-card-electricity {
+          background-color: #fcf8ec;
+          border-left: 5px solid #eedda2;
+        }
+
+        .calculation-card-recycle {
+          background-color: #fcf1eb;
+          border-left: 5px solid #f0b999;
+        }
+
+        .profile-image {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          border: 5px solid #fff;
+          object-fit: cover;
+        }
+      </style>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+        $(document).ready(function () {
+          // Load AdminSidebar.jsp into the sidebar div
+          $("#sidebar").load("AdminSidebar");
+
+          // You can add more code here to handle other dashboard functionalities
+        });
+      </script>
+    </head>
+
+    <body>
+      <div class="d-flex">
+        <div id="sidebar"></div>
+        <div class="px-5 py-3" style="flex-grow: 1; margin-left: 250px">
+          <button type="button" class="btn btn-primary m-3" onclick="history.back();">
+            <i class="fa fa-arrow-left"></i> Back
+          </button>
+          <h1 class="text-center m-2">Validate Participant</h1>
+          <div class="container">
+            <div class="row mt-5">
+              <div class="col-lg-4">
+                <div class="card text-center h-100">
                   <div class="card-header">
-                    <img
-                      src="blank-profile.png"
-                      alt="Profile Image"
-                      height="100"
-                      width="100"
-                    />
+                    <c:choose>
+                      <c:when test="${not empty user.profileImageBase64}">
+                        <img class="profile-image" src="data:image/jpeg;base64,${user.profileImageBase64}"
+                          alt="User Image" />
+                      </c:when>
+                      <c:otherwise>
+                        <img class="profile-image" src="<c:url value='/resources/assets/blank-profile.png'/>"
+                          alt="Default Image" />
+                      </c:otherwise>
+                    </c:choose>
                     <h3>${user.name}</h3>
                   </div>
                   <div class="card-body">
@@ -163,358 +110,440 @@ pageEncoding="UTF-8"%>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="row mt-5">
-            <div class="container mt-2">
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link active"
-                    id="water-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#water"
-                    type="button"
-                    role="tab"
-                    aria-controls="water"
-                    aria-selected="true"
-                  >
-                    Water
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link"
-                    id="electricity-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#electricity"
-                    type="button"
-                    role="tab"
-                    aria-controls="electricity"
-                    aria-selected="false"
-                  >
-                    Electricity
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link"
-                    id="recycle-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#recycle"
-                    type="button"
-                    role="tab"
-                    aria-controls="recycle"
-                    aria-selected="false"
-                  >
-                    Recycle
-                  </button>
-                </li>
-              </ul>
+              <div class="col-lg-8">
+                <div class="d-flex flex-column h-100">
+                  <div class="row flex-grow-1">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="card-text">
+                          <div class="btn-toolbar justify-content-between" role="toolbar"
+                            aria-label="Toolbar with button groups">
+                            <div class="input-group">
+                              <span class="input-group-text">Indicator: </span>
+                              <div class="btn-group" role="group" aria-label="Indicator">
+                                <button type="button" class="btn btn-secondary">Pending</button>
+                                <button type="button" class="btn btn-success">Approved</button>
+                                <button type="button" class="btn btn-danger">Rejected</button>
+                                <button type="button" class="btn btn-outline-dark">No Data / Null</button>
+                              </div>
+                            </div>
 
-              <!-- Tab panes -->
-              <div class="tab-content mt-3">
-                <div
-                  class="tab-pane active"
-                  id="water"
-                  role="tabpanel"
-                  aria-labelledby="water-tab"
-                >
-                  <div class="row">
-                    <div class="col-lg-8">
-                      <!-- Carousel for Water -->
-                      <div id="carouselExampleCaptions" class="carousel slide">
-                        <div class="carousel-indicators">
-                          <button
-                            type="button"
-                            data-bs-target="#carouselExampleCaptions"
-                            data-bs-slide-to="0"
-                            class="active"
-                            aria-current="true"
-                            aria-label="Slide 1"
-                          ></button>
-                          <button
-                            type="button"
-                            data-bs-target="#carouselExampleCaptions"
-                            data-bs-slide-to="1"
-                            aria-label="Slide 2"
-                          ></button>
-                          <button
-                            type="button"
-                            data-bs-target="#carouselExampleCaptions"
-                            data-bs-slide-to="2"
-                            aria-label="Slide 3"
-                          ></button>
-                        </div>
-                        <div class="carousel-inner">
-                          <div class="carousel-item active">
-                            <img
-                              src="../earth.png"
-                              class="d-block w-100"
-                              alt="..."
-                            />
-                            <div class="carousel-caption d-none d-md-block">
-                              <h5>First slide label</h5>
-                              <p>
-                                Some representative placeholder content for the
-                                first slide.
-                              </p>
-                            </div>
-                          </div>
-                          <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="..." />
-                            <div class="carousel-caption d-none d-md-block">
-                              <h5>Second slide label</h5>
-                              <p>
-                                Some representative placeholder content for the
-                                second slide.
-                              </p>
-                            </div>
-                          </div>
-                          <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="..." />
-                            <div class="carousel-caption d-none d-md-block">
-                              <h5>Third slide label</h5>
-                              <p>
-                                Some representative placeholder content for the
-                                third slide.
-                              </p>
-                            </div>
+                            <select class="form-select w-auto" id="yearSelection">
+                              <option selected>Choose year...</option>
+                              <option value="2023" ${selectedYear=='2023' ? 'selected' : '' }>2023</option>
+                              <option value="2024" ${selectedYear=='2024' ? 'selected' : '' }>2024</option>
+                              <option value="2025" ${selectedYear=='2025' ? 'selected' : '' }>2025</option>
+                            </select>
                           </div>
                         </div>
-                        <button
-                          class="carousel-control-prev"
-                          type="button"
-                          data-bs-target="#carouselExampleCaptions"
-                          data-bs-slide="prev"
-                        >
-                          <span
-                            class="carousel-control-prev-icon"
-                            aria-hidden="true"
-                          ></span>
-                          <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button
-                          class="carousel-control-next"
-                          type="button"
-                          data-bs-target="#carouselExampleCaptions"
-                          data-bs-slide="next"
-                        >
-                          <span
-                            class="carousel-control-next-icon"
-                            aria-hidden="true"
-                          ></span>
-                          <span class="visually-hidden">Next</span>
-                        </button>
                       </div>
                     </div>
-                    <!-- Checklist -->
-                    <div class="col-lg-4">
-                      <form action="/path-to-your-submit-handler" method="post">
-                        <!-- Loop this part for each month -->
-                        <div
-                          class="mb-3 d-flex justify-content-between align-items-center"
-                        >
-                          <h4>JAN</h4>
-                          <div class="btn-group" role="group">
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="januaryOption"
-                              id="janApprove"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-success"
-                              for="janApprove"
-                              >Approve</label
-                            >
+                  </div>
+                  <div class="row mt-3 flex-grow-1">
+                    <div class="card calculation-card-water">
+                      <div class="card-body">
+                        <h5 class="card-title">Water</h5>
+                        <div class="card-text">
+                          <div class="btn-group mt-1" role="group" aria-label="Month Selection">
+                            <c:set var="allMonths"
+                              value="${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']}" />
 
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="januaryOption"
-                              id="janReject"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-danger"
-                              for="janReject"
-                              >Reject</label
-                            >
+                            <c:forEach items="${allMonths}" var="month">
+                              <c:set var="foundMonth" value="false" />
+                              <c:set var="monthStatus" value="" />
+
+                              <c:forEach items="${waterDataPerMonth}" var="waterMonthData">
+                                <c:if test="${waterMonthData.month == month}">
+                                  <c:set var="foundMonth" value="true" />
+                                  <c:set var="monthStatus" value="${waterMonthData.status}" />
+                                </c:if>
+                              </c:forEach>
+
+                              <button type="button"
+                                class="btn ${foundMonth ? (monthStatus == 'approved' ? 'btn-success' : monthStatus == 'rejected' ? 'btn-danger' : monthStatus == 'pending' ? 'btn-secondary' : 'btn-outline-dark') : 'btn-outline-dark'}">
+                                ${month}
+                              </button>
+                            </c:forEach>
                           </div>
                         </div>
-                        <div
-                          class="mb-3 d-flex justify-content-between align-items-center"
-                        >
-                          <h4>FEB</h4>
-                          <div class="btn-group" role="group">
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="februaryOption"
-                              id="febApprove"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-success"
-                              for="febApprove"
-                              >Approve</label
-                            >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3 flex-grow-1">
+                    <div class="card calculation-card-electricity">
+                      <div class="card-body">
+                        <h5 class="card-title">Electricity</h5>
+                        <div class="card-text">
+                          <div class="btn-group mt-1" role="group" aria-label="Month Selection">
+                            <c:set var="allMonths"
+                              value="${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']}" />
 
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="februaryOption"
-                              id="febReject"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-danger"
-                              for="febReject"
-                              >Reject</label
-                            >
+                            <c:forEach items="${allMonths}" var="month">
+                              <c:set var="foundMonth" value="false" />
+                              <c:set var="monthStatus" value="" />
+
+                              <c:forEach items="${electricityDataPerMonth}" var="electricityMonthData">
+                                <c:if test="${electricityMonthData.month == month}">
+                                  <c:set var="foundMonth" value="true" />
+                                  <c:set var="monthStatus" value="${electricityMonthData.status}" />
+                                </c:if>
+                              </c:forEach>
+
+                              <button type="button"
+                                class="btn ${foundMonth ? (monthStatus == 'approved' ? 'btn-success' : monthStatus == 'rejected' ? 'btn-danger' : monthStatus == 'pending' ? 'btn-secondary' : 'btn-outline-dark') : 'btn-outline-dark'}">
+                                ${month}
+                              </button>
+                            </c:forEach>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3 flex-grow-1">
+                    <div class="card calculation-card-recycle">
+                      <div class="card-body">
+                        <h5 class="card-title">Recycle</h5>
+                        <div class="card-text">
+                          <div class="btn-group" role="group" aria-label="Month Selection">
+                            <c:set var="allMonths"
+                              value="${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']}" />
 
-                        <!-- Repeat for each month -->
-                        <!-- ... -->
-                        <div
-                          class="mb-3 d-flex justify-content-between align-items-center"
-                        >
-                          <h4>NOV</h4>
-                          <div class="btn-group" role="group">
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="novemberOption"
-                              id="novApprove"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-success"
-                              for="novApprove"
-                              >Approve</label
-                            >
+                            <c:forEach items="${allMonths}" var="month">
+                              <c:set var="foundMonth" value="false" />
+                              <c:set var="monthStatus" value="" />
 
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="novemberOption"
-                              id="novReject"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-danger"
-                              for="novReject"
-                              >Reject</label
-                            >
+                              <c:forEach items="${recycleDataPerMonth}" var="recycleMonthData">
+                                <c:if test="${recycleMonthData.month == month}">
+                                  <c:set var="foundMonth" value="true" />
+                                  <c:set var="monthStatus" value="${recycleMonthData.status}" />
+                                </c:if>
+                              </c:forEach>
+
+                              <button type="button"
+                                class="btn ${foundMonth ? (monthStatus == 'approved' ? 'btn-success' : monthStatus == 'rejected' ? 'btn-danger' : monthStatus == 'pending' ? 'btn-secondary' : 'btn-outline-dark') : 'btn-outline-dark'}">
+                                ${month}
+                              </button>
+                            </c:forEach>
                           </div>
                         </div>
-                        <div
-                          class="mb-3 d-flex justify-content-between align-items-center"
-                        >
-                          <h4>DEC</h4>
-                          <div class="btn-group" role="group">
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="decemberOption"
-                              id="decApprove"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-success"
-                              for="decApprove"
-                              >Approve</label
-                            >
-
-                            <input
-                              type="radio"
-                              class="btn-check"
-                              name="decemberOption"
-                              id="decReject"
-                              autocomplete="off"
-                            />
-                            <label
-                              class="btn btn-outline-danger"
-                              for="decReject"
-                              >Reject</label
-                            >
-                          </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="mt-4 text-end">
-                          <button type="submit" class="btn btn-primary">
-                            Submit
-                          </button>
-                        </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div
-                  class="tab-pane"
-                  id="electricity"
-                  role="tabpanel"
-                  aria-labelledby="electricity-tab"
-                >
-                  <!-- Carousel for Electricity -->
-                  <!-- Add your carousel code here -->
-                </div>
-                <div
-                  class="tab-pane"
-                  id="recycle"
-                  role="tabpanel"
-                  aria-labelledby="recycle-tab"
-                >
-                  <!-- Carousel for Recycle -->
-                  <!-- Add your carousel code here -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="container mt-2">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="water-tab" data-bs-toggle="tab" data-bs-target="#water"
+                      type="button" role="tab" aria-controls="water" aria-selected="true">
+                      Water
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="electricity-tab" data-bs-toggle="tab" data-bs-target="#electricity"
+                      type="button" role="tab" aria-controls="electricity" aria-selected="false">
+                      Electricity
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="recycle-tab" data-bs-toggle="tab" data-bs-target="#recycle"
+                      type="button" role="tab" aria-controls="recycle" aria-selected="false">
+                      Recycle
+                    </button>
+                  </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content mt-3">
+                  <div class="tab-pane active" id="water" role="tabpanel" aria-labelledby="water-tab">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <!-- Carousel for Water -->
+                        <div id="waterCarousel" class="carousel slide">
+                          <div class="carousel-indicators">
+                            <c:forEach items="${waterDataPerMonth}" var="waterMonthData" varStatus="status">
+                              <button type="button" data-bs-target="#waterCarousel" data-bs-slide-to="${status.index}"
+                                class="${status.first ? 'active' : ''}"
+                                aria-current="${status.first ? 'true' : 'false'}"
+                                aria-label="Slide ${status.count}"></button>
+                            </c:forEach>
+                          </div>
+                          <div class="carousel-inner">
+                            <c:forEach items="${waterDataPerMonth}" var="waterMonthData" varStatus="status">
+                              <div class="carousel-item ${status.first ? 'active' : ''}">
+                                <c:choose>
+                                  <c:when test="${not empty waterMonthData.base64Image}">
+                                    <img src="data:image/jpeg;base64,${waterMonthData.base64Image}"
+                                      class="d-block w-100" alt="${waterMonthData.month}">
+                                  </c:when>
+                                  <c:otherwise>
+                                    <img src="<c:url value='/resources/assets/no-img.jpg'/>" class="d-block w-100"
+                                      alt="Default image">
+                                  </c:otherwise>
+                                </c:choose>
+                                <div class="carousel-caption d-none d-md-block bg-dark opacity-50">
+                                  <h5>${waterMonthData.month} Consumption</h5>
+                                  <p>Consumption: ${waterMonthData.amount} m³</p>
+                                </div>
+                              </div>
+                            </c:forEach>
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#waterCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#waterCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- Checklist for water -->
+                      <div class="col-lg-6">
+                        <form action="<c:url value='/updateWaterStatus'/>" method="post">
+                          <input type="hidden" name="email" value="${user.email}">
+                          <input type="hidden" name="year" value="${selectedYear}">
+                          <input type="hidden" name="userId" value="${user.id}">
+
+                          <c:forEach items="${waterDataPerMonth}" var="waterMonthData" varStatus="status">
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                              <h4 class="px-5">${waterMonthData.month}</h4>
+                              <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check" name="status[${waterMonthData.month}]"
+                                  id="waterPending${waterMonthData.month}" value="pending"
+                                  ${'pending'.equals(waterMonthData.status) ? 'checked' : '' } autocomplete="off" />
+                                <label class="btn btn-outline-secondary"
+                                  for="waterPending${waterMonthData.month}">Pending</label>
+
+                                <input type="radio" class="btn-check" name="status[${waterMonthData.month}]"
+                                  id="waterApproved${waterMonthData.month}" value="approved"
+                                  ${'approved'.equals(waterMonthData.status) ? 'checked' : '' } autocomplete="off" />
+                                <label class="btn btn-outline-success"
+                                  for="waterApproved${waterMonthData.month}">Approve</label>
+
+                                <input type="radio" class="btn-check" name="status[${waterMonthData.month}]"
+                                  id="waterRejected${waterMonthData.month}" value="rejected"
+                                  ${'rejected'.equals(waterMonthData.status) ? 'checked' : '' } autocomplete="off" />
+                                <label class="btn btn-outline-danger"
+                                  for="waterRejected${waterMonthData.month}">Reject</label>
+                              </div>
+                            </div>
+                          </c:forEach>
+
+                          <!-- Submit Button -->
+                          <div class="mt-4 text-end">
+                            <button type="submit" class="btn btn-primary">Update Status</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane" id="electricity" role="tabpanel" aria-labelledby="electricity-tab">
+                    <!-- Carousel for Electricity -->
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div id="electricityCarousel" class="carousel slide">
+                          <div class="carousel-indicators">
+                            <c:forEach items="${electricityDataPerMonth}" var="electricityMonthData" varStatus="status">
+                              <button type="button" data-bs-target="#electricityCarousel"
+                                data-bs-slide-to="${status.index}" class="${status.first ? 'active' : ''}"
+                                aria-current="${status.first ? 'true' : 'false'}"
+                                aria-label="Slide ${status.count}"></button>
+                            </c:forEach>
+                          </div>
+                          <div class="carousel-inner">
+                            <c:forEach items="${electricityDataPerMonth}" var="electricityMonthData" varStatus="status">
+                              <div class="carousel-item ${status.first ? 'active' : ''}">
+                                <c:choose>
+                                  <c:when test="${not empty electricityMonthData.base64Image}">
+                                    <img src="data:image/jpeg;base64,${electricityMonthData.base64Image}"
+                                      class="d-block w-100" alt="${electricityMonthData.month}">
+                                  </c:when>
+                                  <c:otherwise>
+                                    <img src="<c:url value='/resources/assets/no-img.jpg'/>" class="d-block w-100"
+                                      alt="Default image">
+                                  </c:otherwise>
+                                </c:choose>
+                                <div class="carousel-caption d-none d-md-block bg-dark opacity-50">
+                                  <h5>${electricityMonthData.month} Consumption</h5>
+                                  <p>Consumption: ${electricityMonthData.amount} kWh</p>
+                                </div>
+                              </div>
+                            </c:forEach>
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#electricityCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#electricityCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- Checklist for electricity -->
+                      <div class="col-lg-6">
+                        <form action="<c:url value='/updateElectricityStatus'/>" method="post">
+                          <input type="hidden" name="email" value="${user.email}">
+                          <input type="hidden" name="year" value="${selectedYear}">
+                          <input type="hidden" name="userId" value="${user.id}">
+
+                          <c:forEach items="${electricityDataPerMonth}" var="electricityMonthData" varStatus="status">
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                              <h4 class="px-5">${electricityMonthData.month}</h4>
+                              <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check" name="status[${electricityMonthData.month}]"
+                                  id="electricityPending${electricityMonthData.month}" value="pending"
+                                  ${'pending'.equals(electricityMonthData.status) ? 'checked' : '' }
+                                  autocomplete="off" />
+                                <label class="btn btn-outline-secondary"
+                                  for="electricityPending${electricityMonthData.month}">Pending</label>
+
+                                <input type="radio" class="btn-check" name="status[${electricityMonthData.month}]"
+                                  id="electricityApproved${electricityMonthData.month}" value="approved"
+                                  ${'approved'.equals(electricityMonthData.status) ? 'checked' : '' }
+                                  autocomplete="off" />
+                                <label class="btn btn-outline-success"
+                                  for="electricityApproved${electricityMonthData.month}">Approve</label>
+
+                                <input type="radio" class="btn-check" name="status[${electricityMonthData.month}]"
+                                  id="electricityRejected${electricityMonthData.month}" value="rejected"
+                                  ${'rejected'.equals(electricityMonthData.status) ? 'checked' : '' }
+                                  autocomplete="off" />
+                                <label class="btn btn-outline-danger"
+                                  for="electricityRejected${electricityMonthData.month}">Reject</label>
+
+                              </div>
+                            </div>
+                          </c:forEach>
+
+                          <!-- Submit Button -->
+                          <div class="mt-4 text-end">
+                            <button type="submit" class="btn btn-primary">Update Status</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="recycle" role="tabpanel" aria-labelledby="recycle-tab">
+                    <!-- Carousel for Recycle -->
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div id="recycleCarousel" class="carousel slide">
+                          <div class="carousel-indicators">
+                            <c:forEach items="${recycleDataPerMonth}" var="recycleMonthData" varStatus="status">
+                              <button type="button" data-bs-target="#recycleCarousel" data-bs-slide-to="${status.index}"
+                                class="${status.first ? 'active' : ''}"
+                                aria-current="${status.first ? 'true' : 'false'}"
+                                aria-label="Slide ${status.count}"></button>
+                            </c:forEach>
+                          </div>
+                          <div class="carousel-inner">
+                            <c:forEach items="${recycleDataPerMonth}" var="recycleMonthData" varStatus="status">
+                              <div class="carousel-item ${status.first ? 'active' : ''}">
+                                <c:choose>
+                                  <c:when test="${not empty recycleMonthData.base64Image}">
+                                    <img src="data:image/jpeg;base64,${recycleMonthData.base64Image}"
+                                      class="d-block w-100" alt="${recycleMonthData.month}">
+                                  </c:when>
+                                  <c:otherwise>
+                                    <img src="<c:url value='/resources/assets/no-img.jpg'/>" class="d-block w-100"
+                                      alt="Default image">
+                                  </c:otherwise>
+                                </c:choose>
+                                <div class="carousel-caption d-none d-md-block bg-dark opacity-50">
+                                  <h5>${recycleMonthData.month} Consumption</h5>
+                                  <p>Consumption: ${recycleMonthData.amount} kg</p>
+                                </div>
+                              </div>
+                            </c:forEach>
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#recycleCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#recycleCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- Checklist for recycle -->
+                      <div class="col-lg-6">
+                        <form action="<c:url value='/updateRecycleStatus'/>" method="post">
+                          <input type="hidden" name="email" value="${user.email}">
+                          <input type="hidden" name="year" value="${selectedYear}">
+                          <input type="hidden" name="userId" value="${user.id}">
+
+                          <c:forEach items="${recycleDataPerMonth}" var="recycleMonthData" varStatus="status">
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                              <h4 class="px-5">${recycleMonthData.month}</h4>
+                              <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check" name="status[${recycleMonthData.month}]"
+                                  id="recyclePending${recycleMonthData.month}" value="pending"
+                                  ${'pending'.equals(recycleMonthData.status) ? 'checked' : '' } autocomplete="off" />
+                                <label class="btn btn-outline-secondary"
+                                  for="recyclePending${recycleMonthData.month}">Pending</label>
+
+                                <input type="radio" class="btn-check" name="status[${recycleMonthData.month}]"
+                                  id="recycleApproved${recycleMonthData.month}" value="approved"
+                                  ${'approved'.equals(recycleMonthData.status) ? 'checked' : '' } autocomplete="off" />
+                                <label class="btn btn-outline-success"
+                                  for="recycleApproved${recycleMonthData.month}">Approve</label>
+
+                                <input type="radio" class="btn-check" name="status[${recycleMonthData.month}]"
+                                  id="recycleRejected${recycleMonthData.month}" value="rejected"
+                                  ${'rejected'.equals(recycleMonthData.status) ? 'checked' : '' } autocomplete="off" />
+                                <label class="btn btn-outline-danger"
+                                  for="recycleRejected${recycleMonthData.month}">Reject</label>
+                              </div>
+                            </div>
+                          </c:forEach>
+
+                          <!-- Submit Button -->
+                          <div class="mt-4 text-end">
+                            <button type="submit" class="btn btn-primary">Update Status</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="row g-3 mt-5 text-center">
-            <!-- Calculation Result Cards -->
-            <div class="col-md-4">
-              <div class="card calculation-card-water">
-                <div class="card-body">
-                  <h5 class="card-title">Total Water Footprint</h5>
-                  <p class="card-text">41.9 kgCO₂</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card calculation-card-electricity">
-                <div class="card-body">
-                  <h5 class="card-title">Total Electricity Footprint</h5>
-                  <p class="card-text">58.4 kgCO₂</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card calculation-card-recycle">
-                <div class="card-body">
-                  <h5 class="card-title">Total Recycle Footprint</h5>
-                  <p class="card-text">286 kgCO₂</p>
-                </div>
-              </div>
-            </div>
-            <!-- Total Carbon Footprint -->
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body text-center">
-                  <h5 class="card-title">Total Carbon Footprint</h5>
-                  <p class="card-text">Total: 386.3 kgCO₂</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+          <script>
+            $(document).ready(function () {
+              // Set the dropdown to the selected year after the page loads
+              var selectedYear = "${selectedYear}";
+              if (selectedYear) {
+                $("#yearSelection").val(selectedYear);
+              }
+
+              // Add your existing JavaScript code here...
+            });
+
+            // Call this function when the dropdown changes
+            $("#yearSelection").change(function () {
+              var selectedYear = $(this).val();
+              var userId = "${user.id}";
+
+              // Redirect to the userDetails URL with the selected year and userId
+              window.location.href =
+                "validateParticipant?userId=" + userId + "&year=" + selectedYear;
+            });
+          </script>
+    </body>
+
+    </html>
