@@ -1,9 +1,12 @@
 package com.tutorial.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -14,9 +17,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tutorial.model.MonthData;
 import com.tutorial.model.User;
 
 import dbUtil.DbConnect;
@@ -214,12 +220,12 @@ public class AdminController {
         return modelAndView;
     }
 
-
-
     @RequestMapping("/validateParticipant")
-    public ModelAndView validateParticipant(@RequestParam("userId") int userId) {
+    public ModelAndView validateParticipant(@RequestParam("userId") int userId, @RequestParam(value = "year", required = false) String year) {
         ModelAndView modelAndView = new ModelAndView("adminViews/ValidateParticipant");
+        
         User user = null;
+        List<MonthData> waterDataPerMonth = new ArrayList<>();
 
         try (Connection conn = DbConnect.openConnection()) {
             String sql = "SELECT * FROM user WHERE id = ?";
@@ -238,20 +244,85 @@ public class AdminController {
                 user.setAddress(rs.getString("address"));
                 user.setHousehold(rs.getString("household"));
                 user.setPeopleNo(rs.getInt("peopleNo"));
-                // Fetch and set the profile image if needed
-                // Blob blob = rs.getBlob("profile_image");
-                // ...
+                // Fetching the profile image as Blob and converting it to Base64 string
+                Blob blob = rs.getBlob("profile_image");
+                String base64Image = null;
+                if (blob != null) {
+                    byte[] blobBytes = blob.getBytes(1, (int) blob.length());
+                    base64Image = Base64.getEncoder().encodeToString(blobBytes);
+                }
+                user.setProfileImageBase64(base64Image);
             }
+            
+            // Retrieve water consumption data for each month
+            String sqlWaterData = "SELECT * FROM water WHERE email = ? AND year = ? ORDER BY " + getMonthOrderCaseStatement();
+            PreparedStatement stmtWaterData = conn.prepareStatement(sqlWaterData);
+            stmtWaterData.setString(1, user.getEmail());
+            stmtWaterData.setString(2, year);
+            
+            ResultSet rsWaterData = stmtWaterData.executeQuery();
+            while (rsWaterData.next()) {
+                String month = rsWaterData.getString("period");
+                float amount = rsWaterData.getFloat("amount");
+                String status = rsWaterData.getString("status");
+
+                Blob imageBlob = rsWaterData.getBlob("file");
+                String base64Image = convertBlobToBase64(imageBlob);
+
+                MonthData monthData = new MonthData(month, amount, base64Image, status);
+                waterDataPerMonth.add(monthData);
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         modelAndView.addObject("user", user);
-        // Add other attributes as needed for the validation process
+        modelAndView.addObject("selectedYear", year);
+        modelAndView.addObject("waterDataPerMonth", waterDataPerMonth);
 
         return modelAndView;
     }
 
+    @RequestMapping(value = "/updateWaterStatus", method = RequestMethod.POST)
+    public ModelAndView updateWaterStatus(
+            @RequestParam("email") String email,
+            @RequestParam("year") String year,
+            @RequestParam("userId") int userId,
+            @RequestParam Map<String, String> allRequestParams,
+            RedirectAttributes redirectAttributes) {
+
+        try (Connection conn = DbConnect.openConnection()) {
+            conn.setAutoCommit(false); // Disable auto-commit if you want to handle transactions manually
+            for (Map.Entry<String, String> entry : allRequestParams.entrySet()) {
+                if (entry.getKey().startsWith("status")) {
+                    String month = entry.getKey().substring(7, 10); // Assuming the key would be status[Jan], status[Feb], etc.
+                    String status = entry.getValue();
+
+                    String sqlUpdate = "UPDATE water SET status = ? WHERE email = ? AND period = ? AND year = ?";
+                    try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+                        stmtUpdate.setString(1, status);
+                        stmtUpdate.setString(2, email);
+                        stmtUpdate.setString(3, month);
+                        stmtUpdate.setString(4, year);
+                        
+                        int rowsAffected = stmtUpdate.executeUpdate();
+                        System.out.println("Rows affected for month " + month + ": " + rowsAffected); // Logging
+                    }
+                }
+            }
+            conn.commit(); // Commit the transaction
+        } catch (SQLException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "Database error: " + e.getMessage());
+            return new ModelAndView("redirect:/validateParticipant?userId=" + userId + "&year=" + year);
+        }
+        
+        redirectAttributes.addFlashAttribute("message", "Water status updated successfully!");
+        return new ModelAndView("redirect:/validateParticipant?userId=" + userId + "&year=" + year);
+    }
+
+    
     @RequestMapping("/winnerList")
     public ModelAndView showWinnerList() {
         return new ModelAndView("adminViews/WinnerList");
@@ -272,5 +343,14 @@ public class AdminController {
                "WHEN 'Nov' THEN 11 " +
                "WHEN 'Dec' THEN 12 " +
                "END";
+    }
+    
+    private String convertBlobToBase64(Blob blob) throws SQLException, IOException {
+        if (blob != null) {
+            InputStream inputStream = blob.getBinaryStream();
+            byte[] bytes = inputStream.readAllBytes();
+            return Base64.getEncoder().encodeToString(bytes);
+        }
+        return null;
     }
 }
