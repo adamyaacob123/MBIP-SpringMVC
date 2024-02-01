@@ -95,7 +95,7 @@
                         <th scope="col">Email</th>
                         <th scope="col">Phone Number</th>
                         <th scope="col">User Level</th>
-                        <th scope="col">Details</th>
+                        <th scope="col">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
