@@ -24,8 +24,8 @@
                 <p>main</p>
                 <li class="menu-item" onclick="window.location.href='<c:url value='/User' />'"><img src="<c:url value="resources/img/house.svg"/>" alt="dashboard"><p>Dashboard</p></li></a>
                 <li class="menu-item" onclick="window.location.href='<c:url value='/CarbonWater' />'"><img src="<c:url value="resources/img/card-text.svg"/>" alt="form"><p>Carbon Form</p></li>
-                <li class="menu-item"><img src="<c:url value="resources/img/pie-chart.svg"/>" alt="status"><p>Carbon Status</p></li>
-                <li class="menu-item"><img src="<c:url value="resources/img/file-earmark-bar-graph.svg"/>" alt="placeholder"><p>Report</p></li>
+                <%-- <li class="menu-item"><img src="<c:url value="resources/img/pie-chart.svg"/>" alt="status"><p>Carbon Status</p></li> --%>
+                <li class="menu-item" onclick="window.location.href='<c:url value='/Report?id=${user.id}&year=2024' />'"><img src="<c:url value="resources/img/file-earmark-bar-graph.svg"/>" alt="placeholder"><p>Report</p></li>
             
                 <!-- <h4>SETTINGS</h4> -->
               	<hr>

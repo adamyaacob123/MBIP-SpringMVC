@@ -28,7 +28,7 @@
             <div class="card">
 				  <div class="row no-gutters">
 				    <div class="col-md-4">
-				       <img src="<c:url value ="/resources/img/cropped-hands-holding-trophy-EYF07487.jpg"/>" class="card-img-top" alt="challenge-img" style="height:150px; width:auto;">
+				       <img src="<c:url value ="/resources/img/medal.png"/>" class="card-img-top" alt="challenge-img" style="height:150px; width:auto;margin-left: 70px;">
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
@@ -41,28 +41,28 @@
 			</div>          
         </div>
          <div class="dashboard-stats">
-            <div class="card" style="width: 18rem;">
-                <img src="<c:url value ="/resources/img/waterUsage.jpeg"/>" class="card-img-top" alt="..." style="height: 150px;">
+            <div class="card" style="width: 18rem;background-color: #CAE4FC;">
+                <img src="<c:url value ="/resources/img/water.png"/>" class="card-img-top" alt="..." style="height: 130px;width: 125px;display: block; margin: 0 auto;" >
                 <div class="card-body">
-                  <h5 class="card-title">Water Consumption Form</h5>
+                  <h5 class="card-title" style="text-align: center;">Water Consumption Form</h5>
                   
-                  <a onclick="window.location.href='<c:url value='/displayWaterForm' />'" class="btn btn-primary">View History</a>
+                  <a onclick="window.location.href='<c:url value='/displayWaterForm' />'" class="btn btn-primary" style="display: block; margin: 0 auto; width: max-content;">View History</a>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="<c:url value ="/resources/img/electric.jpeg"/>" class="card-img-top" alt="..." style="height: 150px;">
+            <div class="card" style="width: 18rem;background-color: #EEDDA2;">
+                <img src="<c:url value ="/resources/img/electric.png"/>" class="card-img-top" alt="..." style="height: 130px;width: 125px;display: block; margin: 0 auto;">
                 <div class="card-body">
-                  <h5 class="card-title">Electric Consumption Form</h5>
+                  <h5 class="card-title" style="text-align: center;">Electric Consumption Form</h5>
                   
-                  <a onclick="window.location.href='<c:url value='/displayElectricForm' />'" class="btn btn-primary">View History</a>
+                  <a onclick="window.location.href='<c:url value='/displayElectricForm' />'" class="btn btn-primary" style="display: block; margin: 0 auto; width: max-content;">View History</a>
                 </div>
             </div>
-            <div class="card" style="width: 18rem;">
-                <img src="<c:url value ="/resources/img/TRASH.GettyImages-1147902353-1.jpg"/>" class="card-img-top" alt="..." style="height: 150px;">
+            <div class="card" style="width: 18rem;background-color: #F0B999;">
+                <img src="<c:url value ="/resources/img/recycle.png"/>" class="card-img-top" alt="..." style="height: 130px;width: 220px;display: block; margin: 0 auto;">
                 <div class="card-body">
-                  <h5 class="card-title">Recycle Weight Form</h5>
+                  <h5 class="card-title" style="text-align: center;">Recycle Weight Form</h5>
                   
-                  <a onclick="window.location.href='<c:url value='/displayWasteForm' />'" class="btn btn-primary">View History</a>
+                  <a onclick="window.location.href='<c:url value='/displayWasteForm' />'" class="btn btn-primary" style="display: block; margin: 0 auto; width: max-content;">View History</a>
                 </div>
             </div>
         </div>
