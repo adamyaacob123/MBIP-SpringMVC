@@ -1,9 +1,12 @@
 package com.tutorial.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -14,16 +17,19 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tutorial.model.MonthData;
 import com.tutorial.model.User;
 
 import dbUtil.DbConnect;
 
 @Controller
 public class AdminController {
-	
+
     @RequestMapping("/userList")
     public ModelAndView showUserList(@RequestParam(value = "searchQuery", required = false) String searchQuery) {
         ModelAndView modelAndView = new ModelAndView("adminViews/UserList");
@@ -56,7 +62,7 @@ public class AdminController {
                 user.setAddress(rs.getString("address"));
                 user.setHousehold(rs.getString("household"));
                 user.setPeopleNo(rs.getInt("peopleNo"));
-                
+
                 // Fetching the profile image as Blob and converting it to Base64 string
                 Blob blob = rs.getBlob("profile_image");
                 String base64Image = null;
@@ -65,7 +71,7 @@ public class AdminController {
                     base64Image = Base64.getEncoder().encodeToString(blobBytes);
                 }
                 user.setProfileImageBase64(base64Image);
-                
+
                 users.add(user);
             }
         } catch (Exception e) {
@@ -88,7 +94,8 @@ public class AdminController {
     }
 
     @RequestMapping("/userDetails")
-    public ModelAndView showUserDetails(@RequestParam("userId") int userId, @RequestParam(value = "year", required = false) String year) {
+    public ModelAndView showUserDetails(@RequestParam("userId") int userId,
+            @RequestParam(value = "year", required = false) String year) {
         ModelAndView modelAndView = new ModelAndView("adminViews/UserDetails");
 
         User user = null;
@@ -125,10 +132,11 @@ public class AdminController {
                     base64Image = Base64.getEncoder().encodeToString(blobBytes);
                 }
                 user.setProfileImageBase64(base64Image);
-                            
+
             }
             // Retrieve water consumption data
-            String sqlWaterData = "SELECT amount, period FROM water WHERE email = ? AND year = ? ORDER BY " + getMonthOrderCaseStatement();
+            String sqlWaterData = "SELECT amount, period FROM water WHERE email = ? AND year = ? ORDER BY "
+                    + getMonthOrderCaseStatement();
             PreparedStatement stmtWaterData = conn.prepareStatement(sqlWaterData);
             stmtWaterData.setString(1, user.getEmail());
             stmtWaterData.setString(2, year); // Set the year parameter in the query
@@ -138,9 +146,10 @@ public class AdminController {
                 availableMonthsWater.add(rsWaterData.getString("period"));
                 waterAmounts.add(rsWaterData.getFloat("amount"));
             }
-            
+
             // Retrieve electricity consumption data
-            String sqlElectricData = "SELECT amount, period FROM electric WHERE email = ? AND year = ? ORDER BY " + getMonthOrderCaseStatement();
+            String sqlElectricData = "SELECT amount, period FROM electric WHERE email = ? AND year = ? ORDER BY "
+                    + getMonthOrderCaseStatement();
             PreparedStatement stmtElectricData = conn.prepareStatement(sqlElectricData);
             stmtElectricData.setString(1, user.getEmail());
             stmtElectricData.setString(2, year);
@@ -151,7 +160,8 @@ public class AdminController {
             }
 
             // Retrieve recycle data
-            String sqlRecycleData = "SELECT amount, period FROM waste WHERE email = ? AND year = ? ORDER BY " + getMonthOrderCaseStatement();
+            String sqlRecycleData = "SELECT amount, period FROM waste WHERE email = ? AND year = ? ORDER BY "
+                    + getMonthOrderCaseStatement();
             PreparedStatement stmtRecycleData = conn.prepareStatement(sqlRecycleData);
             stmtRecycleData.setString(1, user.getEmail());
             stmtRecycleData.setString(2, year);
@@ -163,7 +173,7 @@ public class AdminController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         // Calculate totals
         float totalWater = 0f;
         float totalElectricity = 0f;
@@ -178,7 +188,7 @@ public class AdminController {
         for (Float amount : recycleAmounts) {
             totalRecycle += amount;
         }
-        
+
         // Calculate the carbon footprints
         float waterCarbonFactor = 0.419f; // Example carbon factor for water
         float electricityCarbonFactor = 0.584f; // Example carbon factor for electricity
@@ -190,10 +200,10 @@ public class AdminController {
 
         // Calculate the total carbon footprint
         float totalCarbonFootprint = totalWaterFootprint + totalElectricityFootprint + totalRecycleFootprint;
-        
+
         modelAndView.addObject("user", user);
         modelAndView.addObject("selectedYear", year);
-        
+
         // Graphs
         modelAndView.addObject("waterAmounts", waterAmounts);
         modelAndView.addObject("electricAmounts", electricAmounts);
@@ -201,7 +211,7 @@ public class AdminController {
         modelAndView.addObject("monthsWater", availableMonthsWater);
         modelAndView.addObject("monthsElectric", availableMonthsElectric);
         modelAndView.addObject("monthsRecycle", availableMonthsRecycle);
-        
+
         // Calculation
         modelAndView.addObject("totalWater", totalWater);
         modelAndView.addObject("totalElectricity", totalElectricity);
@@ -210,16 +220,19 @@ public class AdminController {
         modelAndView.addObject("totalElectricityFootprint", totalElectricityFootprint);
         modelAndView.addObject("totalRecycleFootprint", totalRecycleFootprint);
         modelAndView.addObject("totalCarbonFootprint", totalCarbonFootprint);
-        
+
         return modelAndView;
     }
 
-
-
     @RequestMapping("/validateParticipant")
-    public ModelAndView validateParticipant(@RequestParam("userId") int userId) {
+    public ModelAndView validateParticipant(@RequestParam("userId") int userId,
+            @RequestParam(value = "year", required = false) String year) {
         ModelAndView modelAndView = new ModelAndView("adminViews/ValidateParticipant");
+
         User user = null;
+        List<MonthData> waterDataPerMonth = new ArrayList<>();
+        List<MonthData> electricDataPerMonth = new ArrayList<>();
+        List<MonthData> recycleDataPerMonth = new ArrayList<>();
 
         try (Connection conn = DbConnect.openConnection()) {
             String sql = "SELECT * FROM user WHERE id = ?";
@@ -238,39 +251,234 @@ public class AdminController {
                 user.setAddress(rs.getString("address"));
                 user.setHousehold(rs.getString("household"));
                 user.setPeopleNo(rs.getInt("peopleNo"));
-                // Fetch and set the profile image if needed
-                // Blob blob = rs.getBlob("profile_image");
-                // ...
+                // Fetching the profile image as Blob and converting it to Base64 string
+                Blob blob = rs.getBlob("profile_image");
+                String base64Image = null;
+                if (blob != null) {
+                    byte[] blobBytes = blob.getBytes(1, (int) blob.length());
+                    base64Image = Base64.getEncoder().encodeToString(blobBytes);
+                }
+                user.setProfileImageBase64(base64Image);
             }
+
+            // Retrieve water consumption data for each month
+            String sqlWaterData = "SELECT * FROM water WHERE email = ? AND year = ? ORDER BY "
+                    + getMonthOrderCaseStatement();
+            PreparedStatement stmtWaterData = conn.prepareStatement(sqlWaterData);
+            stmtWaterData.setString(1, user.getEmail());
+            stmtWaterData.setString(2, year);
+
+            ResultSet rsWaterData = stmtWaterData.executeQuery();
+            while (rsWaterData.next()) {
+                String month = rsWaterData.getString("period");
+                float amount = rsWaterData.getFloat("amount");
+                String status = rsWaterData.getString("status");
+
+                Blob imageBlob = rsWaterData.getBlob("file");
+                String base64Image = convertBlobToBase64(imageBlob);
+
+                MonthData waterMonthData = new MonthData(month, amount, base64Image, status);
+                waterDataPerMonth.add(waterMonthData);
+            }
+
+            // Retrieve electricity consumption data for each month
+            String sqlElectricData = "SELECT * FROM electric WHERE email = ? AND year = ? ORDER BY "
+                    + getMonthOrderCaseStatement();
+            PreparedStatement stmtElectricData = conn.prepareStatement(sqlElectricData);
+            stmtElectricData.setString(1, user.getEmail());
+            stmtElectricData.setString(2, year);
+
+            ResultSet rsElectricData = stmtElectricData.executeQuery();
+            while (rsElectricData.next()) {
+                String month = rsElectricData.getString("period");
+                float amount = rsElectricData.getFloat("amount");
+                String status = rsElectricData.getString("status");
+
+                Blob imageBlob = rsElectricData.getBlob("file");
+                String base64Image = convertBlobToBase64(imageBlob);
+
+                MonthData electricityMonthData = new MonthData(month, amount, base64Image, status);
+                electricDataPerMonth.add(electricityMonthData);
+            }
+
+            // Retrieve recycle data for each month
+            String sqlRecycleData = "SELECT * FROM waste WHERE email = ? AND year = ? ORDER BY "
+                    + getMonthOrderCaseStatement();
+            PreparedStatement stmtRecycleData = conn.prepareStatement(sqlRecycleData);
+            stmtRecycleData.setString(1, user.getEmail());
+            stmtRecycleData.setString(2, year);
+
+            ResultSet rsRecycleData = stmtRecycleData.executeQuery();
+            while (rsRecycleData.next()) {
+                String month = rsRecycleData.getString("period");
+                float amount = rsRecycleData.getFloat("amount");
+                String status = rsRecycleData.getString("status");
+
+                Blob imageBlob = rsRecycleData.getBlob("file");
+                String base64Image = convertBlobToBase64(imageBlob);
+
+                MonthData recycleMonthData = new MonthData(month, amount, base64Image, status);
+                recycleDataPerMonth.add(recycleMonthData);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         modelAndView.addObject("user", user);
-        // Add other attributes as needed for the validation process
+        modelAndView.addObject("selectedYear", year);
+        modelAndView.addObject("waterDataPerMonth", waterDataPerMonth);
+        modelAndView.addObject("electricityDataPerMonth", electricDataPerMonth); // take note naming
+        modelAndView.addObject("recycleDataPerMonth", recycleDataPerMonth);
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/updateWaterStatus", method = RequestMethod.POST)
+    public ModelAndView updateWaterStatus(
+            @RequestParam("email") String email,
+            @RequestParam("year") String year,
+            @RequestParam("userId") int userId,
+            @RequestParam Map<String, String> allRequestParams,
+            RedirectAttributes redirectAttributes) {
+
+        try (Connection conn = DbConnect.openConnection()) {
+            conn.setAutoCommit(false); // Disable auto-commit if you want to handle transactions manually
+            for (Map.Entry<String, String> entry : allRequestParams.entrySet()) {
+                if (entry.getKey().startsWith("status")) {
+                    String month = entry.getKey().substring(7, 10); // Assuming the key would be status[Jan],
+                                                                    // status[Feb], etc.
+                    String status = entry.getValue();
+
+                    String sqlUpdate = "UPDATE water SET status = ? WHERE email = ? AND period = ? AND year = ?";
+                    try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+                        stmtUpdate.setString(1, status);
+                        stmtUpdate.setString(2, email);
+                        stmtUpdate.setString(3, month);
+                        stmtUpdate.setString(4, year);
+
+                        int rowsAffected = stmtUpdate.executeUpdate();
+                        System.out.println("Rows affected for month " + month + ": " + rowsAffected); // Logging
+                    }
+                }
+            }
+            conn.commit(); // Commit the transaction
+        } catch (SQLException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "Database error: " + e.getMessage());
+            return new ModelAndView("redirect:/validateParticipant?userId=" + userId + "&year=" + year);
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Water status updated successfully!");
+        return new ModelAndView("redirect:/validateParticipant?userId=" + userId + "&year=" + year);
+    }
+
+    @RequestMapping(value = "/updateElectricityStatus", method = RequestMethod.POST)
+    public ModelAndView updateElectricStatus(
+            @RequestParam("email") String email,
+            @RequestParam("year") String year,
+            @RequestParam("userId") int userId,
+            @RequestParam Map<String, String> allRequestParams,
+            RedirectAttributes redirectAttributes) {
+
+        try (Connection conn = DbConnect.openConnection()) {
+            conn.setAutoCommit(false); // Disable auto-commit if you want to handle transactions manually
+            for (Map.Entry<String, String> entry : allRequestParams.entrySet()) {
+                if (entry.getKey().startsWith("status")) {
+                    String month = entry.getKey().substring(7, 10); // Assuming the key would be status[Jan],
+                                                                    // status[Feb], etc.
+                    String status = entry.getValue();
+
+                    String sqlUpdate = "UPDATE electric SET status = ? WHERE email = ? AND period = ? AND year = ?";
+                    try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+                        stmtUpdate.setString(1, status);
+                        stmtUpdate.setString(2, email);
+                        stmtUpdate.setString(3, month);
+                        stmtUpdate.setString(4, year);
+
+                        int rowsAffected = stmtUpdate.executeUpdate();
+                        System.out.println("Rows affected for month " + month + ": " + rowsAffected); // Logging
+                    }
+                }
+            }
+            conn.commit(); // Commit the transaction
+        } catch (SQLException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "Database error: " + e.getMessage());
+            return new ModelAndView("redirect:/validateParticipant?userId=" + userId + "&year=" + year);
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Electricity status updated successfully!");
+        return new ModelAndView("redirect:/validateParticipant?userId=" + userId + "&year=" + year);
+    }
+
+    @RequestMapping(value = "/updateRecycleStatus", method = RequestMethod.POST)
+    public ModelAndView updateRecycleStatus(
+            @RequestParam("email") String email,
+            @RequestParam("year") String year,
+            @RequestParam("userId") int userId,
+            @RequestParam Map<String, String> allRequestParams,
+            RedirectAttributes redirectAttributes) {
+
+        try (Connection conn = DbConnect.openConnection()) {
+            conn.setAutoCommit(false); // Disable auto-commit if you want to handle transactions manually
+            for (Map.Entry<String, String> entry : allRequestParams.entrySet()) {
+                if (entry.getKey().startsWith("status")) {
+                    String month = entry.getKey().substring(7, 10); // Assuming the key would be status[Jan],
+                                                                    // status[Feb], etc.
+                    String status = entry.getValue();
+
+                    String sqlUpdate = "UPDATE waste SET status = ? WHERE email = ? AND period = ? AND year = ?";
+                    try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+                        stmtUpdate.setString(1, status);
+                        stmtUpdate.setString(2, email);
+                        stmtUpdate.setString(3, month);
+                        stmtUpdate.setString(4, year);
+
+                        int rowsAffected = stmtUpdate.executeUpdate();
+                        System.out.println("Rows affected for month " + month + ": " + rowsAffected); // Logging
+                    }
+                }
+            }
+            conn.commit(); // Commit the transaction
+        } catch (SQLException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "Database error: " + e.getMessage());
+            return new ModelAndView("redirect:/validateParticipant?userId=" + userId + "&year=" + year);
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Recycle status updated successfully!");
+        return new ModelAndView("redirect:/validateParticipant?userId=" + userId + "&year=" + year);
     }
 
     @RequestMapping("/winnerList")
     public ModelAndView showWinnerList() {
         return new ModelAndView("adminViews/WinnerList");
     }
-    
+
     private String getMonthOrderCaseStatement() {
         return "CASE period " +
-               "WHEN 'Jan' THEN 1 " +
-               "WHEN 'Feb' THEN 2 " +
-               "WHEN 'Mar' THEN 3 " +
-               "WHEN 'Apr' THEN 4 " +
-               "WHEN 'May' THEN 5 " +
-               "WHEN 'Jun' THEN 6 " +
-               "WHEN 'Jul' THEN 7 " +
-               "WHEN 'Aug' THEN 8 " +
-               "WHEN 'Sep' THEN 9 " +
-               "WHEN 'Oct' THEN 10 " +
-               "WHEN 'Nov' THEN 11 " +
-               "WHEN 'Dec' THEN 12 " +
-               "END";
+                "WHEN 'Jan' THEN 1 " +
+                "WHEN 'Feb' THEN 2 " +
+                "WHEN 'Mar' THEN 3 " +
+                "WHEN 'Apr' THEN 4 " +
+                "WHEN 'May' THEN 5 " +
+                "WHEN 'Jun' THEN 6 " +
+                "WHEN 'Jul' THEN 7 " +
+                "WHEN 'Aug' THEN 8 " +
+                "WHEN 'Sep' THEN 9 " +
+                "WHEN 'Oct' THEN 10 " +
+                "WHEN 'Nov' THEN 11 " +
+                "WHEN 'Dec' THEN 12 " +
+                "END";
+    }
+
+    private String convertBlobToBase64(Blob blob) throws SQLException, IOException {
+        if (blob != null) {
+            InputStream inputStream = blob.getBinaryStream();
+            byte[] bytes = inputStream.readAllBytes();
+            return Base64.getEncoder().encodeToString(bytes);
+        }
+        return null;
     }
 }
