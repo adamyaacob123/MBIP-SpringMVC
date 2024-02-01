@@ -474,6 +474,6 @@ public class LandingController {
 			ex.printStackTrace();
 			return "Error in update - User: " + ex.getMessage();
 		}
-		return "redirect:account";
+		return "redirect:userAccount";
 	}
 }

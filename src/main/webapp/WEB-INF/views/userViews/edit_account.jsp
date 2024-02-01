@@ -50,7 +50,7 @@
 							profile picture</span>
 					</div>
 					<form class="mt-3" method="post" action="<c:url value='/update'/>"
-						enctype="multipart/form-data">
+						enctype="multipart/form-data" autocomplete="off">
 						<div style="height: 0px; overflow: hidden">
 							<input accept="image/*" type="file" id="fileInput"
 								name="fileInput" />
@@ -118,8 +118,8 @@
 							<div class="mb-3 flex-grow-1 position-relative">
 								<label for="password" class="form-label">Password</label> <input
 									type="password" class="form-control" id="password"
-									value="${password}" name="password" required /> <span
-									id="eye-icon"
+									value="${password}" name="password" required  />
+								<span id="eye-icon"
 									class="position-absolute end-0 top-35 translate-middle-y"
 									style="cursor: pointer"> <svg
 										xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -224,7 +224,7 @@
 					</form>
 				</div>
 
-				
+
 			</div>
 		</div>
 	</div>

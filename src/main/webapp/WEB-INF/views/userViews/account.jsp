@@ -72,7 +72,7 @@
                 }
               };
             </script>
-				<form class="mt-2">
+				<form class="mt-2" style="margin-left: 15px;">
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="fullname" class="form-label">Full Name</label> <br />
