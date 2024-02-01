@@ -9,11 +9,12 @@ body {
 .report-content {
     flex-grow: 1;
     padding: 20px;
-    background: #CAE4FC;
+    background: #89C7C3;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-left: 250px;
+    margin-left: 50px;
+    background: rgba(137, 199, 195, 0.2);
 }
 
 .report-table {
@@ -59,3 +60,45 @@ body {
     margin-top: 10px;
 }
 
+.chart-container {
+    width: 100%; /* Set the width to 100% */
+}
+
+.custom-info-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.custom-info-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.custom-info-divider {
+    border-top: 1px solid #ddd;
+}
+
+.custom-info-item {
+    margin-bottom: 10px;
+}
+
+.custom-info-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.custom-info-value {
+    color: #333;
+}
+
+.custom-info-unit {
+    color: #777;
+}
+
+.custom-info-total {
+    margin-top: 20px;
+}
