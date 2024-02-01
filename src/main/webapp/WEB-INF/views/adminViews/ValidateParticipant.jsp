@@ -17,7 +17,7 @@
         }
 
         .card {
-          margin-top: 20px;
+          /* margin-top: 20px; */
           height: 100%;
           width: 100%;
         }
@@ -66,46 +66,165 @@
           <h1 class="text-center m-2">Validate Participant</h1>
           <div class="container">
             <div class="row mt-5">
-              <div class="container">
-                <div class="col-lg-8">
-                  <div class="card text-center">
-                    <div class="card-header">
-                      <c:choose>
-                        <c:when test="${not empty user.profileImageBase64}">
-                          <img class="profile-image" src="data:image/jpeg;base64,${user.profileImageBase64}"
-                            alt="User Image" />
-                        </c:when>
-                        <c:otherwise>
-                          <img class="profile-image" src="<c:url value='/resources/assets/blank-profile.png'/>"
-                            alt="Default Image" />
-                        </c:otherwise>
-                      </c:choose>
-                      <h3>${user.name}</h3>
+              <div class="col-lg-4">
+                <div class="card text-center h-100">
+                  <div class="card-header">
+                    <c:choose>
+                      <c:when test="${not empty user.profileImageBase64}">
+                        <img class="profile-image" src="data:image/jpeg;base64,${user.profileImageBase64}"
+                          alt="User Image" />
+                      </c:when>
+                      <c:otherwise>
+                        <img class="profile-image" src="<c:url value='/resources/assets/blank-profile.png'/>"
+                          alt="Default Image" />
+                      </c:otherwise>
+                    </c:choose>
+                    <h3>${user.name}</h3>
+                  </div>
+                  <div class="card-body">
+                    <h3 class="card-title"></h3>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <p class="text-start">
+                          <strong>ID:</strong> ${user.id}
+                        </p>
+                        <p class="text-start">
+                          <strong>Email:</strong> ${user.email}
+                        </p>
+                        <p class="text-start">
+                          <strong>Phone Number:</strong> ${user.phoneNum}
+                        </p>
+                      </div>
+                      <div class="col-sm-6">
+                        <p class="text-start">
+                          <strong>Address:</strong> ${user.address}
+                        </p>
+                        <p class="text-start">
+                          <strong>Household:</strong> ${user.household}
+                        </p>
+                        <p class="text-start">
+                          <strong>People No:</strong> ${user.peopleNo}
+                        </p>
+                      </div>
                     </div>
-                    <div class="card-body">
-                      <h3 class="card-title"></h3>
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <p class="text-start">
-                            <strong>ID:</strong> ${user.id}
-                          </p>
-                          <p class="text-start">
-                            <strong>Email:</strong> ${user.email}
-                          </p>
-                          <p class="text-start">
-                            <strong>Phone Number:</strong> ${user.phoneNum}
-                          </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="d-flex flex-column h-100">
+                  <div class="row flex-grow-1">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="card-text">
+                          <div class="btn-toolbar justify-content-between" role="toolbar"
+                            aria-label="Toolbar with button groups">
+                            <div class="input-group">
+                              <span class="input-group-text">Indicator: </span>
+                              <div class="btn-group" role="group" aria-label="Indicator">
+                                <button type="button" class="btn btn-secondary">Pending</button>
+                                <button type="button" class="btn btn-success">Approved</button>
+                                <button type="button" class="btn btn-danger">Rejected</button>
+                                <button type="button" class="btn btn-outline-dark">No Data / Null</button>
+                              </div>
+                            </div>
+
+                            <select class="form-select w-auto" id="yearSelection">
+                              <option selected>Choose year...</option>
+                              <option value="2023" ${selectedYear=='2023' ? 'selected' : '' }>2023</option>
+                              <option value="2024" ${selectedYear=='2024' ? 'selected' : '' }>2024</option>
+                              <option value="2025" ${selectedYear=='2025' ? 'selected' : '' }>2025</option>
+                            </select>
+                          </div>
                         </div>
-                        <div class="col-sm-6">
-                          <p class="text-start">
-                            <strong>Address:</strong> ${user.address}
-                          </p>
-                          <p class="text-start">
-                            <strong>Household:</strong> ${user.household}
-                          </p>
-                          <p class="text-start">
-                            <strong>People No:</strong> ${user.peopleNo}
-                          </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3 flex-grow-1">
+                    <div class="card calculation-card-water">
+                      <div class="card-body">
+                        <h5 class="card-title">Water</h5>
+                        <div class="card-text">
+                          <div class="btn-group mt-1" role="group" aria-label="Month Selection">
+                            <c:set var="allMonths"
+                              value="${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']}" />
+
+                            <c:forEach items="${allMonths}" var="month">
+                              <c:set var="foundMonth" value="false" />
+                              <c:set var="monthStatus" value="" />
+
+                              <c:forEach items="${waterDataPerMonth}" var="waterMonthData">
+                                <c:if test="${waterMonthData.month == month}">
+                                  <c:set var="foundMonth" value="true" />
+                                  <c:set var="monthStatus" value="${waterMonthData.status}" />
+                                </c:if>
+                              </c:forEach>
+
+                              <button type="button"
+                                class="btn ${foundMonth ? (monthStatus == 'approved' ? 'btn-success' : monthStatus == 'rejected' ? 'btn-danger' : monthStatus == 'pending' ? 'btn-secondary' : 'btn-outline-dark') : 'btn-outline-dark'}">
+                                ${month}
+                              </button>
+                            </c:forEach>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3 flex-grow-1">
+                    <div class="card calculation-card-electricity">
+                      <div class="card-body">
+                        <h5 class="card-title">Electricity</h5>
+                        <div class="card-text">
+                          <div class="btn-group mt-1" role="group" aria-label="Month Selection">
+                            <c:set var="allMonths"
+                              value="${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']}" />
+
+                            <c:forEach items="${allMonths}" var="month">
+                              <c:set var="foundMonth" value="false" />
+                              <c:set var="monthStatus" value="" />
+
+                              <c:forEach items="${electricityDataPerMonth}" var="electricityMonthData">
+                                <c:if test="${electricityMonthData.month == month}">
+                                  <c:set var="foundMonth" value="true" />
+                                  <c:set var="monthStatus" value="${electricityMonthData.status}" />
+                                </c:if>
+                              </c:forEach>
+
+                              <button type="button"
+                                class="btn ${foundMonth ? (monthStatus == 'approved' ? 'btn-success' : monthStatus == 'rejected' ? 'btn-danger' : monthStatus == 'pending' ? 'btn-secondary' : 'btn-outline-dark') : 'btn-outline-dark'}">
+                                ${month}
+                              </button>
+                            </c:forEach>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3 flex-grow-1">
+                    <div class="card calculation-card-recycle">
+                      <div class="card-body">
+                        <h5 class="card-title">Recycle</h5>
+                        <div class="card-text">
+                          <div class="btn-group" role="group" aria-label="Month Selection">
+                            <c:set var="allMonths"
+                              value="${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']}" />
+
+                            <c:forEach items="${allMonths}" var="month">
+                              <c:set var="foundMonth" value="false" />
+                              <c:set var="monthStatus" value="" />
+
+                              <c:forEach items="${recycleDataPerMonth}" var="recycleMonthData">
+                                <c:if test="${recycleMonthData.month == month}">
+                                  <c:set var="foundMonth" value="true" />
+                                  <c:set var="monthStatus" value="${recycleMonthData.status}" />
+                                </c:if>
+                              </c:forEach>
+
+                              <button type="button"
+                                class="btn ${foundMonth ? (monthStatus == 'approved' ? 'btn-success' : monthStatus == 'rejected' ? 'btn-danger' : monthStatus == 'pending' ? 'btn-secondary' : 'btn-outline-dark') : 'btn-outline-dark'}">
+                                ${month}
+                              </button>
+                            </c:forEach>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -113,17 +232,8 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-5">
+            <div class="row">
               <div class="container mt-2">
-                <!-- Year Selection Dropdown -->
-                <div class="d-flex justify-content-end mb-2">
-                  <select class="form-select w-auto" id="yearSelection">
-                    <option selected>Choose year...</option>
-                    <option value="2023" ${selectedYear=='2023' ? 'selected' : '' }>2023</option>
-                    <option value="2024" ${selectedYear=='2024' ? 'selected' : '' }>2024</option>
-                    <!-- Add more years as needed -->
-                  </select>
-                </div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
@@ -405,43 +515,6 @@
                             <button type="submit" class="btn btn-primary">Update Status</button>
                           </div>
                         </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row g-3 mt-5 text-center">
-                  <!-- Calculation Result Cards -->
-                  <div class="col-md-4">
-                    <div class="card calculation-card-water">
-                      <div class="card-body">
-                        <h5 class="card-title">Total Water Footprint</h5>
-                        <p class="card-text">41.9 kgCO₂</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card calculation-card-electricity">
-                      <div class="card-body">
-                        <h5 class="card-title">Total Electricity Footprint</h5>
-                        <p class="card-text">58.4 kgCO₂</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card calculation-card-recycle">
-                      <div class="card-body">
-                        <h5 class="card-title">Total Recycle Footprint</h5>
-                        <p class="card-text">286 kgCO₂</p>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Total Carbon Footprint -->
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-body text-center">
-                        <h5 class="card-title">Total Carbon Footprint</h5>
-                        <p class="card-text">Total: 386.3 kgCO₂</p>
                       </div>
                     </div>
                   </div>
