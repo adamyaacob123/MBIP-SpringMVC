@@ -159,7 +159,7 @@
                 </div>
               </div>
               <div class="col-sm text-muted text-end">
-                Displays Top 5 participants with the lowest Carbon Footprint
+                Only qualified participants with all 3 categories approved are displayed in the podium
               </div>
             </div>
             <!-- Podium Section -->
@@ -174,8 +174,8 @@
                         <div class="card-body">
                           <h5 class="card-title">
                             <c:choose>
-                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 2}">
-                                ${qualifiedWinners[1].name}
+                              <c:when test="${not empty podiumWinners and podiumWinners.size() >= 2}">
+                                ${podiumWinners[1].name}
                               </c:when>
                               <c:otherwise>
                                 No Data
@@ -184,8 +184,8 @@
                           </h5>
                           <p class="card-text">
                             <c:choose>
-                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 2}">
-                                2nd Place - ${qualifiedWinners[1].monthlyFootprint} kg CO₂
+                              <c:when test="${not empty podiumWinners and podiumWinners.size() >= 2}">
+                                2nd Place - ${podiumWinners[1].monthlyFootprint} kg CO₂
                               </c:when>
                               <c:otherwise>
                                 2nd Place - No Data
@@ -201,8 +201,8 @@
                         <div class="card-body">
                           <h5 class="card-title">
                             <c:choose>
-                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 1}">
-                                ${qualifiedWinners[0].name}
+                              <c:when test="${not empty podiumWinners and podiumWinners.size() >= 1}">
+                                ${podiumWinners[0].name}
                               </c:when>
                               <c:otherwise>
                                 No Data
@@ -211,8 +211,8 @@
                           </h5>
                           <p class="card-text">
                             <c:choose>
-                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 1}">
-                                1st Place - ${qualifiedWinners[0].monthlyFootprint} kg CO₂
+                              <c:when test="${not empty podiumWinners and podiumWinners.size() >= 1}">
+                                1st Place - ${podiumWinners[0].monthlyFootprint} kg CO₂
                               </c:when>
                               <c:otherwise>
                                 1st Place - No Data
@@ -228,8 +228,8 @@
                         <div class="card-body">
                           <h5 class="card-title">
                             <c:choose>
-                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 3}">
-                                ${qualifiedWinners[2].name}
+                              <c:when test="${not empty podiumWinners and podiumWinners.size() >= 3}">
+                                ${podiumWinners[2].name}
                               </c:when>
                               <c:otherwise>
                                 No Data
@@ -238,8 +238,8 @@
                           </h5>
                           <p class="card-text">
                             <c:choose>
-                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 3}">
-                                3rd Place - ${qualifiedWinners[2].monthlyFootprint} kg CO₂
+                              <c:when test="${not empty podiumWinners and podiumWinners.size() >= 3}">
+                                3rd Place - ${podiumWinners[2].monthlyFootprint} kg CO₂
                               </c:when>
                               <c:otherwise>
                                 3rd Place - No Data
@@ -295,9 +295,18 @@
                         </td>
                         <td>${winner.name}</td>
                         <td>${winner.email}</td>
-                        <td>${winner.waterConsumption}</td>
-                        <td>${winner.electricityConsumption}</td>
-                        <td>${winner.recycleConsumption}</td>
+                        <td class="fw-bold ${winner.waterStatus == 'approved' ? 'text-success' : 
+                        winner.waterStatus == 'rejected' ? 'text-danger' : 
+                        winner.waterStatus == 'pending' ? 'text-secondary' : 'text-muted'}">${winner.waterConsumption}
+                        </td>
+                        <td class="fw-bold ${winner.electricityStatus == 'approved' ? 'text-success' : 
+                        winner.electricityStatus == 'rejected' ? 'text-danger' : 
+                        winner.electricityStatus == 'pending' ? 'text-secondary' : 'text-muted'}">
+                          ${winner.electricityConsumption}</td>
+                        <td class="fw-bold ${winner.recycleStatus == 'approved' ? 'text-success' : 
+                        winner.recycleStatus == 'rejected' ? 'text-danger' : 
+                        winner.recycleStatus == 'pending' ? 'text-secondary' : 'text-muted'}">
+                          ${winner.recycleConsumption}</td>
                         <!-- <td>${winner.totalMonthlyConsumption}</td> -->
                         <td>${winner.monthlyFootprint}</td>
                         <td>
@@ -354,9 +363,18 @@
                         </td>
                         <td>${winner.name}</td>
                         <td>${winner.email}</td>
-                        <td>${winner.waterConsumption}</td>
-                        <td>${winner.electricityConsumption}</td>
-                        <td>${winner.recycleConsumption}</td>
+                        <td class="fw-bold ${winner.waterStatus == 'approved' ? 'text-success' : 
+                        winner.waterStatus == 'rejected' ? 'text-danger' : 
+                        winner.waterStatus == 'pending' ? 'text-secondary' : 'text-muted'}">${winner.waterConsumption}
+                        </td>
+                        <td class="fw-bold ${winner.electricityStatus == 'approved' ? 'text-success' : 
+                        winner.electricityStatus == 'rejected' ? 'text-danger' : 
+                        winner.electricityStatus == 'pending' ? 'text-secondary' : 'text-muted'}">
+                          ${winner.electricityConsumption}</td>
+                        <td class="fw-bold ${winner.recycleStatus == 'approved' ? 'text-success' : 
+                        winner.recycleStatus == 'rejected' ? 'text-danger' : 
+                        winner.recycleStatus == 'pending' ? 'text-secondary' : 'text-muted'}">
+                          ${winner.recycleConsumption}</td>
                         <!-- <td>${winner.totalMonthlyConsumption}</td> -->
                         <td>${winner.monthlyFootprint}</td>
                         <td>

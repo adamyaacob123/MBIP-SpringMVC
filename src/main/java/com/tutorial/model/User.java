@@ -26,8 +26,11 @@ public class User {
 
     // New properties for consumption and footprint
     private float waterConsumption;
+    private String waterStatus;
     private float electricityConsumption;
+    private String electricityStatus;
     private float recycleConsumption;
+    private String recycleStatus;
     private float totalMonthlyConsumption;
     private float monthlyFootprint;
     
@@ -135,6 +138,14 @@ public class User {
         this.waterConsumption = waterConsumption;
     }
 
+    public String getWaterStatus() {
+        return waterStatus;
+    }
+
+    public void setWaterStatus(String waterStatus) {
+        this.waterStatus = waterStatus;
+    }
+
     public float getElectricityConsumption() {
         return electricityConsumption;
     }
@@ -143,12 +154,28 @@ public class User {
         this.electricityConsumption = electricityConsumption;
     }
 
+    public String getElectricityStatus() {
+        return electricityStatus;
+    }
+
+    public void setElectricityStatus(String electricityStatus) {
+        this.electricityStatus = electricityStatus;
+    }
+
     public float getRecycleConsumption() {
         return recycleConsumption;
     }
 
     public void setRecycleConsumption(float recycleConsumption) {
         this.recycleConsumption = recycleConsumption;
+    }
+
+    public String getRecycleStatus() {
+        return recycleStatus;
+    }
+
+    public void setRecycleStatus(String recycleStatus) {
+        this.recycleStatus = recycleStatus;
     }
 
     public float getTotalMonthlyConsumption() {
