@@ -22,15 +22,15 @@
 <body>
     <div id="sidebar"></div>
     <div class="dashboard-content">
-        <div class="dashboard-header">
-            <h1>Form Submission Result</h1>
+        <div >
+			<img src="<c:url value ="/resources/img/success.png"/>" class="card-img-top" alt="challenge-img" style="height:150px; width:auto;margin-bottom: 20px">
         </div>
         
         <div class="notification-section">
             <h3>${message}</h3>
             <div>
-                <a href="<c:url value="/CarbonWater"/>" class="btn btn-link">Go back to the form</a> | 
-                <a href="<c:url value="/getAll"/>" class="btn btn-link">Go to the homepage</a>
+                    <%--<a href="<c:url value="/CarbonWater"/>" class="btn btn-link">Go back to the form</a> | --%>
+                    <a href="<c:url value="/User"/>" class="btn btn-link">Go to the homepage</a>
             </div>
         </div>
     </div>
