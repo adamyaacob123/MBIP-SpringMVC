@@ -121,16 +121,6 @@
                 <div class="row">
                   <div class="fs-4 col-auto fw-bold">Winners of:</div>
                   <div class="col-auto">
-                    <select class="form-select" id="categorySelection">
-                      <option selected>Choose category</option>
-                      <option value="All" ${selectedCategory=='All' ? 'selected' : '' }>All</option>
-                      <option value="Water" ${selectedCategory=='Water' ? 'selected' : '' }>Water</option>
-                      <option value="Electricity" ${selectedCategory=='Electricity' ? 'selected' : '' }>Electricity
-                      </option>
-                      <option value="Recycle" ${selectedCategory=='Recycle' ? 'selected' : '' }>Recycle</option>
-                    </select>
-                  </div>
-                  <div class="col-auto">
                     <select class="form-select" id="yearSelection">
                       <option selected>Choose year</option>
                       <option value="2023" ${selectedYear=='2023' ? 'selected' : '' }>2023</option>
@@ -139,6 +129,33 @@
                       <!-- Add more years as needed -->
                     </select>
                   </div>
+                  <div class="col-auto">
+                    <select class="form-select" id="monthSelection">
+                      <option selected>Choose month</option>
+                      <option value="Jan" ${selectedMonth=='Jan' ? 'selected' : '' }>Jan</option>
+                      <option value="Feb" ${selectedMonth=='Feb' ? 'selected' : '' }>Feb</option>
+                      <option value="Mar" ${selectedMonth=='Mar' ? 'selected' : '' }>Mar</option>
+                      <option value="Apr" ${selectedMonth=='Apr' ? 'selected' : '' }>Apr</option>
+                      <option value="May" ${selectedMonth=='May' ? 'selected' : '' }>May</option>
+                      <option value="Jun" ${selectedMonth=='Jun' ? 'selected' : '' }>Jun</option>
+                      <option value="Jul" ${selectedMonth=='Jul' ? 'selected' : '' }>Jul</option>
+                      <option value="Aug" ${selectedMonth=='Aug' ? 'selected' : '' }>Aug</option>
+                      <option value="Sep" ${selectedMonth=='Sep' ? 'selected' : '' }>Sep</option>
+                      <option value="Oct" ${selectedMonth=='Oct' ? 'selected' : '' }>Oct</option>
+                      <option value="Nov" ${selectedMonth=='Nov' ? 'selected' : '' }>Nov</option>
+                      <option value="Dec" ${selectedMonth=='Dec' ? 'selected' : '' }>Dec</option>
+                    </select>
+                  </div>
+                  <!-- <div class="col-auto">
+                    <select class="form-select" id="categorySelection">
+                      <option selected>Choose category</option>
+                      <option value="All" ${selectedCategory=='All' ? 'selected' : '' }>All</option>
+                      <option value="Water" ${selectedCategory=='Water' ? 'selected' : '' }>Water</option>
+                      <option value="Electricity" ${selectedCategory=='Electricity' ? 'selected' : '' }>Electricity
+                      </option>
+                      <option value="Recycle" ${selectedCategory=='Recycle' ? 'selected' : '' }>Recycle</option>
+                    </select>
+                  </div> -->
                 </div>
               </div>
               <div class="col-sm text-muted text-end">
@@ -183,55 +200,36 @@
               </div>
             </div>
             <div class="row mt-5">
-              <div class="col-sm">
-                <table class="table table-hover table-responsive text-center align-middle table-exception">
-                  <thead class="table-dark">
-                    <tr>
-                      <th scope="col">Ranking</th>
-                      <th scope="col">Profile</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Pending</th>
-                      <th scope="col">Approved</th>
-                      <th scope="col">Total</th>
-                      <th scope="col">Footprint</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
+              <div class="row">
+                <h3 class="col">Qualified Participants</h3>
+                <div class="col text-muted text-end">
+                  Qualified participants are those who have submitted all 3 categories
+                </div>
+              </div>
+              <table class="table table-hover table-responsive text-center align-middle table-exception">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">Ranking</th>
+                    <th scope="col">Profile</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Water</th>
+                    <th scope="col">Electricity</th>
+                    <th scope="col">Recycle</th>
+                    <!-- <th scope="col">Total</th> -->
+                    <th scope="col">Footprint</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
 
-                  <tbody>
-                    <c:forEach items="${winners}" var="winner" varStatus="status">
-                      <tr>
-                        <th scope="row">${status.index + 1}</th>
-                        <td>
-                          <c:choose>
-                            <c:when test="${not empty winner.profileImageBase64}">
-                              <img src="data:image/jpeg;base64,${winner.profileImageBase64}" alt="User Image" width="50"
-                                height="50" style="border-radius: 50%; object-fit: cover;" />
-                            </c:when>
-                            <c:otherwise>
-                              <img src="<c:url value='/resources/assets/blank-profile.png'/>" alt="Default Image"
-                                width="50" height="50" />
-                            </c:otherwise>
-                          </c:choose>
-                        </td>
-                        <td>${winner.name}</td>
-                        <td>${winner.email}</td>
-                        <td>${winner.totalPending}</td>
-                        <td>${winner.totalApproved}</td>
-                        <td>${winner.totalConsumption}</td>
-                        <td>${winner.totalFootprint}</td>
-                        <td>
-                          <button class="btn btn-sm btn-outline-primary">View</button>
-                        </td>
-                      </tr>
-                    </c:forEach>
-                    <tr class="table-warning">
-                      <th scope="row">1</th>
+                <tbody>
+                  <c:forEach items="${qualifiedWinners}" var="winner" varStatus="status">
+                    <tr>
+                      <th scope="row">${status.index + 1}</th>
                       <td>
                         <c:choose>
-                          <c:when test="${not empty user.profileImageBase64}">
-                            <img src="data:image/jpeg;base64,${user.profileImageBase64}" alt="User Image" width="50"
+                          <c:when test="${not empty winner.profileImageBase64}">
+                            <img src="data:image/jpeg;base64,${winner.profileImageBase64}" alt="User Image" width="50"
                               height="50" style="border-radius: 50%; object-fit: cover;" />
                           </c:when>
                           <c:otherwise>
@@ -240,67 +238,82 @@
                           </c:otherwise>
                         </c:choose>
                       </td>
-                      <td>John Carlio</td>
-                      <td>john.carlio82@example.com</td>
-                      <td>100</td>
-                      <td>700</td>
-                      <td>800</td>
-                      <td>900</td>
+                      <td>${winner.name}</td>
+                      <td>${winner.email}</td>
+                      <td>${winner.waterConsumption}</td>
+                      <td>${winner.electricityConsumption}</td>
+                      <td>${winner.recycleConsumption}</td>
+                      <!-- <td>${winner.totalMonthlyConsumption}</td> -->
+                      <td>${winner.monthlyFootprint}</td>
                       <td>
-                        <button class="btn btn-sm btn-outline-primary">View</button>
+                        <div class="btn-group" role="group">
+                          <a href="userDetails?userId=${winner.id}" class="btn btn-sm btn-outline-primary">View</a>
+                          <a href="validateParticipant?userId=${winner.id}"
+                            class="btn btn-sm btn-outline-primary">Validate</a>
+                        </div>
                       </td>
                     </tr>
-                    <tr class="table-secondary table-active">
-                      <th scope="row">2</th>
-                      <td>Jane Doe</td>
-                      <td>jane.doe@example.com</td>
-                      <td>100</td>
-                      <td>700</td>
-                      <td>800</td>
-                      <td>900</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary">View</button>
-                      </td>
-                    </tr>
-                    <tr class="table-warning table-active">
-                      <th scope="row">3</th>
-                      <td>Emma Stone</td>
-                      <td>emma.stone@example.com</td>
-                      <td>100</td>
-                      <td>700</td>
-                      <td>800</td>
-                      <td>900</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary">View</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">4</th>
-                      <td>John Carlio</td>
-                      <td>john.carlio82@example.com</td>
-                      <td>100</td>
-                      <td>700</td>
-                      <td>800</td>
-                      <td>900</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary">View</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">5</th>
-                      <td>John Carlio</td>
-                      <td>john.carlio82@example.com</td>
-                      <td>100</td>
-                      <td>700</td>
-                      <td>800</td>
-                      <td>900</td>
-                      <td>
-                        <button class="btn btn-sm btn-primary">View</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                  </c:forEach>
+                </tbody>
+              </table>
+            </div>
+            <div class="row mt-5">
+              <div class="row">
+                <h3 class="col">Unqualified Participants</h3>
+                <div class="col text-muted text-end">
+                  Unqualified participants are those who have NOT submitted all 3 categories
+                </div>
               </div>
+              <table class="table table-hover table-responsive text-center align-middle table-exception">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">Ranking</th>
+                    <th scope="col">Profile</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Water</th>
+                    <th scope="col">Electricity</th>
+                    <th scope="col">Recycle</th>
+                    <!-- <th scope="col">Total</th> -->
+                    <th scope="col">Footprint</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <c:forEach items="${unqualifiedWinners}" var="winner" varStatus="status">
+                    <tr>
+                      <th scope="row">${status.index + 1}</th>
+                      <td>
+                        <c:choose>
+                          <c:when test="${not empty winner.profileImageBase64}">
+                            <img src="data:image/jpeg;base64,${winner.profileImageBase64}" alt="User Image" width="50"
+                              height="50" style="border-radius: 50%; object-fit: cover;" />
+                          </c:when>
+                          <c:otherwise>
+                            <img src="<c:url value='/resources/assets/blank-profile.png'/>" alt="Default Image"
+                              width="50" height="50" />
+                          </c:otherwise>
+                        </c:choose>
+                      </td>
+                      <td>${winner.name}</td>
+                      <td>${winner.email}</td>
+                      <td>${winner.waterConsumption}</td>
+                      <td>${winner.electricityConsumption}</td>
+                      <td>${winner.recycleConsumption}</td>
+                      <!-- <td>${winner.totalMonthlyConsumption}</td> -->
+                      <td>${winner.monthlyFootprint}</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <a href="userDetails?userId=${winner.id}" class="btn btn-sm btn-outline-primary">View</a>
+                          <a href="validateParticipant?userId=${winner.id}"
+                            class="btn btn-sm btn-outline-primary">Validate</a>
+                        </div>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -308,35 +321,52 @@
       <script>
         $(document).ready(function () {
           // Set the dropdown to the selected year after the page loads
-          var selectedCategory = "${selectedCategory}";
+          // var selectedCategory = "${selectedCategory}";
           var selectedYear = "${selectedYear}";
+          var selectedMonth = "${selectedMonth}";
           if (selectedYear) {
             $("#yearSelection").val(selectedYear);
           }
-          if (selectedCategory) {
-            $("#categorySelection").val(selectedCategory);
+          // if (selectedCategory) {
+          //   $("#categorySelection").val(selectedCategory);
+          // }
+          if (selectedMonth) {
+            $("#monthSelection").val(selectedMonth);
           }
 
         });
 
-        // Call this function when the category dropdown changes
-        $("#categorySelection").change(function () {
-          var selectedCategory = $(this).val();
-          var selectedYear = $("#yearSelection").val();
+        // // Call this function when the category dropdown changes
+        // $("#categorySelection").change(function () {
+        //   var selectedCategory = $(this).val();
+        //   var selectedYear = $("#yearSelection").val();
+        //   var selectedMonth = $("#monthSelection").val();
 
-          // Redirect to the winnerlist URL with the selected category and year
-          window.location.href =
-            "winnerList?category=" + selectedCategory + "&year=" + selectedYear;
-        });
+        //   // Redirect to the winnerlist URL with the selected category and year
+        //   window.location.href =
+        //     "winnerList?category=" + selectedCategory + "&year=" + selectedYear + "&month=" + selectedMonth;
+        // });
 
         // Call this function when the year dropdown changes
         $("#yearSelection").change(function () {
-          var selectedCategory = $("#categorySelection").val();
+          // var selectedCategory = $("#categorySelection").val();
           var selectedYear = $(this).val();
+          var selectedMonth = $("#monthSelection").val();
 
           // Redirect to the winnerlist URL with the selected category and year
           window.location.href =
-            "winnerList?category=" + selectedCategory + "&year=" + selectedYear;
+            "winnerList?&year=" + selectedYear + "&month=" + selectedMonth;
+        });
+
+        // Call this function when the month dropdown changes
+        $("#monthSelection").change(function () {
+          // var selectedCategory = $("#categorySelection").val();
+          var selectedYear = $("#yearSelection").val();
+          var selectedMonth = $(this).val();
+
+          // Redirect to the winnerlist URL with the selected category and year
+          window.location.href =
+            "winnerList?&year=" + selectedYear + "&month=" + selectedMonth;
         });
       </script>
     </body>

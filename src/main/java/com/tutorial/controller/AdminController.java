@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -452,9 +453,11 @@ public class AdminController {
     }
 
     @RequestMapping("/winnerList")
-    public ModelAndView showWinnerList(@RequestParam(value = "category", required = false) String category, @RequestParam(value = "year", required = false) String year) {
+    public ModelAndView showWinnerList(@RequestParam(value = "year", required = false) String year,
+            @RequestParam(value = "month", required = false) String month) {
         ModelAndView modelAndView = new ModelAndView("adminViews/WinnerList");
-        List<User> winners = new ArrayList<>();
+        List<User> qualifiedWinners = new ArrayList<>();
+        List<User> unqualifiedWinners = new ArrayList<>();
 
         try (Connection conn = DbConnect.openConnection()) {
             String sql = "SELECT * FROM user WHERE user_level = 'participant'";
@@ -472,7 +475,12 @@ public class AdminController {
                 winner.setAddress(rs.getString("address"));
                 winner.setHousehold(rs.getString("household"));
                 winner.setPeopleNo(rs.getInt("peopleNo"));
-                
+
+                // Initialize flags for each category submission
+                boolean hasWater = false;
+                boolean hasElectricity = false;
+                boolean hasRecycle = false;
+
                 // Fetching the profile image as Blob and converting it to Base64 string
                 Blob blob = rs.getBlob("profile_image");
                 String base64Image = null;
@@ -483,51 +491,89 @@ public class AdminController {
                 winner.setProfileImageBase64(base64Image);
 
                 // Initialize consumption and footprint totals
-                float totalConsumption = 0;
-                float totalApproved = 0;
-                float totalPending = 0;
+                float waterForMonth = 0;
+                float electricityForMonth = 0;
+                float recycleForMonth = 0;
+                // float totalMonthlyConsumption = 0;
+                float monthlyFootprint = 0;
 
-                // Calculate totals if the Water category is selected
-                if ("Water".equals(category)) {
-                    String waterSql = "SELECT status, SUM(amount) as total FROM water WHERE email = ? AND year = ? GROUP BY status";
-                    PreparedStatement waterStmt = conn.prepareStatement(waterSql);
-                    waterStmt.setString(1, winner.getEmail());
-                    waterStmt.setString(2, year);
-                    ResultSet waterRs = waterStmt.executeQuery();
+                /// Query to get water consumption for the specific month
+                if (month != null && year != null) {
+                    String waterSql = "SELECT amount FROM water WHERE email = ? AND year = ? AND period = ?";
+                    try (PreparedStatement waterStmt = conn.prepareStatement(waterSql)) {
+                        waterStmt.setString(1, winner.getEmail());
+                        waterStmt.setString(2, year);
+                        waterStmt.setString(3, month);
+                        ResultSet waterRs = waterStmt.executeQuery();
 
-                    while (waterRs.next()) {
-                        String status = waterRs.getString("status");
-                        float amount = waterRs.getFloat("total");
-                        totalConsumption += amount; // Add to total regardless of status
-                        
-                        if ("approved".equals(status)) {
-                            totalApproved += amount;
-                        } else if ("pending".equals(status)) {
-                            totalPending += amount;
+                        if (waterRs.next()) {
+                            waterForMonth = waterRs.getFloat("amount");
+                            // totalMonthlyConsumption += waterForMonth;
+                            monthlyFootprint += waterForMonth * 0.419f; // Example carbon factor for water
+                            hasWater = true;
                         }
                     }
-                }
-                // Set the totals to the winner object
-                winner.setTotalConsumption(totalConsumption);
-                winner.setTotalApproved(totalApproved);
-                winner.setTotalPending(totalPending);
 
-                // Calculate total footprint based on consumption
-                // Assuming 0.419 is the carbon factor for water
-                // TotalFootprint only takes approved bills into account
-                winner.setTotalFootprint(totalApproved * 0.419f);
-                winners.add(winner);
+                    String electricSql = "SELECT amount FROM electric WHERE email = ? AND year = ? AND period = ?";
+                    try (PreparedStatement electricStmt = conn.prepareStatement(electricSql)) {
+                        electricStmt.setString(1, winner.getEmail());
+                        electricStmt.setString(2, year);
+                        electricStmt.setString(3, month);
+                        ResultSet electricRs = electricStmt.executeQuery();
+
+                        if (electricRs.next()) {
+                            electricityForMonth = electricRs.getFloat("amount");
+                            // totalMonthlyConsumption += electricityForMonth;
+                            monthlyFootprint += electricityForMonth * 0.584f; // Example carbon factor for electricity
+                            hasElectricity = true;
+                        }
+                    }
+
+                    String recycleSql = "SELECT amount FROM waste WHERE email = ? AND year = ? AND period = ?";
+                    try (PreparedStatement recycleStmt = conn.prepareStatement(recycleSql)) {
+                        recycleStmt.setString(1, winner.getEmail());
+                        recycleStmt.setString(2, year);
+                        recycleStmt.setString(3, month);
+                        ResultSet recycleRs = recycleStmt.executeQuery();
+
+                        if (recycleRs.next()) {
+                            recycleForMonth = recycleRs.getFloat("amount");
+                            // totalMonthlyConsumption += recycleForMonth;
+                            monthlyFootprint += recycleForMonth * 2.860f; // Example carbon factor for recycle
+                            hasRecycle = true;
+                        }
+                    }
+                    
+                    // Set the monthly values to the winner object
+                    winner.setWaterConsumption(waterForMonth);
+                    winner.setElectricityConsumption(electricityForMonth);
+                    winner.setRecycleConsumption(recycleForMonth);
+                    // winner.setTotalMonthlyConsumption(totalMonthlyConsumption);
+                    winner.setMonthlyFootprint(monthlyFootprint);
+                    
+                    // Check if all categories are submitted for the month
+                    if (hasWater && hasElectricity && hasRecycle) {
+                        qualifiedWinners.add(winner);
+                    } else {
+                        unqualifiedWinners.add(winner);
+                    }
+                }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        modelAndView.addObject("winners", winners);
-        modelAndView.addObject("selectedCategory", category);
+        // Sort the winners list by the totalFootprint property in ascending order
+        qualifiedWinners.sort(Comparator.comparing(User::getMonthlyFootprint));
+
+        modelAndView.addObject("qualifiedWinners", qualifiedWinners);
+        modelAndView.addObject("unqualifiedWinners", unqualifiedWinners);
+        // modelAndView.addObject("selectedCategory", category);
         modelAndView.addObject("selectedYear", year);
+        modelAndView.addObject("selectedMonth", month);
         return modelAndView;
     }
-
 
     private String getMonthOrderCaseStatement() {
         return "CASE period " +
