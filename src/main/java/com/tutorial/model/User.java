@@ -24,6 +24,12 @@ public class User {
 	private byte[] profile_image;
     private String profileImageBase64; // New field for the Base64 image
 
+    // New properties for consumption and footprint
+    private float totalConsumption;
+    private float totalApproved;
+    private float totalPending;
+    private float totalFootprint;
+    
 	public String getUser_level() {
 		return user_level;
 	}
@@ -120,4 +126,35 @@ public class User {
         this.profileImageBase64 = profileImageBase64;
     }
 
+    public float getTotalConsumption() {
+        return totalConsumption;
+    }
+
+    public void setTotalConsumption(float totalConsumption) {
+        this.totalConsumption = totalConsumption;
+    }
+
+    public float getTotalApproved() {
+        return totalApproved;
+    }
+
+    public void setTotalApproved(float totalApproved) {
+        this.totalApproved = totalApproved;
+    }
+
+    public float getTotalPending() {
+        return totalPending;
+    }
+
+    public void setTotalPending(float totalPending) {
+        this.totalPending = totalPending;
+    }
+
+    public float getTotalFootprint() {
+        return totalFootprint;
+    }
+
+    public void setTotalFootprint(float totalFootprint) {
+        this.totalFootprint = totalFootprint;
+    }
 }

@@ -452,9 +452,82 @@ public class AdminController {
     }
 
     @RequestMapping("/winnerList")
-    public ModelAndView showWinnerList() {
-        return new ModelAndView("adminViews/WinnerList");
+    public ModelAndView showWinnerList(@RequestParam(value = "category", required = false) String category, @RequestParam(value = "year", required = false) String year) {
+        ModelAndView modelAndView = new ModelAndView("adminViews/WinnerList");
+        List<User> winners = new ArrayList<>();
+
+        try (Connection conn = DbConnect.openConnection()) {
+            String sql = "SELECT * FROM user WHERE user_level = 'participant'";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                User winner = new User();
+                winner.setId(rs.getInt("id"));
+                winner.setName(rs.getString("name"));
+                winner.setEmail(rs.getString("email"));
+                winner.setPhoneNum(rs.getInt("phoneNum"));
+                winner.setUserLevel(rs.getString("user_level"));
+                winner.setAddress(rs.getString("address"));
+                winner.setHousehold(rs.getString("household"));
+                winner.setPeopleNo(rs.getInt("peopleNo"));
+                
+                // Fetching the profile image as Blob and converting it to Base64 string
+                Blob blob = rs.getBlob("profile_image");
+                String base64Image = null;
+                if (blob != null) {
+                    byte[] blobBytes = blob.getBytes(1, (int) blob.length());
+                    base64Image = Base64.getEncoder().encodeToString(blobBytes);
+                }
+                winner.setProfileImageBase64(base64Image);
+
+                // Initialize consumption and footprint totals
+                float totalConsumption = 0;
+                float totalApproved = 0;
+                float totalPending = 0;
+
+                // Calculate totals if the Water category is selected
+                if ("Water".equals(category)) {
+                    String waterSql = "SELECT status, SUM(amount) as total FROM water WHERE email = ? AND year = ? GROUP BY status";
+                    PreparedStatement waterStmt = conn.prepareStatement(waterSql);
+                    waterStmt.setString(1, winner.getEmail());
+                    waterStmt.setString(2, year);
+                    ResultSet waterRs = waterStmt.executeQuery();
+
+                    while (waterRs.next()) {
+                        String status = waterRs.getString("status");
+                        float amount = waterRs.getFloat("total");
+                        totalConsumption += amount; // Add to total regardless of status
+                        
+                        if ("approved".equals(status)) {
+                            totalApproved += amount;
+                        } else if ("pending".equals(status)) {
+                            totalPending += amount;
+                        }
+                    }
+                }
+                // Set the totals to the winner object
+                winner.setTotalConsumption(totalConsumption);
+                winner.setTotalApproved(totalApproved);
+                winner.setTotalPending(totalPending);
+
+                // Calculate total footprint based on consumption
+                // Assuming 0.419 is the carbon factor for water
+                // TotalFootprint only takes approved bills into account
+                winner.setTotalFootprint(totalApproved * 0.419f);
+                winners.add(winner);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        modelAndView.addObject("winners", winners);
+        modelAndView.addObject("selectedCategory", category);
+        modelAndView.addObject("selectedYear", year);
+        return modelAndView;
     }
+
 
     private String getMonthOrderCaseStatement() {
         return "CASE period " +
