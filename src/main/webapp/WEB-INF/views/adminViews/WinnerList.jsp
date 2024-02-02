@@ -159,7 +159,7 @@
                 </div>
               </div>
               <div class="col-sm text-muted text-end">
-                Displays Top 10 participants with the lowest Carbon Footprint
+                Displays Top 5 participants with the lowest Carbon Footprint
               </div>
             </div>
             <!-- Podium Section -->
@@ -172,8 +172,26 @@
                     <div class="col-4 second-place">
                       <div class="card">
                         <div class="card-body">
-                          <h5 class="card-title">Jane Doe</h5>
-                          <p class="card-text">2nd Place</p>
+                          <h5 class="card-title">
+                            <c:choose>
+                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 2}">
+                                ${qualifiedWinners[1].name}
+                              </c:when>
+                              <c:otherwise>
+                                No Data
+                              </c:otherwise>
+                            </c:choose>
+                          </h5>
+                          <p class="card-text">
+                            <c:choose>
+                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 2}">
+                                2nd Place - ${qualifiedWinners[1].monthlyFootprint} kg CO₂
+                              </c:when>
+                              <c:otherwise>
+                                2nd Place - No Data
+                              </c:otherwise>
+                            </c:choose>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -181,8 +199,26 @@
                     <div class="col-4 first-place">
                       <div class="card">
                         <div class="card-body">
-                          <h5 class="card-title">John Carlio</h5>
-                          <p class="card-text">1st Place</p>
+                          <h5 class="card-title">
+                            <c:choose>
+                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 1}">
+                                ${qualifiedWinners[0].name}
+                              </c:when>
+                              <c:otherwise>
+                                No Data
+                              </c:otherwise>
+                            </c:choose>
+                          </h5>
+                          <p class="card-text">
+                            <c:choose>
+                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 1}">
+                                1st Place - ${qualifiedWinners[0].monthlyFootprint} kg CO₂
+                              </c:when>
+                              <c:otherwise>
+                                1st Place - No Data
+                              </c:otherwise>
+                            </c:choose>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -190,8 +226,26 @@
                     <div class="col-4 third-place">
                       <div class="card">
                         <div class="card-body">
-                          <h5 class="card-title">Emma Stone</h5>
-                          <p class="card-text">3rd Place</p>
+                          <h5 class="card-title">
+                            <c:choose>
+                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 3}">
+                                ${qualifiedWinners[2].name}
+                              </c:when>
+                              <c:otherwise>
+                                No Data
+                              </c:otherwise>
+                            </c:choose>
+                          </h5>
+                          <p class="card-text">
+                            <c:choose>
+                              <c:when test="${not empty qualifiedWinners and qualifiedWinners.size() >= 3}">
+                                3rd Place - ${qualifiedWinners[2].monthlyFootprint} kg CO₂
+                              </c:when>
+                              <c:otherwise>
+                                3rd Place - No Data
+                              </c:otherwise>
+                            </c:choose>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -199,121 +253,124 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-5">
-              <div class="row">
-                <h3 class="col">Qualified Participants</h3>
-                <div class="col text-muted text-end">
-                  Qualified participants are those who have submitted all 3 categories
-                </div>
-              </div>
-              <table class="table table-hover table-responsive text-center align-middle table-exception">
-                <thead class="table-dark">
-                  <tr>
-                    <th scope="col">Ranking</th>
-                    <th scope="col">Profile</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Water</th>
-                    <th scope="col">Electricity</th>
-                    <th scope="col">Recycle</th>
-                    <!-- <th scope="col">Total</th> -->
-                    <th scope="col">Footprint</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
 
-                <tbody>
-                  <c:forEach items="${qualifiedWinners}" var="winner" varStatus="status">
+            <div class="row mt-5">
+              <div class="col-sm">
+                <div class="row">
+                  <h3 class="col">Qualified Participants</h3>
+                  <div class="col text-muted text-end">
+                    Qualified participants are those who have submitted all 3 categories
+                  </div>
+                </div>
+                <table class="table table-hover table-responsive text-center align-middle table-exception">
+                  <thead class="table-dark">
                     <tr>
-                      <th scope="row">${status.index + 1}</th>
-                      <td>
-                        <c:choose>
-                          <c:when test="${not empty winner.profileImageBase64}">
-                            <img src="data:image/jpeg;base64,${winner.profileImageBase64}" alt="User Image" width="50"
-                              height="50" style="border-radius: 50%; object-fit: cover;" />
-                          </c:when>
-                          <c:otherwise>
-                            <img src="<c:url value='/resources/assets/blank-profile.png'/>" alt="Default Image"
-                              width="50" height="50" />
-                          </c:otherwise>
-                        </c:choose>
-                      </td>
-                      <td>${winner.name}</td>
-                      <td>${winner.email}</td>
-                      <td>${winner.waterConsumption}</td>
-                      <td>${winner.electricityConsumption}</td>
-                      <td>${winner.recycleConsumption}</td>
-                      <!-- <td>${winner.totalMonthlyConsumption}</td> -->
-                      <td>${winner.monthlyFootprint}</td>
-                      <td>
-                        <div class="btn-group" role="group">
-                          <a href="userDetails?userId=${winner.id}" class="btn btn-sm btn-outline-primary">View</a>
-                          <a href="validateParticipant?userId=${winner.id}"
-                            class="btn btn-sm btn-outline-primary">Validate</a>
-                        </div>
-                      </td>
+                      <th scope="col">Ranking</th>
+                      <th scope="col">Profile</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Water</th>
+                      <th scope="col">Electricity</th>
+                      <th scope="col">Recycle</th>
+                      <!-- <th scope="col">Total</th> -->
+                      <th scope="col">Footprint</th>
+                      <th scope="col">Actions</th>
                     </tr>
-                  </c:forEach>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <c:forEach items="${qualifiedWinners}" var="winner" varStatus="status">
+                      <tr>
+                        <th scope="row">${status.index + 1}</th>
+                        <td>
+                          <c:choose>
+                            <c:when test="${not empty winner.profileImageBase64}">
+                              <img src="data:image/jpeg;base64,${winner.profileImageBase64}" alt="User Image" width="50"
+                                height="50" style="border-radius: 50%; object-fit: cover;" />
+                            </c:when>
+                            <c:otherwise>
+                              <img src="<c:url value='/resources/assets/blank-profile.png'/>" alt="Default Image"
+                                width="50" height="50" />
+                            </c:otherwise>
+                          </c:choose>
+                        </td>
+                        <td>${winner.name}</td>
+                        <td>${winner.email}</td>
+                        <td>${winner.waterConsumption}</td>
+                        <td>${winner.electricityConsumption}</td>
+                        <td>${winner.recycleConsumption}</td>
+                        <!-- <td>${winner.totalMonthlyConsumption}</td> -->
+                        <td>${winner.monthlyFootprint}</td>
+                        <td>
+                          <div class="btn-group" role="group">
+                            <a href="userDetails?userId=${winner.id}" class="btn btn-sm btn-outline-primary">View</a>
+                            <a href="validateParticipant?userId=${winner.id}"
+                              class="btn btn-sm btn-outline-primary">Validate</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </c:forEach>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="row mt-5">
-              <div class="row">
-                <h3 class="col">Unqualified Participants</h3>
-                <div class="col text-muted text-end">
-                  Unqualified participants are those who have NOT submitted all 3 categories
+              <div class="col-sm">
+                <div class="row">
+                  <h3 class="col">Unqualified Participants</h3>
+                  <div class="col text-muted text-end">
+                    Unqualified participants are those who have NOT submitted all 3 categories
+                  </div>
                 </div>
-              </div>
-              <table class="table table-hover table-responsive text-center align-middle table-exception">
-                <thead class="table-dark">
-                  <tr>
-                    <th scope="col">Ranking</th>
-                    <th scope="col">Profile</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Water</th>
-                    <th scope="col">Electricity</th>
-                    <th scope="col">Recycle</th>
-                    <!-- <th scope="col">Total</th> -->
-                    <th scope="col">Footprint</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <c:forEach items="${unqualifiedWinners}" var="winner" varStatus="status">
+                <table class="table table-hover table-responsive text-center align-middle table-exception">
+                  <thead class="table-dark">
                     <tr>
-                      <th scope="row">${status.index + 1}</th>
-                      <td>
-                        <c:choose>
-                          <c:when test="${not empty winner.profileImageBase64}">
-                            <img src="data:image/jpeg;base64,${winner.profileImageBase64}" alt="User Image" width="50"
-                              height="50" style="border-radius: 50%; object-fit: cover;" />
-                          </c:when>
-                          <c:otherwise>
-                            <img src="<c:url value='/resources/assets/blank-profile.png'/>" alt="Default Image"
-                              width="50" height="50" />
-                          </c:otherwise>
-                        </c:choose>
-                      </td>
-                      <td>${winner.name}</td>
-                      <td>${winner.email}</td>
-                      <td>${winner.waterConsumption}</td>
-                      <td>${winner.electricityConsumption}</td>
-                      <td>${winner.recycleConsumption}</td>
-                      <!-- <td>${winner.totalMonthlyConsumption}</td> -->
-                      <td>${winner.monthlyFootprint}</td>
-                      <td>
-                        <div class="btn-group" role="group">
-                          <a href="userDetails?userId=${winner.id}" class="btn btn-sm btn-outline-primary">View</a>
-                          <a href="validateParticipant?userId=${winner.id}"
-                            class="btn btn-sm btn-outline-primary">Validate</a>
-                        </div>
-                      </td>
+                      <th scope="col">Ranking</th>
+                      <th scope="col">Profile</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Water</th>
+                      <th scope="col">Electricity</th>
+                      <th scope="col">Recycle</th>
+                      <!-- <th scope="col">Total</th> -->
+                      <th scope="col">Footprint</th>
+                      <th scope="col">Actions</th>
                     </tr>
-                  </c:forEach>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <c:forEach items="${unqualifiedWinners}" var="winner" varStatus="status">
+                      <tr>
+                        <th scope="row">${status.index + 1}</th>
+                        <td>
+                          <c:choose>
+                            <c:when test="${not empty winner.profileImageBase64}">
+                              <img src="data:image/jpeg;base64,${winner.profileImageBase64}" alt="User Image" width="50"
+                                height="50" style="border-radius: 50%; object-fit: cover;" />
+                            </c:when>
+                            <c:otherwise>
+                              <img src="<c:url value='/resources/assets/blank-profile.png'/>" alt="Default Image"
+                                width="50" height="50" />
+                            </c:otherwise>
+                          </c:choose>
+                        </td>
+                        <td>${winner.name}</td>
+                        <td>${winner.email}</td>
+                        <td>${winner.waterConsumption}</td>
+                        <td>${winner.electricityConsumption}</td>
+                        <td>${winner.recycleConsumption}</td>
+                        <!-- <td>${winner.totalMonthlyConsumption}</td> -->
+                        <td>${winner.monthlyFootprint}</td>
+                        <td>
+                          <div class="btn-group" role="group">
+                            <a href="userDetails?userId=${winner.id}" class="btn btn-sm btn-outline-primary">View</a>
+                            <a href="validateParticipant?userId=${winner.id}"
+                              class="btn btn-sm btn-outline-primary">Validate</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </c:forEach>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
