@@ -21,7 +21,7 @@
             <ul class="sidebar-menu">
                 <!-- <h4>MAIN</h4> -->
                 <hr>
-                <p>main</p>
+				<p style="font-size: 12px;">MAIN</p>
                 <li class="menu-item" onclick="window.location.href='<c:url value='/User' />'"><img src="<c:url value="resources/img/house.svg"/>" alt="dashboard"><p>Dashboard</p></li></a>
                 <li class="menu-item" onclick="window.location.href='<c:url value='/CarbonWater' />'"><img src="<c:url value="resources/img/card-text.svg"/>" alt="form"><p>Carbon Form</p></li>
                 <%-- <li class="menu-item"><img src="<c:url value="resources/img/pie-chart.svg"/>" alt="status"><p>Carbon Status</p></li> --%>
@@ -29,7 +29,7 @@
             
                 <!-- <h4>SETTINGS</h4> -->
               	<hr>
-              	<p>settings</p>
+              	<p style="font-size: 12px;">SETTINGS</p>
                 <li class="menu-item" onclick="window.location.href='<c:url value='/userAccount'/>'"><img  src="<c:url value="resources/img/gear.svg" />" alt="settings"><p>Settings</p></li>
             
                 <li class="menu-item" onclick="window.location.href='<c:url value='/logout'/>'"><img src="<c:url value="resources/img/box-arrow-left.svg"/>" alt="logout"><p>Logout</p></li>

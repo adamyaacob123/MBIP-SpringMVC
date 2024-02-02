@@ -4,22 +4,23 @@ body {
     padding: 0;
     display: flex;
     position: relative; /* Make the body a positioning context */
+    
 }
 
-body::before {
+/* body::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white overlay */
-}
+    background-color: rgba(255, 255, 255, 0.6); Semi-transparent white overlay
+} */
 
 #nav {
     width: 250px;
     height: 100vh;
-    background-color: #fff; /* Sidebar background color */
+    background-color: #fff; 
 }
 
 .dashboard-content {
@@ -39,17 +40,17 @@ body::before {
 
 
 .dashboard-header h1 {
-    font-size: 2.5em; /* Increase font size */
-    color: #fff; /* Darker font color */
+    font-size: 2.5em; 
+    color: #fff; 
     margin-bottom: 30px;
-    font-weight: bold; /* Increase the gap between the header and the content below */
+    font-weight: bold; 
 }
 
 
 
 .card img {
-    border: 4px solid transparent; /* Increase border width and remove color */
-    border-radius: 10px; /* Make border rounder */
+    border: 4px solid transparent; 
+    border-radius: 10px; 
 }
 
 .dashboard-stats {
@@ -59,9 +60,9 @@ body::before {
 }
 
 .card {
-    background: #f0f2f5; /* Light gray background */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background: #f0f2f5;
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .card-body {
@@ -81,4 +82,39 @@ body::before {
 
 .btn:hover {
     background-color: #1f3d69; /* Darken button on hover */
+}
+/* Customize modal header */
+.modal-header {
+  background-color: #f8d7da; /* Redefine the background color */
+  color: #721c24; /* Redefine the text color */
+  border-bottom: 1px solid #f5c6cb; /* Add a bottom border */
+}
+
+/* Customize modal body */
+.modal-body {
+  background-color: #f8d7da; /* Redefine the background color */
+}
+
+/* Customize modal footer */
+.modal-footer {
+  background-color: #f8d7da; /* Redefine the background color */
+  border-top: 1px solid #f5c6cb; /* Add a top border */
+}
+
+/* Customize close button color */
+.btn-close {
+  color: #721c24; /* Redefine the close button color */
+}
+
+/* Customize cancel button color */
+.btn-secondary {
+  background-color: #dee2e6; /* Redefine the cancel button background color */
+  border-color: #dee2e6; /* Redefine the cancel button border color */
+  color: #212529; /* Redefine the cancel button text color */
+}
+
+/* Customize delete button color */
+.btn-danger {
+  background-color: #dc3545; /* Redefine the delete button background color */
+  border-color: #dc3545; /* Redefine the delete button border color */
 }

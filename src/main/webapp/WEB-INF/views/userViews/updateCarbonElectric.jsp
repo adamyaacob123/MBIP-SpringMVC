@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-2 px-0" id="user-sidebar"></div>
             <div class="col-md-10 py-4"> <!--for 2 other part (categories, form) -->
-                <a onclick="window.location.href='<c:url value='/displayElectricForm'/>'" class="btn btn-primary">Back</a>
+            	<a onclick="window.location.href='<c:url value='/displayWasteForm'/>'" class="btn btn-primary" style="margin-left: 60px;">Back</a>
                 <h1 style="text-align: center;"><b>Update Carbon Data</b></h1><br>
                 <div class="row justify-content-center ">
                     <!-- div into 2 part -->

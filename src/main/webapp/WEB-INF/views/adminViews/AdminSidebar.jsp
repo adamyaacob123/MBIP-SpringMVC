@@ -20,7 +20,7 @@
             <ul class="sidebar-menu">
                 <!-- <h4>MAIN</h4> -->
                 <hr>
-                <p>main</p>
+				<p style="font-size: 12px;">MAIN</p>
                 <li class="menu-item" onclick="window.location.href='<c:url value='/Admin' />'"><img src="<c:url value="/resources/img/house.svg"/>" alt="dashboard"><p>Dashboard</p></li>        
                 <li class="menu-item" onclick="window.location.href='<c:url value='/userList' />'"><img src="<c:url value="/resources/img/pie-chart.svg"/>" alt="status"><p>User Summary</p></li>
                 <li class="menu-item" onclick="window.location.href='<c:url value='/winnerList' />'"><img src="<c:url value="/resources/img/trophy.svg"/>" alt="status"><p>Winner List</p></li>
@@ -31,7 +31,7 @@
             <ul>
             
             <hr>
-                <p>settings</p>
+              	<p style="font-size: 12px;">SETTINGS</p>
                 <li class="menu-item" onclick="window.location.href='<c:url value='/logout'/>'"><img src="<c:url value="/resources/img/box-arrow-left.svg"/>" alt="logout"><p>Logout</p></li>
             </ul>     
         </div>
