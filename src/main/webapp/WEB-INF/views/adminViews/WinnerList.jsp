@@ -257,7 +257,16 @@
             <div class="row mt-5">
               <div class="col-sm">
                 <div class="row">
-                  <h3 class="col">Qualified Participants</h3>
+                  <div class="col">
+                    <h3>Qualified Participants</h3>
+                    <ul class="list-group list-group-horizontal">
+                      <li class="list-group-item">Indicators:</li>
+                      <li class="list-group-item fw-bold text-secondary">Pending</li>
+                      <li class="list-group-item fw-bold text-success">Approved</li>
+                      <li class="list-group-item fw-bold text-danger">Rejected</li>
+                      <li class="list-group-item fw-bold text-muted">No Data</li>
+                    </ul>
+                  </div>
                   <div class="col text-muted text-end">
                     Qualified participants are those who have submitted all 3 categories
                   </div>
