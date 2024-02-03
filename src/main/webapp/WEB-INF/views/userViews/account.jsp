@@ -76,36 +76,58 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="fullname" class="form-label">Full Name</label> <br />
-							<span>${name}</span>
+							<input
+									type="text" class="form-control disabled" id="fullname" name="fullname"
+									value="${name}" disabled readonly required />
+							<%-- <span>${name}</span> --%>
 						</div>
 						<div class="col-md-6 mb-3">
-							<label for="email" class="form-label">Email</label> <br /> <span>${email}</span>
+							<label for="email" class="form-label">Email</label> <br /> 
+							<input
+									type="text" class="form-control" id="email" name="email"
+									value="${email}" disabled readonly required />
+							<%-- <span>${email}</span> --%>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="username" class="form-label">Username</label> <br />
-							<span>${username}</span>
+							<input
+									type="text" class="form-control" id="username1" name="username1"
+									value="${username}" disabled readonly required />
+							<%-- <span>${username}</span> --%>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="phoneNum" class="form-label">Phone Number</label> <br />
-							<span>${phoneNum}</span>
+							<input
+									type="text" class="form-control" id="phoneNum" name="phoneNum"
+									value="${phoneNum}" disabled readonly required />
+							<%-- <span>${phoneNum}</span> --%>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="username" class="form-label">Address</label> <br />
-							<span>${address}</span>
+							<input
+									type="text" class="form-control" id="username" name="username"
+									value="${address}" disabled readonly required />
+							<%-- <span>${address}</span> --%>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="phoneNum" class="form-label">Household Type</label> <br />
-							<span>${household}</span>
+							<input
+									type="text" class="form-control" id="username" name="username"
+									value="${household}" disabled readonly required />
+							<%-- <span>${household}</span> --%>
 						</div>
 					</div>
 					<div class="row mb-4">
 						<div class="col-md-6 mb-3">
 							<label for="username" class="form-label">No. of People</label> <br />
-							<span>${peopleNo}</span>
+							<input
+									type="text" class="form-control" id="username" name="username"
+									value="${peopleNo}" disabled readonly required />
+							<%-- <span>${peopleNo}</span> --%>
 						</div>
 					</div>
 					<!-- <div class="row">
@@ -118,7 +140,7 @@
 				</form>
 
 				<a href="<c:url value="/edit_account" />"><button
-						class="mb-2 btn rounded-3 btn-primary" type="submit">
+						class="ml-3 mb-2 btn rounded-3 btn-primary" style="margin-left:15px "type="submit">
 						Edit Profile</button></a>
 			</div>
 		</div>
