@@ -188,6 +188,7 @@
                     <option selected>Choose year...</option>
                     <option value="2023" ${selectedYear=='2023' ? 'selected' : '' }>2023</option>
                     <option value="2024" ${selectedYear=='2024' ? 'selected' : '' }>2024</option>
+                    <option value="2025" ${selectedYear=='2025' ? 'selected' : '' }>2025</option>
                     <!-- Add more years as needed -->
                   </select>
                 </div>
