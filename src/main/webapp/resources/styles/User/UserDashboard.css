@@ -1,120 +1,120 @@
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    position: relative; /* Make the body a positioning context */
+    
 }
 
-.header {
-	width: 100%;
-	height: 100vh;
-}
-
-.side-nav {
-	width: 250px;
-	height: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	padding: 30px 15px;
-	/* background-color: rgba(152, 193, 255);*/
-	background-color: white;
-	justify-content: center;
-	flex-direction: column;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-
-
-}
-
-/* .user div{
-    display: none;
-} */
-
-.user {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 60px;
-	font-size: 12px;
-	border-radius: 10px;
-	margin-left: auto;
-	margin-right: auto;
-
-	/* overflow: hidden; */
-
-
-
-
-}
-
-.username {
-	padding: 10px;
-}
-
-.user-img {
-	width: 100px;
-	border-radius: 50%;
-}
-
-.sidebar-menu {
-	list-style: none;
-	padding: 0 15px;
-
-
-}
-
-.menu-item:hover:not(.active) {
-	background-color: whitesmoke;
-	color: black;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	padding: 5px;
-}
-
-.sidebar-menu .menu-item {
-	/*margin: 30px 0;*/
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-}
-
-.menu-item {
-	margin-top: 25px;
-}
-
-.sidebar-menu .menu-item img {
-	width: 30px;
-	margin-right: 10px;
-}
-
-.sidebar-menu .menu-item p {
-	white-space: nowrap;
-	margin-bottom: 0;
-	/* display: none; */
-}
-
-/* .side-nav:hover{
-    width: 250px;
-} */
-
-.side-nav:hover .user div {
-	display: block;
-}
-
-/* .side-nav:hover .user{
+/* body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6); Semi-transparent white overlay
 } */
 
-.side-nav:hover .user-img {
-	margin: 0;
+#nav {
+    width: 250px;
+    height: 100vh;
+    background-color: #fff; 
 }
 
-/* .side-nav:hover ul li p{
-   display: block;
+.dashboard-content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 250px;
+}
+
+/* .dashboard-header {
+    background: #d9d9d9; Light gray background
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px; Smaller rounded corners
+    text-align: center; Center align the content
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); Soft shadow
 } */
 
-/* .side-nav:hover ul li img{
-    margin-right: 10px;
- } */
+
+.dashboard-header h1 {
+    font-size: 2.5em; 
+    color: #fff; 
+    margin-bottom: 30px;
+    font-weight: bold; 
+}
+
+
+
+.card img {
+    border: 4px solid transparent; 
+    border-radius: 10px; 
+}
+
+.dashboard-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #f0f2f5;
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.btn {
+    background-color: #2c5aa0; /* Dark blue button */
+    color: #fff;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #1f3d69; /* Darken button on hover */
+}
+/* Customize modal header */
+.modal-header {
+  background-color: #f8d7da; /* Redefine the background color */
+  color: #721c24; /* Redefine the text color */
+  border-bottom: 1px solid #f5c6cb; /* Add a bottom border */
+}
+
+/* Customize modal body */
+.modal-body {
+  background-color: #f8d7da; /* Redefine the background color */
+}
+
+/* Customize modal footer */
+.modal-footer {
+  background-color: #f8d7da; /* Redefine the background color */
+  border-top: 1px solid #f5c6cb; /* Add a top border */
+}
+
+/* Customize close button color */
+.btn-close {
+  color: #721c24; /* Redefine the close button color */
+}
+
+/* Customize cancel button color */
+.btn-secondary {
+  background-color: #dee2e6; /* Redefine the cancel button background color */
+  border-color: #dee2e6; /* Redefine the cancel button border color */
+  color: #212529; /* Redefine the cancel button text color */
+}
+
+/* Customize delete button color */
+.btn-danger {
+  background-color: #dc3545; /* Redefine the delete button background color */
+  border-color: #dc3545; /* Redefine the delete button border color */
+}

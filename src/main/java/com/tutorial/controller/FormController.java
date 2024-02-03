@@ -100,8 +100,7 @@ public class FormController {
             @RequestParam("year") String year,
             HttpSession session
     ) {
-	    ModelAndView modelAndView = new ModelAndView("userViews/formUpdated");
-	    
+		ModelAndView modelAndView = new ModelAndView("userViews/formSaved");	    
 	 // Retrieve user information from the session
 	 		User user = (User) session.getAttribute("user");
 
@@ -162,7 +161,7 @@ public class FormController {
 	@RequestMapping("/deleteCarbonWater")
 	@ResponseBody()	
 	public ModelAndView deleteWaterForm(HttpServletRequest request, RedirectAttributes redirectAttributes, HttpSession session, Model model) {
-        ModelAndView modelAndView = new ModelAndView("userViews/formDeleted"); // Name of the JSP file for the response
+		ModelAndView modelAndView = new ModelAndView("userViews/formSaved");	    
 	     // Retrieve user information from the session
 	 		User user = (User) session.getAttribute("user");
 	
@@ -282,7 +281,7 @@ public class FormController {
             @RequestParam("year") String year,
             HttpSession session
     ) {
-	    ModelAndView modelAndView = new ModelAndView("userViews/formUpdated");
+		ModelAndView modelAndView = new ModelAndView("userViews/formSaved");	    
 	    
 	 // Retrieve user information from the session
 	 		User user = (User) session.getAttribute("user");
@@ -344,7 +343,7 @@ public class FormController {
 	@RequestMapping("/deleteCarbonElectric")
 	@ResponseBody()	
 	public ModelAndView deleteElectricForm(HttpServletRequest request, RedirectAttributes redirectAttributes, HttpSession session, Model model) {
-        ModelAndView modelAndView = new ModelAndView("userViews/formDeleted"); // Name of the JSP file for the response
+		ModelAndView modelAndView = new ModelAndView("userViews/formSaved");	    
 	     // Retrieve user information from the session
 	 		User user = (User) session.getAttribute("user");
 	
@@ -464,7 +463,7 @@ public class FormController {
             @RequestParam("year") String year,
             HttpSession session
     ) {
-	    ModelAndView modelAndView = new ModelAndView("userViews/formUpdated");
+		ModelAndView modelAndView = new ModelAndView("userViews/formSaved");	    
 	    
 	 // Retrieve user information from the session
 	 		User user = (User) session.getAttribute("user");
@@ -526,7 +525,7 @@ public class FormController {
 	@RequestMapping("/deleteCarbonWaste")
 	@ResponseBody()	
 	public ModelAndView deleteWasteForm(HttpServletRequest request, RedirectAttributes redirectAttributes, HttpSession session, Model model) {
-        ModelAndView modelAndView = new ModelAndView("userViews/formDeleted"); // Name of the JSP file for the response
+		ModelAndView modelAndView = new ModelAndView("userViews/formSaved");	    
 	     // Retrieve user information from the session
 	 		User user = (User) session.getAttribute("user");
 	
@@ -586,6 +585,7 @@ public class FormController {
             HttpSession session
     ) {
 	    ModelAndView modelAndView = new ModelAndView("userViews/formSaved");
+	    
 	    
 	 // Retrieve user information from the session
 	 		User user = (User) session.getAttribute("user");
