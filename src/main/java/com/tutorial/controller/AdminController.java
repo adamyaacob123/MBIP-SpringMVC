@@ -584,6 +584,14 @@ public class AdminController {
         // Sort the winners list by the totalFootprint property in ascending order
         qualifiedWinners.sort(Comparator.comparing(User::getMonthlyFootprint));
 
+        // Sort the unqualified winners list by monthlyFootprint, moving those with 0 to the end
+        unqualifiedWinners.sort((user1, user2) -> {
+            if (user1.getMonthlyFootprint() == 0 && user2.getMonthlyFootprint() == 0) return 0;
+            if (user1.getMonthlyFootprint() == 0) return 1;
+            if (user2.getMonthlyFootprint() == 0) return -1;
+            return Float.compare(user1.getMonthlyFootprint(), user2.getMonthlyFootprint());
+        });
+        
         // Sort and limit the podium winners to top 3
         podiumWinners = podiumWinners.stream()
                 .sorted(Comparator.comparing(User::getMonthlyFootprint))

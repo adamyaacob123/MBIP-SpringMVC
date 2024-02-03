@@ -10,6 +10,8 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <link rel="icon" href="<c:url value=" /resources/assets/MBIP-logo.png" />" type="image/x-icon" />
+
       <style>
         body {
           background-color: #cae4fc;
@@ -268,7 +270,8 @@
                     </ul>
                   </div>
                   <div class="col text-muted text-end">
-                    Qualified participants are those who have submitted all 3 categories
+                    <span class="d-block">Qualified participants are those who have submitted all 3 categories</span>
+                    <span class="d-block">Sorted by Footprint in ascending order</span>
                   </div>
                 </div>
                 <table class="table table-hover table-responsive text-center align-middle table-exception">
@@ -336,13 +339,15 @@
                 <div class="row">
                   <h3 class="col">Unqualified Participants</h3>
                   <div class="col text-muted text-end">
-                    Unqualified participants are those who have NOT submitted all 3 categories
+                    <span class="d-block">Unqualified participants are those who have NOT submit all 3 categories</span>
+                    <span class="d-block">Sorted by Footprint in ascending order and participants with 0 are
+                      moved to the back</span>
                   </div>
                 </div>
                 <table class="table table-hover table-responsive text-center align-middle table-exception">
                   <thead class="table-dark">
                     <tr>
-                      <th scope="col">Ranking</th>
+                      <th scope="col">No.</th>
                       <th scope="col">Profile</th>
                       <th scope="col">Name</th>
                       <th scope="col">Email</th>
