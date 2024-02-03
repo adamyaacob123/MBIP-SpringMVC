@@ -43,9 +43,9 @@
        					<div class="row justify-content-center" >
             
              				<div class="col-12">
-                				<div class="card">
+                				<div class="card mb-4">
                   					<div class="card-body text-center">
-                    				<h5 class="card-title">Summary</h5>
+                    				<h5 class="card-title ">Summary</h5>
 				                    <p class="card-text">
 				                    <p class="text-muted fst-italic">Year ${selectedYear}</p>
             							<div class="row">
@@ -97,13 +97,17 @@
 											</div>
 										</div>
 					                  </div>
-					                </div>
 					              </div>
-
-					            <div class="col-md-6">
+					              </div>
+					              
+					              <div class="card mb-4">
+   						 <div class="card-body py-4">
+                    		<h5 class="card-title text-center">Detail Report</h5><br>
+							<div class="row">
+					            <div class="col-md-6 mb-4">
 					                <div class="report-table" id="consumptionContent">
 					                    <div class="report-header py-3">
-					                        <h4>Water Consumption</h4>
+					                        <h5>Water Consumption</h5>
 					                        <div class="chart-container" id="water">
 					                            <canvas id="waterConsumptionChart"></canvas>               
 					                        </div>
@@ -112,28 +116,36 @@
 					            </div>
 					        
 					
-					            <div class="col-md-6">
+					            <div class="col-md-6 mb-4">
 					                <div class="report-table" id="consumptionContent">
 					                    <div class="report-header py-3">
-					                        <h4>Electricity Consumption</h4>
+					                        <h5>Electricity Consumption</h5>
 					                        <div class="chart-container" id="electricity">
 					                            <canvas id="electricityConsumptionChart"></canvas>                        
 					                        </div>
 					                    </div>
 					                </div>
-					            </div>
+					            	</div>
+					             </div>
 					
-					
-					            <div class="col-md-6">
+							<div class="row justify-content-center">
+					           <div class="col-md-6 mb-4">
 					                <div class="report-table" id="consumptionContent">
 					                    <div class="report-header py-3">
-					                        <h4>Recycle Activity</h4>
+					                        <h5>Recycle Activity</h5>
 					                        <div class="chart-container" id="recycle">
 					                            <canvas id="recycleActivityChart"></canvas>
 					                        </div>
 					                    </div>
+					                    </div>
 					                </div>
 					            </div>
+					           
+					           </div>
+					            </div>
+					            
+					            
+					            
 							</div>
 						</div>
 			    	</div>
