@@ -4,7 +4,7 @@
     <html lang="en">
 
     <head>
-      <title>Winner List</title>
+      <title>Leaderboard</title>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -100,7 +100,7 @@
       <script>
         $(document).ready(function () {
           // Load UserSidebar.html into the sidebar div
-          $("#sidebar").load("AdminSidebar");
+          $("#sidebar").load("UserSidebar");
 
           // You can add more code here to handle other dashboard functionalities
         });
@@ -114,7 +114,7 @@
           <button type="button" class="btn btn-primary m-3" onclick="history.back();">
             <i class="fa fa-arrow-left"></i> Back
           </button>
-          <h1 class="text-center m-2">Winner List</h1>
+          <h1 class="text-center m-2">Leaderboard</h1>
 
           <!-- Table section -->
           <div class="container">
@@ -286,7 +286,6 @@
                       <th scope="col">Recycle (kg)</th>
                       <!-- <th scope="col">Total</th> -->
                       <th scope="col">Footprint (kgCO₂)</th>
-                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -322,13 +321,6 @@
                           ${winner.recycleConsumption}</td>
                         <!-- <td>${winner.totalMonthlyConsumption}</td> -->
                         <td>${winner.monthlyFootprint}</td>
-                        <td>
-                          <div class="btn-group" role="group">
-                            <a href="userDetails?userId=${winner.id}" class="btn btn-sm btn-outline-primary">View</a>
-                            <a href="validateParticipant?userId=${winner.id}"
-                              class="btn btn-sm btn-outline-primary">Validate</a>
-                          </div>
-                        </td>
                       </tr>
                     </c:forEach>
                   </tbody>
@@ -357,7 +349,6 @@
                       <th scope="col">Recycle (kg)</th>
                       <!-- <th scope="col">Total</th> -->
                       <th scope="col">Footprint (kgCO₂)</th>
-                      <th scope="col">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -392,13 +383,6 @@
                           ${winner.recycleConsumption}</td>
                         <!-- <td>${winner.totalMonthlyConsumption}</td> -->
                         <td>${winner.monthlyFootprint}</td>
-                        <td>
-                          <div class="btn-group" role="group">
-                            <a href="userDetails?userId=${winner.id}" class="btn btn-sm btn-outline-primary">View</a>
-                            <a href="validateParticipant?userId=${winner.id}"
-                              class="btn btn-sm btn-outline-primary">Validate</a>
-                          </div>
-                        </td>
                       </tr>
                     </c:forEach>
                   </tbody>
@@ -445,7 +429,7 @@
 
           // Redirect to the winnerlist URL with the selected category and year
           window.location.href =
-            "winnerList?&year=" + selectedYear + "&month=" + selectedMonth;
+            "leaderboard?&year=" + selectedYear + "&month=" + selectedMonth;
         });
 
         // Call this function when the month dropdown changes
@@ -456,7 +440,7 @@
 
           // Redirect to the winnerlist URL with the selected category and year
           window.location.href =
-            "winnerList?&year=" + selectedYear + "&month=" + selectedMonth;
+            "leaderboard?&year=" + selectedYear + "&month=" + selectedMonth;
         });
       </script>
     </body>
