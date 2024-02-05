@@ -171,7 +171,7 @@
 				                <th scope="col">Year </th>
 				                <th scope="col">Period <button onclick="sortTable(1)" class="btn btn-info btn-sm"><i class="fas fa-sort"></i></button></th>
 				                <th scope="col">Amount (kWh) <button onclick="sortTable(2)" class="btn btn-info btn-sm"><i class="fas fa-sort"></i></button></th>
-				                <th scope="col">File </th>
+				                <!-- <th scope="col">File </th> -->
 				                <th scope="col">Status </th>
 				                <th scope="col">Action </th>
 				            </tr>
@@ -182,7 +182,7 @@
 				                    <td><c:out value="${form.electricYear}" /></td>
 				                    <td style="text-transform:uppercase"><c:out value="${form.electricPeriod}" /></td>
 				                    <td><c:out value="${form.electricAmount}" /></td>
-				                    <td><c:out value="${form.electricFile}" /></td>
+				                  <%--   <td><c:out value="${form.electricFile}" /></td> --%>
 				                    <td class="${form.electricStatus == 'pending' ? 'bg-warning' : 
 							                    form.electricStatus == 'approved' ? 'bg-success' : 
 							                    'bg-danger text-white'}"><c:out value="${form.electricStatus}" /></td>

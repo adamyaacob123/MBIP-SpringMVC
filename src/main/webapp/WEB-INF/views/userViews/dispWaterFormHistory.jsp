@@ -164,7 +164,7 @@
 				                <th scope="col">Year </th>
 				                <th scope="col">Period <button onclick="sortTable(1)" class="btn btn-info btn-sm"><i class="fas fa-sort"></i></button></th>
 				                <th scope="col">Amount m<sup>3</sup>/ℓ <button onclick="sortTable(2)" class="btn btn-info btn-sm"><i class="fas fa-sort"></i></button></th>
-				                <th scope="col">File </th>
+				              <!--   <th scope="col">File </th> -->
 				                <th scope="col">Status </th>
 				                <th scope="col">Action </th>
 				            </tr>
@@ -175,7 +175,7 @@
 				                    <td><c:out value="${form.waterYear}" /></td>
 				                    <td style="text-transform:uppercase"><c:out value="${form.waterPeriod}" /></td>
 				                    <td><c:out value="${form.waterAmount}" /></td>
-				                    <td><c:out value="${form.waterFile}" /></td>
+				                    <%-- <td><c:out value="${form.waterFile}" /></td> --%>
 				                    <td class="${form.waterStatus == 'pending' ? 'bg-warning' : 
 							                    form.waterStatus == 'approved' ? 'bg-success' : 
 							                    'bg-danger text-white'}"><c:out value="${form.waterStatus}" /></td>
