@@ -82,20 +82,20 @@
 							<%-- <span>${name}</span> --%>
 						</div>
 						<div class="col-md-6 mb-3">
-							<label for="email" class="form-label">Email</label> <br /> 
+							<label for="username" class="form-label">Username</label> <br /> 
 							<input
-									type="text" class="form-control" id="email" name="email"
-									value="${email}" disabled readonly required />
-							<%-- <span>${email}</span> --%>
+									type="text" class="form-control" id="username" name="username"
+									value="${username}" disabled readonly required />
+							<%-- <span>${username}</span> --%>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label for="username" class="form-label">Username</label> <br />
+							<label for="address" class="form-label">Address</label> <br />
 							<input
-									type="text" class="form-control" id="username1" name="username1"
-									value="${username}" disabled readonly required />
-							<%-- <span>${username}</span> --%>
+									type="text" class="form-control" id="address" name="address"
+									value="${address}" disabled readonly required />
+							<%-- <span>${address}</span> --%>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="phoneNum" class="form-label">Phone Number</label> <br />
@@ -107,11 +107,11 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label for="username" class="form-label">Address</label> <br />
+							<label for="email" class="form-label">Email</label> <br />
 							<input
-									type="text" class="form-control" id="username" name="username"
-									value="${address}" disabled readonly required />
-							<%-- <span>${address}</span> --%>
+									type="text" class="form-control" id="email" name="email"
+									value="${email}" disabled readonly required />
+							<%-- <span>${email}</span> --%>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="phoneNum" class="form-label">Household Type</label> <br />
