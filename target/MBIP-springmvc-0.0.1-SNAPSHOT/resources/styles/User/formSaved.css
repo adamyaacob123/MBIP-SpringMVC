@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8f6; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    position: relative;
+}
+
+.dashboard-content {
+    background-color: #eff7f5; /* Light green */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100vh;
+    margin-left: auto; /* Move content to the right */
+     flex-grow: 1;
+    padding: 20px;
+    margin-left: 250px;
+}
+
+
+.dashboard-header {
+    background-color: #05976C; /* Dark grey */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.notification-section {
+   background-color: #fff; /* White */
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification-section h3 {
+    margin-bottom: 20px;
+    color: #333; /* Dark grey */
+    font-size: 16px; /* Smaller text size */
+}
+
+.btn-link {
+   font-weight: bold;
+    font-size: 16px; /* Smaller text size */
+    margin: 0 10px;
+    text-decoration: none;
+     color: #333; /* Dark grey */
+}
+
+.btn-link:hover {
+    color: #6c757d; /* Dark grey (hover) */
+}
+
+.dashboard-header h1 {
+   font-size: 24px; /* Smaller text size for the header */
+}

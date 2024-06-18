@@ -11,6 +11,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <link rel="icon" href="<c:url value="/resources/assets/MBIP-logo.png" />" type="image/x-icon" />
       <style>
         body {
           background-color: #cae4fc;
@@ -188,6 +189,7 @@
                     <option selected>Choose year...</option>
                     <option value="2023" ${selectedYear=='2023' ? 'selected' : '' }>2023</option>
                     <option value="2024" ${selectedYear=='2024' ? 'selected' : '' }>2024</option>
+                    <option value="2025" ${selectedYear=='2025' ? 'selected' : '' }>2025</option>
                     <!-- Add more years as needed -->
                   </select>
                 </div>

@@ -24,6 +24,16 @@ public class User {
 	private byte[] profile_image;
     private String profileImageBase64; // New field for the Base64 image
 
+    // New properties for consumption and footprint
+    private float waterConsumption;
+    private String waterStatus;
+    private float electricityConsumption;
+    private String electricityStatus;
+    private float recycleConsumption;
+    private String recycleStatus;
+    private float totalMonthlyConsumption;
+    private float monthlyFootprint;
+    
 	public String getUser_level() {
 		return user_level;
 	}
@@ -120,4 +130,67 @@ public class User {
         this.profileImageBase64 = profileImageBase64;
     }
 
+    public float getWaterConsumption() {
+        return waterConsumption;
+    }
+
+    public void setWaterConsumption(float waterConsumption) {
+        this.waterConsumption = waterConsumption;
+    }
+
+    public String getWaterStatus() {
+        return waterStatus;
+    }
+
+    public void setWaterStatus(String waterStatus) {
+        this.waterStatus = waterStatus;
+    }
+
+    public float getElectricityConsumption() {
+        return electricityConsumption;
+    }
+
+    public void setElectricityConsumption(float electricityConsumption) {
+        this.electricityConsumption = electricityConsumption;
+    }
+
+    public String getElectricityStatus() {
+        return electricityStatus;
+    }
+
+    public void setElectricityStatus(String electricityStatus) {
+        this.electricityStatus = electricityStatus;
+    }
+
+    public float getRecycleConsumption() {
+        return recycleConsumption;
+    }
+
+    public void setRecycleConsumption(float recycleConsumption) {
+        this.recycleConsumption = recycleConsumption;
+    }
+
+    public String getRecycleStatus() {
+        return recycleStatus;
+    }
+
+    public void setRecycleStatus(String recycleStatus) {
+        this.recycleStatus = recycleStatus;
+    }
+
+    public float getTotalMonthlyConsumption() {
+        return totalMonthlyConsumption;
+    }
+
+    public void setTotalMonthlyConsumption(float totalMonthlyConsumption) {
+        this.totalMonthlyConsumption = totalMonthlyConsumption;
+    }
+
+    public float getMonthlyFootprint() {
+        return monthlyFootprint;
+    }
+
+    public void setMonthlyFootprint(float monthlyFootprint) {
+        this.monthlyFootprint = monthlyFootprint;
+    }
 }
